@@ -1,0 +1,20 @@
+database:
+  host: 
+  port: 
+  database: 
+  user: 
+  password: 
+
+redis:
+  host: 
+  port: 
+  socket:
+
+email:
+  host: 
+  smtp_auth: true
+  user: 
+  password: 
+  smtp_secure: tls
+  port: 
+  name: 

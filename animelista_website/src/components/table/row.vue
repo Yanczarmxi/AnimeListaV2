@@ -7,14 +7,14 @@
         </th>
 
         <td>
-            <div class="img-anime-miniature"><img src="./../../assets/img/no_img_min.jpg" alt="NO-IMG"></div>
+            <img src="./../../assets/img/no_img_min.jpg" alt="NO-IMG" class="rounded">
         </td>
 
         <td>
             <div class="title-container">
                 <div class="title-box">
-                    <strong class="anime-title">Hi MOM!!!</strong>
-                    <small class="anime-add-record-date">1970-01-01</small>
+                    <strong class="anime-title">{{ animeTitle }}</strong>
+                    <small class="anime-add-record-date">{{ animeDate }}</small>
                 </div>
                 <div class="link-box">
                     <button class="btn btn-primary">

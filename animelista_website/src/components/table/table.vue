@@ -12,7 +12,7 @@
           </select>
         </div>
 
-        <div class="input-group mb-3 search-input">
+        <div class="input-group search-input">
           <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2">
           <div class="input-group-append">
             <button class="btn btn-primary" type="button">
@@ -35,6 +35,7 @@
         </thead>
         <tbody>
           <DataRow />
+          <RowSeparator />
           <DataRow />
           <RowDescription />
           <DataRow />
@@ -52,12 +53,14 @@
 
 import DataRow from './row.vue';
 import RowDescription from './rowinfo.vue';
+import RowSeparator from './rowseparator.vue';
 
 export default {
     name: 'DataTable',
     components: {
       DataRow,
-      RowDescription
+      RowDescription,
+      RowSeparator
     }
 }
 </script>

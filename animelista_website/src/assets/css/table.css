@@ -1,5 +1,6 @@
 .anime-table {
-    width: 80%;
+    width: 1440px;
+    min-width: 1024px;
 }
 
 .table-header-menu {
@@ -15,6 +16,8 @@
 
 .search-input {
     width: 320px;
+    display: flex;
+    align-content: center;
 }
 
 .anime-row-container {
@@ -27,10 +30,6 @@
 
 .img-column {
     width: 50px;
-}
-
-.img-anime-miniature {
-    border-radius: 6px 6px 6px 6px;
 }
 
 .title-column {
@@ -60,6 +59,7 @@
 
 .anime-title {
     font-size: 16pt;
+    font-weight: bold;
 }
 
 .anime-add-record-date {
@@ -116,6 +116,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    cursor: pointer;
 }
 
 .watch-txt-content {
@@ -158,6 +159,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
 }
 
@@ -174,7 +176,85 @@
 }
 
 /*Opis anime*/
-.anime-descryption {
+.anime-descryption-content {
     width: 100%;
-    height: 256px;
+    min-height: 320px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.img-containcer {
+    width: 232px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.descryption-containcer {
+    max-width: 1024px;
+    min-width: 1024px;
+    width: 1024px;
+}
+
+.title-box {
+    margin: 8px;
+    height: 64px;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+}
+
+.title-string {
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+.descryption-string {
+    margin: 8px;
+    max-height: 284px;
+    width: 100%;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    text-align: justify;
+}
+
+.anime-descryption-header {
+    height: 38px;
+    max-height: 38px;
+    min-height: 38px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hide-descryption {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 16px;
+    cursor: pointer;
+}
+
+/* ROW SEPARATOR */
+.row-separator {
+    height: 45px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.separate-string {
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+.ch-separator {
+    height: 45px;
+    display: flex;
+    align-items: center;
 }

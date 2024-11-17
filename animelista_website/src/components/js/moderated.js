@@ -1,22 +1,48 @@
-window.glbAnimeCheckIndex = [1,2,3];
-window.glbSeparatorIndex = [];
+import { defineStore } from 'pinia';
 
-console.log(window.glbAnimeCheckIndex);
+export const useAnimeIndexStore = defineStore('AnimeIndex', {
+    state: () => ({
+        anmIdIndex: [],
+        separatorIdIndex: [],
 
-//Indexowanie anime
-window.AddAnimeIdToIndex = function(id) {
-    window.glbAnimeCheckIndex.push(id);
-}
+        //Wyłączniki przycisków Edit i Remove
+        editDisable: true,
+        removeDisable: true
+    }),
 
-window.DeleteAnimeIdFromIndex = function(id) {
-    var tmp;
+    getters: {
+        anmIndexCount: (state) => state.anmIdIndex.length,
+        separatorIndexCount: (state) => state.separatorIdIndex.length
+    },
 
-    for(var i; i<window.glbAnimeCheckIndex.length; i++) {
-        if(window.glbAnimeCheckIndex[i] == id) {
-            tmp = i;
-            break;
+    actions: {
+        AddIdToIndex(id) {
+            this.anmIdIndex.push(id);
+        },
+
+        RemoveIdFromIndex(id) {
+            for(var i=0; i<this.anmIndexCount; i++) {
+                if(this.anmIdIndex[i] == id) {
+                    this.anmIdIndex.splice(i, 1);
+                    break;
+                }
+            }
+        },
+
+        ToggleDisablersButtons() {
+            if(this.anmIndexCount == 1 ^ this.separatorIndexCount == 1) {
+                this.editDisable = false;
+            }
+            else {
+                this.editDisable = true;
+            }
+
+            if(this.anmIndexCount > 0 ^ this.separatorIndexCount > 0) {
+                this.removeDisable = false;
+            }
+            else {
+                this.removeDisable = true;
+            }
         }
     }
-
-    window.glbAnimeCheckIndex.splice(tmp, 1);
-}
+});

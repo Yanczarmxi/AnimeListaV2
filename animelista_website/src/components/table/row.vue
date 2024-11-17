@@ -256,12 +256,6 @@ export default {
 
         //Dodanie lub usunięcie id z indexu checkbox
         CheckboxIndex() {
-            if(this.isChecked) {
-                window.AddAnimeIdToIndex(this.animeId);
-            }
-            else {
-                window.DeleteAnimeIdFromIndex(this.animeId);
-            }
 
             console.log(this.isChecked);
         }

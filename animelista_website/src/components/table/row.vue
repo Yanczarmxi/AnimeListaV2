@@ -106,6 +106,8 @@
     </tr>
 </template>
 <script>
+import { useAnimeIndexStore } from './../js/moderated.js';
+
 export default {
     name: 'DataRow',
     data() {
@@ -152,6 +154,29 @@ export default {
 
             //adress do aktualizacji rekordu
             updateUrl: process.env.VUE_APP_UPDATE_RECORD
+        }
+    },
+
+    setup() {
+        const animeIndex = useAnimeIndexStore();
+
+        //metody
+        const addToIndex = () => {
+            animeIndex.AddIdToIndex(this.animeId);
+            animeIndex.ToggleDisablersButtons();
+        };
+
+        const removeFromIndex = () => {
+            animeIndex.RemoveIdFromIndex(this.animeId);
+            animeIndex.ToggleDisablersButtons();
+        };
+
+        return {
+            addToIndex,
+            removeFromIndex,
+            editDisable: animeIndex.editDisable,
+            removeDisable: animeIndex.removeDisable,
+            anmIdIndex: animeIndex.anmIdIndex
         }
     },
 
@@ -256,8 +281,14 @@ export default {
 
         //Dodanie lub usunięcie id z indexu checkbox
         CheckboxIndex() {
+            if(this.isChecked) {
+                this.addToIndex;
+            }
+            else {
+                this.removeFromIndex;
+            }
 
-            console.log(this.isChecked);
+            console.log(this.anmIdIndex);
         }
     }
 }

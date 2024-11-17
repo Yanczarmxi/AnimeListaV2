@@ -18,6 +18,7 @@ export const useAnimeIndexStore = defineStore('AnimeIndex', {
     actions: {
         AddIdToIndex(id) {
             this.anmIdIndex.push(id);
+            this.ToggleDisablersButtons();
         },
 
         RemoveIdFromIndex(id) {
@@ -27,22 +28,24 @@ export const useAnimeIndexStore = defineStore('AnimeIndex', {
                     break;
                 }
             }
+            this.ToggleDisablersButtons();
         },
 
         ToggleDisablersButtons() {
-            if(this.anmIndexCount == 1 ^ this.separatorIndexCount == 1) {
-                this.editDisable = false;
-            }
-            else {
-                this.editDisable = true;
-            }
+            //if(this.anmIndexCount == 1 ^ this.separatorIndexCount == 1) {
+            //    this.editDisable = false;
+            //}
+            //else {
+            //    this.editDisable = true;
+            //}
 
-            if(this.anmIndexCount > 0 ^ this.separatorIndexCount > 0) {
-                this.removeDisable = false;
-            }
-            else {
-                this.removeDisable = true;
-            }
+            //if(this.anmIndexCount > 0 ^ this.separatorIndexCount > 0) {
+            //    this.removeDisable = false;
+            //}
+            //else {
+            //    this.removeDisable = true;
+            //}
+            this.removeDisable = !this.removeDisable;
         }
     }
 });

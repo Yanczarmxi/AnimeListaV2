@@ -34,16 +34,16 @@
           </tr>
         </thead>
         <tbody>
-          <DataRow />
+          <DataRow id="1" />
           <RowSeparator />
-          <DataRow />
+          <DataRow id="2" />
           <RowDescription />
-          <DataRow />
-          <DataRow />
-          <DataRow />
-          <DataRow />
-          <DataRow />
-          <DataRow />
+          <DataRow id="3" />
+          <DataRow id="4" />
+          <DataRow id="5" />
+          <DataRow id="6" />
+          <DataRow id="7" />
+          <DataRow id="8" />
         </tbody>
       </table>
     </div>

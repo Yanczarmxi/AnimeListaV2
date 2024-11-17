@@ -15,6 +15,8 @@ import './assets/css/navimenu.css';
 import './assets/css/table.css';
 import './assets/css/footer.css';
 
+import './components/js/moderated.js'
+
 window.$ = window.jQuery = jQuery
 
 createApp(App).mount('#app')

@@ -2,7 +2,7 @@
     <tr class="anime-row-container">
         <th scope="row">
             <div class="ch-container">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" v-model="isChecked" @change="CheckboxIndex"/>
             </div>
         </th>
 
@@ -106,8 +106,6 @@
     </tr>
 </template>
 <script>
-import $ from 'jquery';
-
 export default {
     name: 'DataRow',
     data() {
@@ -141,6 +139,9 @@ export default {
             //menu statusu
             isVisible: false,
 
+            //checkbox status
+            isChecked: false,
+
             //stałe
             animeId: 1, //ID klucza rekordu
             animeEpisodes: 12,   //Liczba odcinków
@@ -155,11 +156,11 @@ export default {
     },
 
     mounted() {
-        $(document).on('click', this.handleClickOutside);
+        window.$(document).on('click', this.handleClickOutside);
     },
 
     beforeMount() {
-        $(document).off('click', this.handleClickOutside);
+        window.$(document).off('click', this.handleClickOutside);
     },
 
     methods: {
@@ -208,7 +209,7 @@ export default {
         async UpdateRecord(data){
             console.log('Update Record');
 
-            $.ajax({
+            window.$.ajax({
                 url: this.updateUrl,
                 type: 'POST',
                 data: data,
@@ -251,6 +252,18 @@ export default {
                 this.isVisible = false;
                 this.stateMenuRadius = this.stateRadius[0];
             }
+        },
+
+        //Dodanie lub usunięcie id z indexu checkbox
+        CheckboxIndex() {
+            if(this.isChecked) {
+                window.AddAnimeIdToIndex(this.animeId);
+            }
+            else {
+                window.DeleteAnimeIdFromIndex(this.animeId);
+            }
+
+            console.log(this.isChecked);
         }
     }
 }

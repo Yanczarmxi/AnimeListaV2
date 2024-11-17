@@ -1,0 +1,24 @@
+server:
+  host: 127.0.0.1
+  port: 8000
+
+database:
+  host:
+  port:
+  database:
+  user:
+  password:
+
+redis:
+  host: 
+  port: 
+  socket:
+
+email:
+  host: 
+  smtp_auth: true
+  user: 
+  password: 
+  smtp_secure:
+  port: 
+  name: 

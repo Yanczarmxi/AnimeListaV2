@@ -1,7 +1,7 @@
 # AnimeListaV2
 
 Wymagania:
-node.js 20<
+- node.js 18<
 
 Instrukcja instalacji:
-soon...
+- soon...

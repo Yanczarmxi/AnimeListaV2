@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia} from 'pinia'
 import App from './App.vue'
 
 //jquery
@@ -19,4 +20,8 @@ import './components/js/moderated.js'
 
 window.$ = window.jQuery = jQuery
 
-createApp(App).mount('#app')
+const app = createApp(App);
+const pinia = createPinia();
+
+app.use(pinia);
+app.mount('#app');

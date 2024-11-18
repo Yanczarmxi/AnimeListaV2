@@ -21,14 +21,14 @@
                 Dodaj Grupę
             </button>
 
-            <button class="btn btn-primary bt-nav-fnc" :disabled="isEditDistabled">
+            <button class="btn btn-primary bt-nav-fnc" :disabled="editDis">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-edit-record"/>
                 </svg>
                 Edytuj
             </button>
 
-            <button class="btn btn-danger bt-nav-fnc" :disabled="isRemoveDistabled">
+            <button class="btn btn-danger bt-nav-fnc" :disabled="removeDis">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" disabled>
                     <use xlink:href="#ico-remove-record"/>
                 </svg>
@@ -54,7 +54,9 @@
     </nav>
 </template>
 <script>
-import SvgIconSet from './iconset.vue'
+import SvgIconSet from './iconset.vue';
+import { useAnimeIndexStore } from '@/stores/moderated';
+import { ref, watch } from 'vue';
 
 export default {
     name: 'ManuNav',
@@ -64,11 +66,34 @@ export default {
   data() {
     return {
         userName: 'user123456790534534246436',
-
-        //Triggery do wyłączania przycików Edytuj I skasuj
-        isEditDistabled: true,
-        isRemoveDistabled: true
     }
+  },
+
+  setup() {
+    const animeIndex = useAnimeIndexStore();
+
+    //Aktywatory przycisków edit i remove
+    const editDis = ref(animeIndex.editDistable);
+    const removeDis = ref(animeIndex.removeDistable);
+
+    watch (
+        () => animeIndex.editDistable,
+        (newValue, oldValue) => {
+            editDis.value = newValue;
+            console.log("editToggle: " + newValue + " - " + oldValue);
+        },
+        
+        () => animeIndex.removeDistable,
+        (newValue, oldValue) => {
+            removeDis.value = newValue;
+            console.log("removeToggle: " + newValue + " - " + oldValue);
+        }
+    );
+
+    return {
+        editDis,
+        removeDis
+    };
   }
 }
 </script>

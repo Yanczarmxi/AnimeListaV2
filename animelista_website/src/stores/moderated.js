@@ -7,8 +7,8 @@ export const useAnimeIndexStore = defineStore('AnimeIndex', {
         counter: 0,
 
         //Wyłączniki przycisków Edit i Remove
-        editDisable: true,
-        removeDisable: true
+        editDistable: true,
+        removeDistable: true
     }),
 
     getters: {
@@ -36,17 +36,17 @@ export const useAnimeIndexStore = defineStore('AnimeIndex', {
 
         ToggleDisablersButtons() {
             if(this.anmIndexCount == 1) {
-                this.editDisable = false;
+                this.editDistable = false;
             }
             else {
-                this.editDisable = true;
+                this.editDistable = true;
             }
 
             if(this.anmIndexCount > 0) {
-                this.removeDisable = false;
+                this.removeDistable = false;
             }
             else {
-                this.removeDisable = true;
+                this.removeDistable = true;
             }
         }
     }

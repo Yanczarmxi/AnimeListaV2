@@ -4,7 +4,6 @@ export const useAnimeIndexStore = defineStore('AnimeIndex', {
     state: () => ({
         anmIdIndex: [],
         separatorIdIndex: [],
-        counter: 0,
 
         //Wyłączniki przycisków Edit i Remove
         editDistable: true,
@@ -19,7 +18,6 @@ export const useAnimeIndexStore = defineStore('AnimeIndex', {
     actions: {
         AddIdToIndex() {
             this.anmIdIndex.push(22);
-            this.counter++
             this.ToggleDisablersButtons();
         },
 
@@ -31,7 +29,6 @@ export const useAnimeIndexStore = defineStore('AnimeIndex', {
                 }
             }
             this.ToggleDisablersButtons();
-            this.counter++
         },
 
         ToggleDisablersButtons() {

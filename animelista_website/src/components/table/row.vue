@@ -268,10 +268,10 @@ export default {
         //Dodanie lub usunięcie id z indexu checkbox
         CheckboxIndex() {
             if(this.isChecked) {
-                this.addToIndex;
+                this.addToIndex(this.animeId);
             }
             else {
-                this.removeFromIndex;
+                this.removeFromIndex(this.animeId);
             }
         }
     }

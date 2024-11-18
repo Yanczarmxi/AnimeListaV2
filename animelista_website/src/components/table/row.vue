@@ -106,7 +106,7 @@
     </tr>
 </template>
 <script>
-import { useAnimeIndexStore } from './../js/moderated.js';
+import { useAnimeIndexStore } from '@/stores/moderated';
 
 export default {
     name: 'DataRow',
@@ -160,24 +160,10 @@ export default {
     setup() {
         const animeIndex = useAnimeIndexStore();
 
-        //metody
-        const addToIndex = () => {
-            animeIndex.AddIdToIndex(this.animeId);
-            animeIndex.ToggleDisablersButtons();
-        };
-
-        const removeFromIndex = () => {
-            animeIndex.RemoveIdFromIndex(this.animeId);
-            animeIndex.ToggleDisablersButtons();
-        };
-
         return {
-            addToIndex,
-            removeFromIndex,
-            editDisable: animeIndex.editDisable,
-            removeDisable: animeIndex.removeDisable,
-            anmIdIndex: animeIndex.anmIdIndex
-        }
+             addToIndex: animeIndex.AddIdToIndex,
+             removeFromIndex: animeIndex.RemoveIdFromIndex
+        };
     },
 
     mounted() {
@@ -287,8 +273,6 @@ export default {
             else {
                 this.removeFromIndex;
             }
-
-            console.log(this.anmIdIndex);
         }
     }
 }

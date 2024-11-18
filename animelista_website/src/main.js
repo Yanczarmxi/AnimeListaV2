@@ -16,7 +16,7 @@ import './assets/css/navimenu.css';
 import './assets/css/table.css';
 import './assets/css/footer.css';
 
-import './components/js/moderated.js'
+import './stores/moderated.js'
 
 window.$ = window.jQuery = jQuery
 

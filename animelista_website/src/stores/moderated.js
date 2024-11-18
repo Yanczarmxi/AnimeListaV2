@@ -4,6 +4,7 @@ export const useAnimeIndexStore = defineStore('AnimeIndex', {
     state: () => ({
         anmIdIndex: [],
         separatorIdIndex: [],
+        counter: 0,
 
         //Wyłączniki przycisków Edit i Remove
         editDisable: true,
@@ -16,8 +17,9 @@ export const useAnimeIndexStore = defineStore('AnimeIndex', {
     },
 
     actions: {
-        AddIdToIndex(id) {
-            this.anmIdIndex.push(id);
+        AddIdToIndex() {
+            this.anmIdIndex.push(22);
+            this.counter++
             this.ToggleDisablersButtons();
         },
 
@@ -29,23 +31,23 @@ export const useAnimeIndexStore = defineStore('AnimeIndex', {
                 }
             }
             this.ToggleDisablersButtons();
+            this.counter++
         },
 
         ToggleDisablersButtons() {
-            //if(this.anmIndexCount == 1 ^ this.separatorIndexCount == 1) {
-            //    this.editDisable = false;
-            //}
-            //else {
-            //    this.editDisable = true;
-            //}
+            if(this.anmIndexCount == 1) {
+                this.editDisable = false;
+            }
+            else {
+                this.editDisable = true;
+            }
 
-            //if(this.anmIndexCount > 0 ^ this.separatorIndexCount > 0) {
-            //    this.removeDisable = false;
-            //}
-            //else {
-            //    this.removeDisable = true;
-            //}
-            this.removeDisable = !this.removeDisable;
+            if(this.anmIndexCount > 0) {
+                this.removeDisable = false;
+            }
+            else {
+                this.removeDisable = true;
+            }
         }
     }
 });

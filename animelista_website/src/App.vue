@@ -6,12 +6,14 @@
     </div>
     <WebSiteFooter />
   </div>
+  <!--<PlaygroundXD />-->
 </template>
 
 <script>
 import MenuNav from './components/menu.vue';
 import DataTable from './components/table/table.vue';
-import WebSiteFooter from './components/footer.vue'
+import WebSiteFooter from './components/footer.vue';
+//import PlaygroundXD from './components/playground.vue'
 
 export default {
   name: 'App',
@@ -19,6 +21,7 @@ export default {
     MenuNav,
     DataTable,
     WebSiteFooter
+    //PlaygroundXD
   },
   data(){
     return {

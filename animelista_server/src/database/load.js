@@ -7,7 +7,7 @@ function GetRecords(sql){
         return rows;
     }
     catch(e) {
-        return(e)
+        console.error(e);
     }
 }
 

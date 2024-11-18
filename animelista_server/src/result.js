@@ -5,7 +5,9 @@ function GetGroupsRecords(usrid) {
     return GetRecords(sql);
 }
 
-function GetAnimeRecords(usrid) {
-    const sql = "SELECT " + usrid;
+function GetAnimeRecords() {
+    const sql = 'SELECT id, added, title, url, episodes FROM anm_animes';
     return GetRecords(sql);
 }
+
+module.exports = GetAnimeRecords;

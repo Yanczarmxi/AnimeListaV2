@@ -1,6 +1,6 @@
 const express = require('express');
 const config = require('./src/config');
-const db = require('./src/database/db');
+const result = require('./src/result');
 
 const app = express();
 const port = config['server']['port'];
@@ -10,16 +10,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/anime', async (req, res) => {
-  try {
-    const [rows, fields] = await db.query(
-        'SELECT * FROM anime_grupy'
-    );
-
-    res.json(rows);
-  }
-  catch {
-      console.log("error");
-  }
+  await res.json(result);
 })
 
 app.listen(port, () => {

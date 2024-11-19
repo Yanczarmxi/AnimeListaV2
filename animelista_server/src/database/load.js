@@ -1,13 +1,14 @@
 const db = require('./db');
 
-function GetRecords(sql){
+async function GetRecords(sql){
     try {
-        const [rows, fields] = db.query(sql);
+        const [rows] = await db.query(sql);
     
         return rows;
     }
     catch(e) {
         console.error(e);
+        return [{error: e.error}];
     }
 }
 

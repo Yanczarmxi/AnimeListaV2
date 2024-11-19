@@ -1,6 +1,5 @@
 const express = require('express');
 const config = require('./src/config');
-const result = require('./src/result');
 
 const app = express();
 const port = config['server']['port'];
@@ -10,7 +9,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/anime', async (req, res) => {
-  await res.json(result);
+  const r = await require('./src/database/anime');
+  res.json(r);
 })
 
 app.listen(port, () => {

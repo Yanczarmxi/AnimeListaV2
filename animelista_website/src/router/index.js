@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '../views/Home.vue';
 import LoginPage from '../views/Login.vue';
 import AnimePage from '../views/Anime.vue';
+import NotFound from '../views/Error404.vue'
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: '/anime',
     name: 'Anime',
     component: AnimePage,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: NotFound,
   },
 ];
 

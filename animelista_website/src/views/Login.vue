@@ -9,23 +9,23 @@
             <div class="sign-in-imput-box d-flex flex-column p-3 mt-5">
                 <div class="mb-3">
                   <label for="sin-emial-input" class="form-label">Email address</label>
-                  <input type="email" class="form-control" id="sin-emial-input" aria-describedby="emailHelp">
+                  <input type="email" class="form-control" id="sin-emial-input" aria-describedby="emailHelp" v-model="email">
                   <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div class="mb-3">
                   <label for="sin-pass-input" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="sin-pass-input">
+                  <input type="password" class="form-control" id="sin-pass-input" v-model="password">
                 </div>
             </div>
 
             <div class="sign-in-btcb p-3">
                 <div class="form-check mr-4 ml-4 mb-4">
-                  <input class="form-check-input" type="checkbox" value="" id="sig-rememerme-chb">
+                  <input class="form-check-input" type="checkbox" value="" id="sig-rememerme-chb" v-model="remembersin">
                   <label class="form-check-label" for="sig-rememerme-chb">
                     Pozostań zalogowany
                   </label>
                 </div>
-                <button class="btn btn-primary mr-4 ml-4 bt-sin">Zaloguj</button>
+                <button class="btn btn-primary mr-4 ml-4 bt-sin" @click="SignInUser">Zaloguj</button>
             </div>
 
             <div class="sin-mess mt-3 d-flex flex-row justify-content-center align-items-center sin-mess-hidden">
@@ -37,7 +37,38 @@
 </template>
 <script>
 export default {
-    name: 'LoginPage'
+    name: 'LoginPage',
+    data() {
+        return {
+            email: "",
+            password: "",
+            remembersin: false
+        }
+    },
+
+    methods: {
+        SignInUser() {
+            console.log(this.email + ' - ' + this.password + ' - ' + this.remembersin);
+
+            const data = {
+                email: this.email,
+                password: this.password,
+                remember: this.remembersin
+            };
+
+            window.$.ajax({
+                url: this.updateUrl,
+                type: 'POST',
+                data: data,
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
+    }
 }
 </script>
 <style lang="css">

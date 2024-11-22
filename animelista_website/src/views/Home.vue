@@ -1,6 +1,8 @@
 <template lang="html">
     <div>
-        Home Page YOOOOOO!!!!
+        Animu Lista<br>
+        v. 2.0.0<br>
+        2024
     </div>
 </template>
 <script>

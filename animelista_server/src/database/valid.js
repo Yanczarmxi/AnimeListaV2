@@ -3,8 +3,10 @@ const bcrypt = require('bcrypt');
 
 async function ValidLogin(user, password) {
     try {
-        const sql_getuser = 'SELECT passwd FROM users WHERE user = ?';
+        const sql_getuser = 'SELECT id, passwd FROM users WHERE user = ?';
         [validrow] = await db.query(sql_getuser, user);
+
+        const l = false;
 
         bcrypt.compare(password, validrow[0].passwd, (e, r) => {
             if(e) {
@@ -13,15 +15,18 @@ async function ValidLogin(user, password) {
             }
 
             if(r) {
-                return true;
+                logOn = true;
             }
             else {
-                return false;
+                logOn = false;
             }
         });
+
+        return {valid: logOn, id: validrow[0].id};
     }
     catch(e) {
         console.error(e);
+        return {mess: "ERROR: Invalid Server Error: " + e};
     }
 }
 

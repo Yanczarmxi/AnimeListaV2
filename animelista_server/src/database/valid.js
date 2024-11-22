@@ -1,15 +1,30 @@
-const loadsql = require('./load');
+const db = require('./db');
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcrypt');
 
-const sql = 'SELECT id, user, data_registration, avatar FROM users';
-const result = loadsql(sql);
+async function ValidLogin(user, password) {
+    try {
+        const sql_getuser = 'SELECT passwd FROM users WHERE user = ?';
+        [validrow] = await db.query(sql_getuser, user);
 
-module.exports = result;
+        bcrypt.compare(password, validrow[0].passwd, (e, r) => {
+            if(e) {
+                console.error(e);
+                return false;
+            }
 
+            if(r) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        });
+    }
+    catch(e) {
+        console.error(e);
+    }
+}
 
-/*
-- Znajdź urzytkownika w bazie danych na podstawie nickname
-- Jak występuje pobierz hash passwod
-- Sprawdź podane hasło z hashem
-- Potwierdzenie zgodności wydaje trigger przenoszący do dashboard
-- Negawywne odrzuca zwracając komunikat o błędzie
-*/
+module.exports = ValidLogin;

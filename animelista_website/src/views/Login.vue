@@ -42,7 +42,10 @@ export default {
         return {
             email: "",
             password: "",
-            remembersin: false
+            remembersin: false,
+
+            //Adres do validacji
+            vlidUrl: process.env.VUE_APP_USER_VALID
         }
     },
 
@@ -50,21 +53,20 @@ export default {
         SignInUser() {
             console.log(this.email + ' - ' + this.password + ' - ' + this.remembersin);
 
-            const data = {
-                email: this.email,
-                password: this.password,
-                remember: this.remembersin
-            };
-
             window.$.ajax({
-                url: this.updateUrl,
+                url: 'http://127.0.0.1:8000/user/valid',
                 type: 'POST',
-                data: data,
+                contentType: 'application/json', // Ustaw Content-Type na JSON
+                data: JSON.stringify({
+                    email: this.email,
+                    password: this.password,
+                    remember: this.remembersin
+                }),
                 success: function(response) {
-                    console.log(response);
+                    console.log('Sukces:', response);
                 },
                 error: function(error) {
-                    console.log(error);
+                    console.error('Błąd:', error);
                 }
             });
         }

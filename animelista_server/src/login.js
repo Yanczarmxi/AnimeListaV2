@@ -2,34 +2,39 @@ const express = require('express');
 const router = express.Router();
 const ValidLogin = require('./database/valid');
 const GetUserData = require('./database/user');
+const cors = require('cors');
 
-router.post('/valid', async (req, res) => {
+router.options('/valid', cors());
+
+router.post('/valid', cors(), async (req, res) => {
     try {
-        const {login} = req.body;
+        const {email, password, remember} = req.body;
 
-        if(!login) {
+        if(!email && !password && !remember) {
             return res.status(400).send('Żądanie jest puste');
         }
 
-        const validData = ValidLogin(login['user'], login['password']);
+        const validData = await ValidLogin(email, password);
 
-        if(!validData['valid']) {
-            return res.status(401).json({ message: 'Nieprawidłowe dane logowania' });
-        }
+        res.json(validData);
 
-        const userData = GetUserData(validData['id']);
-        req.session.user_name = userData['name'];
-        req.session.user_regdate = userData['regdate'];
-        req.session.user_avatar = userData['avatar'];
+        //if(!validData['valid']) {
+        //    return res.status(401).json({ message: 'Nieprawidłowe dane logowania' });
+        //}
 
-        res.send({
-            valid: validData['valid'],
-            user: userData['name'],
-            regdate: userData['regdate'],
-            avata: userData['avatar']
-        });
+        //const userData = GetUserData(validData['id']);
+        //req.session.user_name = userData['name'];
+        //req.session.user_regdate = userData['regdate'];
+        //req.session.user_avatar = userData['avatar'];
 
-        res.status(200).json({ message: 'Zalogowano pomyślnie', user: userData });
+        //res.send({
+        //    valid: validData['valid'],
+        //    user: userData['name'],
+        //    regdate: userData['regdate'],
+        //    avata: userData['avatar']
+        //});
+
+        //res.status(200).json({ message: 'Zalogowano pomyślnie', user: userData });
     }
     catch(e) {
         console.error(e);

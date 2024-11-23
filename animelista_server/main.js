@@ -1,44 +1,47 @@
 const express = require('express');
 const session = require('express-session');
+const cors = require('cors');
 const config = require('./src/config');
-const userRoute = require('./src/user_test');
+const userRoute = require('./src/login');
 
 const app = express();
 const port = config['server']['port'];
+
+app.use(express.json());
+
+app.use(cors({
+    origin: 'http://127.0.0.1:8080',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+app.use((req, res, next) => {
+  console.log(`Otrzymano żądanie: ${req.method} ${req.url}`);
+  next();
+});
 
 app.use(session({
   secret: config['server']['key'],
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  cookie: {
+    secure: false, // Ustaw `true` dla HTTPS
+    sameSite: 'lax', // Dla środowiska produkcyjnego ustaw 'none'
+  }
 }));
 
 app.get('/', (req, res) => {
   res.send(`
-      <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Express HTML</title>
-        </head>
-        <body>
-            <form action="/user/set" method-"POST">
-            <label for="fname">First name:</label><br>
-            <input type="text" id="fname" name="fname" value="John"><br>
-            <label for="lname">Last name:</label><br>
-            <input type="text" id="lname" name="lname" value="Doe"><br><br>
-            <input type="submit" value="Submit">
-          </form> 
-        </body>
-        </html>
+      Hi Mom!
     `);
 })
 
 app.use('/user', userRoute);
 
-app.get('/anime', async (req, res) => {
-  const r = await require('./src/database/anime');
-  res.json(r);
-})
+//app.get('/anime', async (req, res) => {
+//  const r = await require('./src/database/anime');
+//  res.json(r);
+//})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

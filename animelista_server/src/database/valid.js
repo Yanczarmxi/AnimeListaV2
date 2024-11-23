@@ -9,20 +9,15 @@ async function ValidLogin(email, password) {
         var logOn = false;
         var userId = null;
 
-        bcrypt.compare(password, validrow[0].passwd, (e, r) => {
-            if(e) {
-                console.error(e);
-                return {valid: false, id: null, mess: "ERROR (valid #1): Invalid Server Error: " + e};
-            }
+        const pass = await bcrypt.compare(password, validrow[0].passwd);
 
-            if(r) {
-                logOn = true;
-                userId = validrow[0].id;
-            }
-            else {
-                logOn = false;
-            }
-        });
+        if(pass){
+            logOn = true;
+            userId = validrow[0].id;
+        }
+        else {
+            logOn = false;
+        }
 
         return {valid: logOn, id: userId, mess: "Great cuscess"};
     }

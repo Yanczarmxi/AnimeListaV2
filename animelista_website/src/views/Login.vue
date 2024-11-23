@@ -45,7 +45,7 @@ export default {
             remembersin: false,
 
             //Adres do validacji
-            vlidUrl: process.env.VUE_APP_USER_VALID
+            validUrl: process.env.VUE_APP_USER_VALID
         }
     },
 
@@ -54,7 +54,7 @@ export default {
             console.log(this.email + ' - ' + this.password + ' - ' + this.remembersin);
 
             window.$.ajax({
-                url: 'http://127.0.0.1:8000/user/valid',
+                url: this.validUrl,
                 type: 'POST',
                 contentType: 'application/json', // Ustaw Content-Type na JSON
                 data: JSON.stringify({

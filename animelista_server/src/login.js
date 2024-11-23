@@ -16,29 +16,45 @@ router.post('/valid', cors(), async (req, res) => {
 
         const validData = await ValidLogin(email, password);
 
-        res.json(validData);
+        if(!validData.valid) {
+            return res.status(401).json({ message: 'Nieprawidłowe dane logowania' });
+        }
 
-        //if(!validData['valid']) {
-        //    return res.status(401).json({ message: 'Nieprawidłowe dane logowania' });
-        //}
+        const userData = await GetUserData(validData.id);
+        req.session.isLogged = validData.valid;
+        req.session.user_id = validData.id;
+        req.session.user_name = userData.name;
+        req.session.user_regdate = userData.regdate;
+        req.session.user_avatar = userData.avatar;
 
-        //const userData = GetUserData(validData['id']);
-        //req.session.user_name = userData['name'];
-        //req.session.user_regdate = userData['regdate'];
-        //req.session.user_avatar = userData['avatar'];
-
-        //res.send({
-        //    valid: validData['valid'],
-        //    user: userData['name'],
-        //    regdate: userData['regdate'],
-        //    avata: userData['avatar']
-        //});
-
-        //res.status(200).json({ message: 'Zalogowano pomyślnie', user: userData });
+        res.status(200).json({ 
+            mess: 'Zalogowano pomyślnie', 
+            isLogged: req.session.isLogged, 
+            user: req.session.user_name,
+            regdate: req.session.user_regdate,
+            avatar: req.session.user_avatar
+        });
     }
     catch(e) {
         console.error(e);
-        res.status(500).send('Bład 500');
+        res.status(500).send({mess: 'Błąd 500: Błąd wewnętrzny', isLogged: false});
+    }
+});
+
+router.post('/checkLogged', cors(), (req, res) => {
+    try {
+        res.status(200).json({ 
+            mess: 'Zalogowano pomyślnie', 
+            isLogged: req.session.isLogged, 
+            user: req.session.user_name,
+            regdate: req.session.user_regdate,
+            avatar: req.session.user_avatar
+        });
+    }
+
+    catch(e) {
+        console.error(e);
+        res.status(500).send({mess: 'Błąd 500: Błąd wewnętrzny', isLogged: false});
     }
 });
 module.exports = router;

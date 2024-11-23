@@ -9,12 +9,12 @@ async function GetUserData(id) {
         const sql = `
         SELECT
             user,
-            date_registation,
+            date_registration,
             avatar
         FROM users
         WHERE id = ?`;
 
-        const [row] = await db.query(sql, id);
+        const [row] = await db.query(sql, [id]);
 
         if(row.length === 0) {
             return {mess: "ERROR: Nie znaleziono użytkownika w bazie danych"};

@@ -11,10 +11,12 @@ const port = config['server']['port'];
 app.use(express.json());
 
 app.use(cors({
-    origin: 'http://127.0.0.1:8080',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+app.options('*', cors());
 
 app.use((req, res, next) => {
   console.log(`Otrzymano żądanie: ${req.method} ${req.url}`);
@@ -22,11 +24,12 @@ app.use((req, res, next) => {
 });
 
 const dbOptions = {
-  host: config['database']['host'],
-  port: config['database']['port'],
-  user: config['database']['user'],
-  password: config['database']['password'],
-  database: config['database']['database']
+  host: '127.0.0.1',
+  port: 3306,
+  user: 'root',
+  password: '123',
+  database: 'animedb',
+  createDatabaseTable: true // Automatyczne tworzenie tabeli
 };
 
 const sessionStore = new MySQLStore(dbOptions);

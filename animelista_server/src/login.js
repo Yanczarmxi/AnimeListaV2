@@ -25,7 +25,7 @@ router.post('/valid', cors(), async (req, res) => {
         req.session.user_id = validData.id;
         req.session.user_name = userData.name;
         req.session.user_regdate = userData.regdate;
-        req.session.user_avatar = userData.avatar;
+        req.session.user_avatar =  userData.avatar;
 
         res.status(200).json({ 
             mess: 'Zalogowano pomyślnie', 
@@ -44,7 +44,7 @@ router.post('/valid', cors(), async (req, res) => {
 router.post('/checkLogged', cors(), (req, res) => {
     try {
         res.status(200).json({ 
-            mess: 'Zalogowano pomyślnie', 
+            mess: 'Pobrano dane użytkownika', 
             isLogged: req.session.isLogged, 
             user: req.session.user_name,
             regdate: req.session.user_regdate,

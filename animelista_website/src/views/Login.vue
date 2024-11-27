@@ -28,7 +28,7 @@
                 <button class="btn btn-primary mr-4 ml-4 bt-sin" @click="SignInUser">Zaloguj</button>
             </div>
 
-            <div class="sin-mess mt-3 d-flex flex-row justify-content-center align-items-center sin-mess-hidden">
+            <div class="sin-mess mt-3 d-flex flex-row justify-content-center align-items-center" :class="failMessgase">
                 <div class="mess-string">Nie prawidłowe dane logowania</div>
             </div>
 
@@ -36,6 +36,8 @@
     </div>
 </template>
 <script>
+import { useAuterizationStore } from '@/stores/auterization';
+
 export default {
     name: 'LoginPage',
     data() {
@@ -44,31 +46,49 @@ export default {
             password: "",
             remembersin: false,
 
+            //BłędneLogowanie message
+            loginFail: false,
+            loginFailClass: ['sin-mess-hidden', 'sin-mess-visible'],
+            failMessgase: 'sin-mess-hidden',
+
             //Adres do validacji
             validUrl: process.env.VUE_APP_USER_VALID
         }
     },
 
+    setup() {
+        const auterizationStore = useAuterizationStore();
+
+        return {
+            ValidLogin: auterizationStore.ValidLogin
+        }
+    },
+
     methods: {
+        ToggleFailLoginMessage(){
+            this.failMessgase = this.loginFailClass[Number(this.loginFail)];
+        },
+
         SignInUser() {
             console.log(this.email + ' - ' + this.password + ' - ' + this.remembersin);
 
-            window.$.ajax({
-                url: this.validUrl,
-                type: 'POST',
-                contentType: 'application/json', // Ustaw Content-Type na JSON
-                data: JSON.stringify({
-                    email: this.email,
-                    password: this.password,
-                    remember: this.remembersin
-                }),
-                success: function(response) {
-                    console.log('Sukces:', response);
-                },
-                error: function(error) {
-                    console.error('Błąd:', error);
-                }
-            });
+            this.ValidLogin(this.email, this.password, this.remembersin);
+            //window.$.ajax({
+            //    url: this.validUrl,
+            //    type: 'POST',
+            //    contentType: 'application/json', // Ustaw Content-Type na JSON
+            //    data: JSON.stringify({
+            //        email: this.email,
+            //        password: this.password,
+            //        remember: this.remembersin
+            //    }),
+            //    success: function(response) {
+            //        console.log('Sukces:', response);
+            //    },
+            //    error: function(error) {
+            //        console.error('Błąd:', error);
+            //    }
+            //});
         }
     }
 }

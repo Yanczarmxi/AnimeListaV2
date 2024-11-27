@@ -10,14 +10,22 @@ router.post('/valid', cors(), async (req, res) => {
     try {
         const {email, password, remember} = req.body;
 
+        console.log(email + ' - ' + password + ' - ' + remember);
+
         if(!email && !password && !remember) {
-            return res.status(400).send('Żądanie jest puste');
+            return res.status(200).json({
+                mess: 'Żądanie jest puste',
+                isLogged: false
+            });
         }
 
         const validData = await ValidLogin(email, password);
 
         if(!validData.valid) {
-            return res.status(401).json({ message: 'Nieprawidłowe dane logowania' });
+            return res.status(200).json({
+                mess: 'Nieprawidłowe dane logowania',
+                isLogged: false
+            });
         }
 
         const userData = await GetUserData(validData.id);

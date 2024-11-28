@@ -11,12 +11,15 @@ const port = config['server']['port'];
 app.use(express.json());
 
 app.use(cors({
-    origin: '*',
+    origin: 'http://localhost:8080',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    //allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
 }));
 
-app.options('*', cors());
+app.options('*', (req, res) => {
+  res.sendStatus(200);
+});
 
 app.use((req, res, next) => {
   console.log(`Otrzymano żądanie: ${req.method} ${req.url}`);

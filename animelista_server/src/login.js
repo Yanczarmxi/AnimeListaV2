@@ -3,10 +3,21 @@ const router = express.Router();
 const ValidLogin = require('./database/valid');
 const GetUserData = require('./database/user');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const config = require('./config');
 
-router.options('/valid', cors());
+//router.use(cors({
+//    origin: 'http://localhost:8080',
+//    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//    //allowedHeaders: ['Content-Type', 'Authorization'],
+//    credentials: true
+//}));
+//
+//router.options('*', (req, res) => {
+//    res.sendStatus(200);
+//});
 
-router.post('/valid', cors(), async (req, res) => {
+router.post('/valid', async (req, res) => {
     try {
         const {email, password, remember} = req.body;
 
@@ -29,6 +40,13 @@ router.post('/valid', cors(), async (req, res) => {
         }
 
         const userData = await GetUserData(validData.id);
+
+        const token = jwt.sign(
+            {id: validData.id, email: email},
+            config['server']['key'],
+            { expiresIn: '1h' }
+        );
+
         req.session.isLogged = validData.valid;
         req.session.user_id = validData.id;
         req.session.user_name = userData.name;
@@ -37,7 +55,8 @@ router.post('/valid', cors(), async (req, res) => {
 
         res.status(200).json({ 
             mess: 'Zalogowano pomyślnie', 
-            isLogged: req.session.isLogged, 
+            isLogged: req.session.isLogged,
+            token: token, 
             user: req.session.user_name,
             regdate: req.session.user_regdate,
             avatar: req.session.user_avatar
@@ -49,20 +68,22 @@ router.post('/valid', cors(), async (req, res) => {
     }
 });
 
-router.post('/checkLogged', cors(), (req, res) => {
+router.get('/checkActivSession', (req, res) => {
     try {
         res.status(200).json({ 
             mess: 'Pobrano dane użytkownika', 
-            isLogged: req.session.isLogged, 
-            user: req.session.user_name,
-            regdate: req.session.user_regdate,
-            avatar: req.session.user_avatar
+            isLogged: req.session.isLogged ? req.session.isLogged : false, 
+            user: req.session.user_name ? req.session.user_name : null,
+            regdate: req.session.user_regdate ? req.session.user_regdate : null,
+            avatar: req.session.user_avatar ? req.session.user_avatar : null
         });
+
+        console.log(req.session.isLogged);
     }
 
     catch(e) {
         console.error(e);
-        res.status(500).send({mess: 'Błąd 500: Błąd wewnętrzny', isLogged: false});
+        res.status(200).json({mess: 'Brak aktywnej sessji', isLogged: false});
     }
 });
 module.exports = router;

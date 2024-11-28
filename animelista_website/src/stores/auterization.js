@@ -31,6 +31,7 @@ export const useAuterizationStore = defineStore('Auterization', {
 
                     if(!response.isLogged){
                         this.failLogin = true;
+                        return false;
                     }
                     else {
                         this.isLogged = response.isLogged;
@@ -38,13 +39,13 @@ export const useAuterizationStore = defineStore('Auterization', {
                         this.userRegistered = response.regdate;
                         this.userAvatar = response.avatar;
                         this.failLogin = false;
+                        return true
                     }
-                    console.log(this.failLogin);
                 },
                 error: function(error) {
                     console.error('Błąd:', error);
                     this.failLogin = true;
-                    console.log(this.failLogin);
+                    return false
                 }
             });
         }

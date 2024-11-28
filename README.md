@@ -8,6 +8,8 @@ Instrukcja instalacji:
 
 Wykorzystano:
 - Express.js
+- express-session
+- express-mysql-session
 - mysql2
 - cord
 - js-yaml

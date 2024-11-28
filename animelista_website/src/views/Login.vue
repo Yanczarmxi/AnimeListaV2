@@ -28,7 +28,7 @@
                 <button class="btn btn-primary mr-4 ml-4 bt-sin" @click="SignInUser">Zaloguj</button>
             </div>
 
-            <div class="sin-mess mt-3 d-flex flex-row justify-content-center align-items-center" :class="failMessgase">
+            <div class="sin-mess mt-3 d-flex flex-row justify-content-center align-items-center" v-if="!success">
                 <div class="mess-string">Nie prawidłowe dane logowania</div>
             </div>
 
@@ -37,6 +37,7 @@
 </template>
 <script>
 import { useAuterizationStore } from '@/stores/auterization';
+import { watch } from 'vue';
 
 export default {
     name: 'LoginPage',
@@ -46,10 +47,8 @@ export default {
             password: "",
             remembersin: false,
 
-            //BłędneLogowanie message
-            loginFail: false,
-            loginFailClass: ['sin-mess-hidden', 'sin-mess-visible'],
-            failMessgase: 'sin-mess-hidden',
+            //stanLogowania
+            success: false,
 
             //Adres do validacji
             validUrl: process.env.VUE_APP_USER_VALID
@@ -59,36 +58,28 @@ export default {
     setup() {
         const auterizationStore = useAuterizationStore();
 
+        watch(
+            () => auterizationStore.failLogin,
+            (newValue) => {
+                console.log('failLogin zmieniono na:', newValue);
+            }
+        );
+
         return {
-            ValidLogin: auterizationStore.ValidLogin
+            auterizationStore,
+            ValidLogin: auterizationStore.ValidLogin,
         }
     },
 
     methods: {
-        ToggleFailLoginMessage(){
-            this.failMessgase = this.loginFailClass[Number(this.loginFail)];
-        },
-
-        SignInUser() {
+        async SignInUser() {
             console.log(this.email + ' - ' + this.password + ' - ' + this.remembersin);
 
-            this.ValidLogin(this.email, this.password, this.remembersin);
-            //window.$.ajax({
-            //    url: this.validUrl,
-            //    type: 'POST',
-            //    contentType: 'application/json', // Ustaw Content-Type na JSON
-            //    data: JSON.stringify({
-            //        email: this.email,
-            //        password: this.password,
-            //        remember: this.remembersin
-            //    }),
-            //    success: function(response) {
-            //        console.log('Sukces:', response);
-            //    },
-            //    error: function(error) {
-            //        console.error('Błąd:', error);
-            //    }
-            //});
+            this.success = await this.ValidLogin(this.email, this.password, this.remembersin);
+
+            //if (success) {
+            //this.$router.push('/anime');
+            //}
         }
     }
 }

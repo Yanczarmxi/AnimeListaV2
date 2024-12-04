@@ -19,7 +19,7 @@ export const useAuterizationStore = defineStore('Auterization', {
         async ValidLogin(email, password, remember) {
             console.log('ASYNC CALL')
             await $.ajax({
-                url: this.validUrl,
+                url: '/user/valid',
                 type: 'POST',
                 xhrFields: {
                     withCredentials: true
@@ -57,7 +57,7 @@ export const useAuterizationStore = defineStore('Auterization', {
         //Pobierz zalogowaną sessję o ile jest zalogowany user
         async GetLoginSession(){
             await $.ajax({
-                url: this.checkUrl,
+                url: '/user/checksession',
                 type: 'GET',
                 xhrFields: {
                     withCredentials: true

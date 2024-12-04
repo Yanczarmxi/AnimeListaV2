@@ -56,7 +56,7 @@ router.post('/valid', async (req, res) => {
     }
 });
 
-router.get('/checkActivSession', (req, res) => {
+router.get('/checksession', (req, res) => {
     try {
         res.status(200).json({ 
             mess: 'Pobrano dane użytkownika', 

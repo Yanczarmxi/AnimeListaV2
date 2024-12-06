@@ -17,72 +17,70 @@ export const useAuterizationStore = defineStore('Auterization', {
     }),
     actions: {
         async ValidLogin(email, password, remember) {
-            console.log('ASYNC CALL')
-            await $.ajax({
-                url: '/user/valid',
-                type: 'POST',
-                xhrFields: {
-                    withCredentials: true
-                },
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    email: email,
-                    password: password,
-                    remember: remember
-                }),
-                success: function(response){
-                    console.log('Sukces:', response);
+            try{
+                const response = await $.ajax({
+                    url: '/user/valid',
+                    type: 'POST',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        email: email,
+                        password: password,
+                        remember: remember
+                    })
+                });
 
-                    if(!response.isLogged){
-                        this.failLogin = true;
-                        return false;
-                    }
-                    else {
-                        this.isLogged = response.isLogged;
-                        this.userName = response.user;
-                        this.userRegistered = response.regdate;
-                        this.userAvatar = response.avatar;
-                        this.failLogin = false;
-                        return true
-                    }
-                },
-                error: function(error) {
-                    console.error('Błąd:', error);
+                console.log('Sukces:', response);
+
+                if(!response.isLogged){
                     this.failLogin = true;
-                    return false
+                    return false;
                 }
-            });
+                this.isLogged = response.isLogged;
+                this.userName = response.user;
+                this.userRegistered = response.regdate;
+                this.userAvatar = response.avatar;
+                this.failLogin = false;
+                return true
+            }
+            catch(error){
+                console.error('Błąd:', error);
+                this.failLogin = true;
+                return false
+            }
         },
 
         //Pobierz zalogowaną sessję o ile jest zalogowany user
         async GetLoginSession(){
-            await $.ajax({
-                url: '/user/checksession',
-                type: 'GET',
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function(response){
-                    console.log(response);
-                    if(!response.isLogged){
-                        this.failLogin = true;
-                        return false;
+            try{
+                const response = await $.ajax({
+                    url: '/user/checksession',
+                    type: 'GET',
+                    xhrFields: {
+                        withCredentials: true
                     }
-                    else {
-                        this.isLogged = response.isLogged;
-                        this.userName = response.user;
-                        this.userRegistered = response.regdate;
-                        this.userAvatar = response.avatar;
-                        this.failLogin = false;
-                        return true
-                    }
-                },
-                error: function(error) {
-                    console.error('Błąd:', error);
+                });
+
+                console.log('Sukces:', response);
+
+                if(!response.isLogged){
                     this.failLogin = true;
-                    return false
+                    return false;
                 }
-            });
+                this.isLogged = response.isLogged;
+                this.userName = response.user;
+                this.userRegistered = response.regdate;
+                this.userAvatar = response.avatar;
+                this.failLogin = false;
+                return true
+            }
+            catch(error){
+                console.error('Błąd:', error);
+                this.failLogin = true;
+                return false
+            }
         }
     }
 });

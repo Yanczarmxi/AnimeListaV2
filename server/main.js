@@ -26,10 +26,11 @@ app.get('/', (req, res) => {
 
 app.use('/user', userRoute);
 
-//app.get('/anime', async (req, res) => {
-//  const r = await require('./src/database/anime');
-//  res.json(r);
-//})
+app.get('/anime', async (req, res) => {
+  //const r = await require('./src/database/anime');
+  const r = await require('./src/extraction');
+  res.json(r());
+})
 
 //app.listen(port, () => {
 //  console.log(`Example app listening on port ${port}`)

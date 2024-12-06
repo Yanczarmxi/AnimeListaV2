@@ -77,9 +77,13 @@ export default {
 
             this.success = await this.ValidLogin(this.email, this.password, this.remembersin);
 
-            //if (success) {
-            //this.$router.push('/anime');
-            //}
+            if (this.success) {
+                this.$router.push('/anime');
+                console.log('ZALOGOWANY');
+            }
+            else{
+                console.log('NIE DZIAŁA :C');
+            }
         }
     }
 }

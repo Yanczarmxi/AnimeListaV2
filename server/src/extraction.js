@@ -7,13 +7,15 @@ function SegregatedAnimeToGroup(groups, animes){
     for(var i=0; i < groups.length; i++){
         for(var j=0; j < animes.length; j++){
             if(animes[j].st_group == groups[i].gr_id){
+                var img = animes[i].an_miniature ? Buffer.from(animes[i].an_miniature).toString('base64') : null;
+
                 tmp.push({
                     id:       animes[j].an_id,
                     title:    animes[j].an_title,
                     date:     animes[j].an_date,
                     url:      animes[j].an_url,
                     episodes: animes[j].an_episodes,
-                    img:      animes[j].an_miniature,
+                    img:      img,
                     fav: {
                         status:  animes[j].fv_state,
                         episode: animes[j].fv_episode
@@ -38,13 +40,15 @@ function SegregateAnimesTootchers(animes){
     var tmp = [];
     for(var i=0; i < animes.length; i++){
         if(animes.an_group == null){
+            var img = animes[i].an_miniature ? Buffer.from(animes[i].an_miniature).toString('base64') : null;
+
             tmp.push({
                 id:       animes[i].an_id,
                 title:    animes[i].an_title,
                 date:     animes[i].an_date,
                 url:      animes[i].an_url,
                 episodes: animes[i].an_episodes,
-                img:      animes[i].an_miniature,
+                img:      img,
                 fav: {
                     status:  animes[i].fv_state,
                     episode: animes[i].fv_episode
@@ -61,21 +65,30 @@ function SearchAnimeIndex(animes){
 
     for(var i=0; i < animes.length; i++){
         tmp.push({
-            id: animes.an_id,
-            title: animes.an_title
+            id: animes[i].an_id,
+            title: animes[i].an_title
         });
     }
 
     return tmp;
 }
 
-const groups = await GetGroups(1);
-const animes = await GetAnimes(1);
+async function GetAnimesSerialized(req) {
+    if(!req.session.user_id){
+        return {mess: 'Brak zalogowanej sessji używkownika'}
+    }
 
-var data = [{
-    segregated: SegregatedAnimeToGroup(groups, animes),
-    others: SegregateAnimesTootchers(animes),
-    search: SearchAnimeIndex(animes)
-}];
+    const groups = await GetGroups(req.session.user_id);
+    const animes = await GetAnimes(req.session.user_id);
 
-module.exports = data;
+    const data = {
+        segregated: SegregatedAnimeToGroup(groups, animes),
+        others:     SegregateAnimesTootchers(animes),
+        search:     SearchAnimeIndex(animes),
+        groups:     groups
+    };
+
+    return data;
+}
+
+module.exports = GetAnimesSerialized;

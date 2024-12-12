@@ -27,9 +27,13 @@ app.get('/', (req, res) => {
 app.use('/user', userRoute);
 
 app.get('/anime', async (req, res) => {
-  //const r = await require('./src/database/anime');
-  const r = await require('./src/extraction');
-  res.json(r());
+  if(req.session.isLogged){
+    const r = await require('./src/extraction');
+    res.json(await r(req));
+  }
+  else{
+    res.json({mess: 'Brak zalogowanej sessji użytkownika'});
+  }
 })
 
 //app.listen(port, () => {

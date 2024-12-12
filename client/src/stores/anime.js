@@ -3,9 +3,9 @@ import $ from 'jquery';
 
 export const useAnimeStore = defineStore('Anime', {
     state: () => ({
-        data: [],
-        search: [],
-        group: [],
+        data,
+        search,
+        group,
         
 
         //adres do validacji
@@ -14,7 +14,26 @@ export const useAnimeStore = defineStore('Anime', {
     }),
     actions: {
         async GetAnime(){
+            try{
+                const response = await $.ajax({
+                    url: '/user/checksession',
+                    type: 'GET',
+                    xhrFields: {
+                        withCredentials: true
+                    }
+                });
 
+                this.data = {
+                    segregated: response.segregated,
+                    others: response.others
+                };
+
+                this.search = response.search;
+                this.group = response.group;
+            }
+            catch(e){
+                console.error('Nie udało się pobrać danych')
+            }
         }
     }
 });

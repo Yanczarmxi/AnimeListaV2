@@ -55,12 +55,31 @@ import DataRow from './row.vue';
 import RowDescription from './rowinfo.vue';
 import RowSeparator from './rowseparator.vue';
 
+import { useAnimeStore } from '@/stores/anime';
+//import { ref } from 'vue';
+
 export default {
     name: 'DataTable',
     components: {
       DataRow,
       RowDescription,
       RowSeparator
+    },
+
+    setup() {
+      const animeStore = useAnimeStore();
+
+      return {
+        GetAnime: animeStore.GetAnime
+      }
+    },
+
+    mounted() {
+      this.GetAnime();
+    },
+
+    methods: {
+
     }
 }
 </script>

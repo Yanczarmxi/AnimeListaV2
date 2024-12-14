@@ -3,20 +3,19 @@ import $ from 'jquery';
 
 export const useAnimeStore = defineStore('Anime', {
     state: () => ({
-        data,
-        search,
-        group,
+        data: {},
+        search: {},
+        group: {},
         
 
         //adres do validacji
-        validUrl: `${process.env.VUE_APP_USER_VALID}`,
-        checkUrl: `${process.env.VUE_APP_USER_CHECK}`
+        serverUrl: `${process.env.VUE_APP_SERVER}`
     }),
     actions: {
         async GetAnime(){
             try{
                 const response = await $.ajax({
-                    url: '/user/checksession',
+                    url: '/anime/result',
                     type: 'GET',
                     xhrFields: {
                         withCredentials: true
@@ -30,6 +29,8 @@ export const useAnimeStore = defineStore('Anime', {
 
                 this.search = response.search;
                 this.group = response.group;
+
+                console.log(response); //DEBUG
             }
             catch(e){
                 console.error('Nie udało się pobrać danych')

@@ -38,7 +38,7 @@
 
         <div class="user-container d-flex align-items-center justicy-content-between ms-auto p-2 bd-highlight">
             <div class="user-box">
-                <img src='./../assets/img/user_avatar.jpg' class="user-img"/>
+                <img :src='userAvatar' class="user-img"/>
                 <div class="user-name-container">
                     {{userName}}
                 </div>
@@ -56,6 +56,7 @@
 <script>
 import SvgIconSet from './iconset.vue';
 import { useAnimeIndexStore } from '@/stores/moderated';
+import { useAuterizationStore } from '@/stores/auterization';
 import { ref, watch } from 'vue';
 
 export default {
@@ -63,13 +64,21 @@ export default {
     components: {
         SvgIconSet
   },
-  data() {
-    return {
-        userName: 'user123456790534534246436',
-    }
-  },
+  //data() {
+  //  return {
+  //      userName: 'user123456790534534246436',
+  //  }
+  //},
 
   setup() {
+    //User
+    const auterization = useAuterizationStore();
+
+    const userName = ref(auterization.userName);
+    const userAvatar = ref(auterization.userAvatar);
+
+
+    //Storrage zmiennych kontrolnych
     const animeIndex = useAnimeIndexStore();
 
     //Aktywatory przycisków edit i remove
@@ -92,8 +101,16 @@ export default {
 
     return {
         editDis,
-        removeDis
+        removeDis,
+
+        userName,
+        userAvatar,
+        
     };
+  },
+
+  methods: {
+
   }
 }
 </script>

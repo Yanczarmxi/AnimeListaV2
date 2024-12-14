@@ -6,7 +6,7 @@ export const useAuterizationStore = defineStore('Auterization', {
         isLogged: false,
         userName: 'NotUser',
         userRegistered: '0000-00-00',
-        userAvatar: null,
+        userAvatar: './../assets/img/user_avatar.jpg',
 
         //failLogin
         failLogin: false,
@@ -41,8 +41,13 @@ export const useAuterizationStore = defineStore('Auterization', {
                 this.isLogged = response.isLogged;
                 this.userName = response.user;
                 this.userRegistered = response.regdate;
-                this.userAvatar = response.avatar;
+                //this.userAvatar = response.avatar;
                 this.failLogin = false;
+
+                if(response.avatar) {
+                    this.userAvatar = 'data:image/jpeg;base64,' + response.avatar;
+                }
+
                 return true
             }
             catch(error){
@@ -81,6 +86,20 @@ export const useAuterizationStore = defineStore('Auterization', {
                 this.failLogin = true;
                 return false
             }
+        },
+
+        async LogOutSser(){
+            console.log("WYLOGOWANIE");
         }
-    }
+    },
+
+    persist: {
+        enabled: true, // Włączenie persystencji dla tego store
+        strategies: [
+          {
+            key: 'auterization', // Klucz w localStorage
+            storage: localStorage, // Możesz zmienić na sessionStorage
+          },
+        ],
+    },
 });

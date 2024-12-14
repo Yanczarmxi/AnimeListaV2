@@ -107,6 +107,7 @@
 </template>
 <script>
 import { useAnimeIndexStore } from '@/stores/moderated';
+import $ from 'jquery';
 
 export default {
     name: 'DataRow',
@@ -167,11 +168,11 @@ export default {
     },
 
     mounted() {
-        window.$(document).on('click', this.handleClickOutside);
+        $(document).on('click', this.handleClickOutside);
     },
 
     beforeMount() {
-        window.$(document).off('click', this.handleClickOutside);
+        $(document).off('click', this.handleClickOutside);
     },
 
     methods: {
@@ -220,7 +221,7 @@ export default {
         async UpdateRecord(data){
             console.log('Update Record');
 
-            window.$.ajax({
+            $.ajax({
                 url: this.updateUrl,
                 type: 'POST',
                 data: data,

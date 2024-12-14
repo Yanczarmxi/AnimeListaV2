@@ -94,6 +94,8 @@ export default {
         height: 100vh;
         background-image: url("./../assets/img/bg.jpg");
         background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
     }
 
     .sign-in-container {

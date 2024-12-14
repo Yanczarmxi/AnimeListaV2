@@ -2,12 +2,14 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const config = require('./config');
 
+const dbl = config['database'];
+
 const dbOptions = {
-    host: '127.0.0.1',
-    port: 3306,
-    user: 'root',
-    password: '123',
-    database: 'animedb',
+    host: dbl['host'],
+    port: dbl['port'],
+    user: dbl['user'],
+    password: dbl['password'],
+    database: dbl['database'],
     createDatabaseTable: true // Automatyczne tworzenie tabeli
 };
 

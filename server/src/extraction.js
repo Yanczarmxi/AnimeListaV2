@@ -36,10 +36,10 @@ function SegregatedAnimeToGroup(groups, animes){
     return data;
 }
 
-function SegregateAnimesTootchers(animes){
+function SegregateAnimesToOtchers(animes){
     var tmp = [];
     for(var i=0; i < animes.length; i++){
-        if(animes.an_group == null){
+        if(animes[i].st_group == null){
             var img = animes[i].an_miniature ? Buffer.from(animes[i].an_miniature).toString('base64') : null;
 
             tmp.push({
@@ -56,6 +56,8 @@ function SegregateAnimesTootchers(animes){
             });
         }
     }
+
+    console.log(tmp);
     
     return tmp;
 }
@@ -83,7 +85,7 @@ async function GetAnimesSerialized(req) {
 
     const data = {
         segregated: SegregatedAnimeToGroup(groups, animes),
-        others:     SegregateAnimesTootchers(animes),
+        others:     SegregateAnimesToOtchers(animes),
         search:     SearchAnimeIndex(animes),
         groups:     groups
     };

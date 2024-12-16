@@ -1,5 +1,6 @@
 <template lang="html">
     <SvgIconSet />
+    <ModalWindow />
     <!-- Menu Główne -->
     <nav class="navbar navbar-dark bg-dark nav-menu d-flex flex-row align-content-center align-items-center">
         <div class="logo-container p-2 bd-highlight">
@@ -7,28 +8,28 @@
         </div>
 
         <div class="bt-set-container d-flex flex-row justicy-content-start align-items-center p-2 bd-highlight">
-            <button class="btn btn-primary bt-nav-fnc">
+            <button class="btn btn-primary bt-nav-fnc" data-bs-toggle="modal" data-bs-target="#modal-window">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-add-record"/>
                 </svg>
                 Dodaj Anime
             </button>
 
-            <button class="btn btn-primary bt-nav-fnc">
+            <button class="btn btn-primary bt-nav-fnc" data-bs-toggle="modal" data-bs-target="#modal-window">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-add-group"/>
                 </svg>
                 Dodaj Grupę
             </button>
 
-            <button class="btn btn-primary bt-nav-fnc" :disabled="editDis">
+            <button class="btn btn-primary bt-nav-fnc" data-bs-toggle="modal" data-bs-target="#modal-window" :disabled="editDis">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-edit-record"/>
                 </svg>
                 Edytuj
             </button>
 
-            <button class="btn btn-danger bt-nav-fnc" :disabled="removeDis">
+            <button class="btn btn-danger bt-nav-fnc" data-bs-toggle="modal" data-bs-target="#modal-window" :disabled="removeDis">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" disabled>
                     <use xlink:href="#ico-remove-record"/>
                 </svg>
@@ -59,16 +60,14 @@ import { useAnimeIndexStore } from '@/stores/moderated';
 import { useAuterizationStore } from '@/stores/auterization';
 import { ref, watch } from 'vue';
 
+import ModalWindow from './modal.vue';
+
 export default {
     name: 'ManuNav',
     components: {
-        SvgIconSet
+        SvgIconSet,
+        ModalWindow
   },
-  //data() {
-  //  return {
-  //      userName: 'user123456790534534246436',
-  //  }
-  //},
 
   setup() {
     //User

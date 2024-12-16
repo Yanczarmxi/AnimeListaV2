@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import $ from 'jquery'; 
+import axios from 'axios';
 
 export const useAuterizationStore = defineStore('Auterization', {
     state: () => ({
@@ -18,34 +18,31 @@ export const useAuterizationStore = defineStore('Auterization', {
     actions: {
         async ValidLogin(email, password, remember) {
             try{
-                const response = await $.ajax({
-                    url: '/user/valid',
-                    type: 'POST',
-                    xhrFields: {
-                        withCredentials: true
+                const response = await axios.post('/user/valid', 
+                {
+                    email: email,
+                    password: password,
+                    remember: remember,
+                }, {
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json'
                     },
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        email: email,
-                        password: password,
-                        remember: remember
-                    })
                 });
 
                 console.log('Sukces:', response);
 
-                if(!response.isLogged){
+                if(!response.data.isLogged){
                     this.failLogin = true;
                     return false;
                 }
-                this.isLogged = response.isLogged;
-                this.userName = response.user;
-                this.userRegistered = response.regdate;
-                //this.userAvatar = response.avatar;
+                this.isLogged = response.data.isLogged;
+                this.userName = response.data.user;
+                this.userRegistered = response.data.regdate;
                 this.failLogin = false;
 
-                if(response.avatar) {
-                    this.userAvatar = 'data:image/jpeg;base64,' + response.avatar;
+                if(response.data.avatar) {
+                    this.userAvatar = 'data:image/jpeg;base64,' + response.data.avatar;
                 }
 
                 return true
@@ -60,25 +57,23 @@ export const useAuterizationStore = defineStore('Auterization', {
         //Pobierz zalogowaną sessję o ile jest zalogowany user
         async GetLoginSession(){
             try{
-                const response = await $.ajax({
-                    url: '/user/checksession',
-                    type: 'GET',
-                    xhrFields: {
-                        withCredentials: true
-                    }
-                });
+                const response = await axios.get('/user/checksession', {withCredentials: true});
 
                 console.log('Sukces:', response);
 
-                if(!response.isLogged){
+                if(!response.data.isLogged){
                     this.failLogin = true;
                     return false;
                 }
-                this.isLogged = response.isLogged;
-                this.userName = response.user;
-                this.userRegistered = response.regdate;
-                this.userAvatar = response.avatar;
+                this.isLogged = response.data.isLogged;
+                this.userName = response.data.user;
+                this.userRegistered = response.data.regdate;
                 this.failLogin = false;
+
+                if(response.data.avatar) {
+                    this.userAvatar = 'data:image/jpeg;base64,' + response.data.avatar;
+                }
+
                 return true
             }
             catch(error){
@@ -88,7 +83,7 @@ export const useAuterizationStore = defineStore('Auterization', {
             }
         },
 
-        async LogOutSser(){
+        async LogOutUser(){
             console.log("WYLOGOWANIE");
         }
     },

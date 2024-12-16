@@ -56,7 +56,7 @@ import RowDescription from './rowinfo.vue';
 import RowSeparator from './rowseparator.vue';
 
 import { useAnimeStore } from '@/stores/anime';
-//import { ref } from 'vue';
+//import { defineComponent, ref, onMounted } from 'vue';
 
 export default {
     name: 'DataTable',

@@ -107,10 +107,13 @@
 </template>
 <script>
 import { useAnimeIndexStore } from '@/stores/moderated';
-import $ from 'jquery';
+import axios from 'axios';
 
 export default {
     name: 'DataRow',
+    props: {
+        data: String
+    },
     data() {
         return {
             epCount: 1, //Aktualny nr odcinka
@@ -168,11 +171,11 @@ export default {
     },
 
     mounted() {
-        $(document).on('click', this.handleClickOutside);
+        document.addEventListener('click', this.handleClickOutside);
     },
 
     beforeMount() {
-        $(document).off('click', this.handleClickOutside);
+        document.removeEventListener('click', this.handleClickOutside)
     },
 
     methods: {
@@ -220,18 +223,14 @@ export default {
         //Aktualizajcja Rekordów
         async UpdateRecord(data){
             console.log('Update Record');
-
-            $.ajax({
-                url: this.updateUrl,
-                type: 'POST',
-                data: data,
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
+            try {
+                await axios.post('/anime/update', data, {withCredentials: true});
+                console.log('Zaktualizowano record');
+            }
+            catch(e){
+                console.error('ERROR UPDATE: ' + e);
+            }
+            
         },
 
         //Status oglądania

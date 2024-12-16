@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import $ from 'jquery'; 
+import axios from 'axios';
 
 export const useAnimeStore = defineStore('Anime', {
     state: () => ({
@@ -14,21 +14,15 @@ export const useAnimeStore = defineStore('Anime', {
     actions: {
         async GetAnime(){
             try{
-                const response = await $.ajax({
-                    url: '/anime/result',
-                    type: 'GET',
-                    xhrFields: {
-                        withCredentials: true
-                    }
-                });
+                const response = await axios.get('/anime/result', {withCredentials: true});
 
                 this.data = {
-                    segregated: response.segregated,
-                    others: response.others
+                    segregated: response.data.segregated,
+                    others: response.data.others
                 };
 
-                this.search = response.search;
-                this.group = response.group;
+                this.search = response.data.search;
+                this.group = response.data.group;
 
                 console.log(response); //DEBUG
             }

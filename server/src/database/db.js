@@ -1,13 +1,10 @@
 const mysql = require('mysql2/promise');
-const config = require('../config')
-
-dbl = config['database'];
 
 const con = mysql.createPool({
-  host: dbl['host'],
-  user: dbl['user'],
-  password: dbl['password'],
-  database: dbl['database'],
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0  

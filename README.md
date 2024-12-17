@@ -1,20 +1,25 @@
 # AnimeListaV2
 
 Wymagania:
-- node.js 18<
+- node.js 20<
+- MySQL 5.7< / MariaDB 10.4.x<
 
 Instrukcja instalacji:
 - soon...
 
-Wykorzystano:
+Wykorzystano...
+Backend:
 - Express.js
 - express-session
 - express-mysql-session
 - mysql2
 - cord
-- js-yaml
+- dotenv
+- bcryptjs
 
+Frontend:
 - vue.js
 - pinia.js
-- jquery
+- pinia-plugin-persistedstate
+- axios
 - bootstrap

@@ -1,21 +1,18 @@
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
-const config = require('./config');
-
-const dbl = config['database'];
 
 const dbOptions = {
-    host: dbl['host'],
-    port: dbl['port'],
-    user: dbl['user'],
-    password: dbl['password'],
-    database: dbl['database'],
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
     createDatabaseTable: true // Automatyczne tworzenie tabeli
 };
 
 module.exports = session({
     key: 'animu_lista_cookie_session', // Nazwa ciasteczka sesji
-    secret: config['server']['key'], // Klucz tajny używany do podpisywania ciasteczek
+    secret: process.env.EX_KEY, // Klucz tajny używany do podpisywania ciasteczek
     store: new MySQLStore(dbOptions), // Magazyn sesji
     resave: false, // Unikaj zapisywania sesji, jeśli nie zmieniły się dane
     saveUninitialized: false, // Nie zapisuj pustych sesji

@@ -3,7 +3,6 @@ const router = express.Router();
 const ValidLogin = require('./database/valid');
 const GetUserData = require('./database/user');
 const jwt = require('jsonwebtoken');
-const config = require('./config');
 
 router.post('/valid', async (req, res) => {
     try {
@@ -31,7 +30,7 @@ router.post('/valid', async (req, res) => {
 
         const token = jwt.sign(
             {id: validData.id, email: email},
-            config['server']['key'],
+            process.env.EX_KEY,
             { expiresIn: '1h' }
         );
 

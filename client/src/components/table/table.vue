@@ -65,6 +65,11 @@ export default {
       RowDescription,
       RowSeparator
     },
+    data() {
+      return{
+        
+      }
+    },
 
     setup() {
       const animeStore = useAnimeStore();
@@ -75,7 +80,8 @@ export default {
     },
 
     mounted() {
-      this.GetAnime();
+      var data = this.GetAnime();
+      console.log(data);
     },
 
     methods: {

@@ -107,7 +107,7 @@
 </template>
 <script>
 import { useAnimeIndexStore } from '@/stores/moderated';
-import axios from 'axios';
+import { useAnimeStore } from '@/stores/anime'
 
 export default {
     name: 'DataRow',
@@ -163,10 +163,13 @@ export default {
 
     setup() {
         const animeIndex = useAnimeIndexStore();
+        const animeStore = useAnimeStore();
 
         return {
              addToIndex: animeIndex.AddIdToIndex,
-             removeFromIndex: animeIndex.RemoveIdFromIndex
+             removeFromIndex: animeIndex.RemoveIdFromIndex,
+
+             UpdateRecord: animeStore.UpdateRecord,
         };
     },
 
@@ -218,19 +221,6 @@ export default {
         ArrowSvgToggler() {
             this.nextEpBt = this.epCount == this.animeEpisodes ? this.arrEpNext[1] : this.arrEpNext[0];
             this.backEpBt = this.epCount == 1 ? this.arrEpBack[1] : this.arrEpBack[0];
-        },
-
-        //Aktualizajcja Rekordów
-        async UpdateRecord(data){
-            console.log('Update Record');
-            try {
-                await axios.post('/anime/update', data, {withCredentials: true});
-                console.log('Zaktualizowano record');
-            }
-            catch(e){
-                console.error('ERROR UPDATE: ' + e);
-            }
-            
         },
 
         //Status oglądania

@@ -6,6 +6,7 @@ async function GetAnime(user) {
 			SELECT 
 				anm_animes.an_id,
 				anm_animes.an_title,
+				anm_animes.an_date,
 				COALESCE(anm_favorites.fv_episode, 1) AS fv_episode,
 				COALESCE(anm_favorites.fv_state, 0) AS fv_state,
 				anm_segregated.st_group,
@@ -24,7 +25,7 @@ async function GetAnime(user) {
     }
     catch(e) {
         console.error(e);
-        return [{error: e.error}];
+        return [{error: "ERROR: Nie udało się pobrać danych!"}];
     }
 }
 

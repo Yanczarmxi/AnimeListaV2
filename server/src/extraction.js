@@ -7,7 +7,7 @@ function SegregatedAnimeToGroup(groups, animes){
     for(var i=0; i < groups.length; i++){
         for(var j=0; j < animes.length; j++){
             if(animes[j].st_group == groups[i].gr_id){
-                var img = animes[i].an_miniature ? Buffer.from(animes[i].an_miniature).toString('base64') : null;
+                var img = animes[j].an_miniature ? Buffer.from(animes[j].an_miniature).toString('base64') : null;
 
                 tmp.push({
                     id:       animes[j].an_id,
@@ -32,7 +32,6 @@ function SegregatedAnimeToGroup(groups, animes){
     
         tmp = [];
     }
-
     return data;
 }
 
@@ -57,8 +56,6 @@ function SegregateAnimesToOtchers(animes){
         }
     }
 
-    console.log(tmp);
-    
     return tmp;
 }
 

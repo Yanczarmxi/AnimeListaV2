@@ -9,7 +9,7 @@
         <td colspan="3">
 
         <div class="row-separator">
-            <div class="separate-string">{{ animeSeparateTitle }}</div>
+            <div class="separate-string">{{ grTitle }}</div>
         </div>
 
     </td></tr>
@@ -17,11 +17,8 @@
 <script>
 export default {
     name: 'RowSeparator',
-    data() {
-        return {
-            animeSeparateTitle: 'Lorem Ipsum',
-            animeSeparatorID: 1
-        }
+    props: {
+        grTitle: String
     }
 }
 </script>

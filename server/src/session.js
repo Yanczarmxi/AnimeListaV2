@@ -17,11 +17,11 @@ module.exports = session({
     resave: false, // Unikaj zapisywania sesji, jeśli nie zmieniły się dane
     saveUninitialized: false, // Nie zapisuj pustych sesji
     cookie: {
-        maxAge: 30 * 60 * 1000, // Czas życia ciasteczka w ms (30 minut)
+        maxAge: 7 * 24 * 60 * 60 * 1000, // Czas życia ciasteczka w ms (7 dni) dni/godzin/minut/sekund/ms
         secure: false, // Ustaw `true` dla HTTPS
         sameSite: 'lax', // `lax` dla ochrony przed atakami CSRF
     },
     // Funkcje serializacji i deserializacji
     serialize: (session) => JSON.stringify(session), // Serializacja do JSON
     unserialize: (json) => JSON.parse(json)          // Deserializacja z JSON
-  })
+  });

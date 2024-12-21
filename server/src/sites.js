@@ -11,6 +11,10 @@ router.get('/result', async (req, res) => {
       }
 });
 
+router.get('/descryption', async (req, res) => {
+
+});
+
 router.post('/add', async (req, res) => {
 
 });

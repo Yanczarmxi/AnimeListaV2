@@ -7,7 +7,7 @@
         </th>
 
         <td>
-            <img src="./../../assets/img/no_img_min.jpg" alt="NO-IMG" class="rounded">
+            <img :src="animeImg" alt="NO-IMG" class="rounded">
         </td>
 
         <td>
@@ -112,7 +112,7 @@ import { useAnimeStore } from '@/stores/anime'
 export default {
     name: 'DataRow',
     props: {
-        data: String
+        data: Object
     },
     data() {
         return {
@@ -155,6 +155,7 @@ export default {
             animeDate: '1970-01-01',    //Data dodania do bazydanych
             animeLink: 'https://example.com',   //Link do odcinka
             animeState: 3,   //Status oglądania 0-Nie obejżane, 1-Oglądam, 2-Obejżane, 3-Porzucone
+            animeImg: "@/assets/img/no_img_min.jpg", //Link do obrazka
 
             //adress do aktualizacji rekordu
             updateUrl: process.env.VUE_APP_UPDATE_RECORD
@@ -175,6 +176,21 @@ export default {
 
     mounted() {
         document.addEventListener('click', this.handleClickOutside);
+
+        //Ustawianie danych
+        this.animeId = this.data.id;
+        this.animeTitle = this.data.title;
+        this.animeDate = this.data.date;
+        this.animeLink = this.data.url;
+
+
+        if(this.data.img) {
+            this.animeImg = 'data:image/jpeg;base64,' + this.data.img;
+        }
+
+
+        this.SetState(this.data.fav.status);
+        this.SetEpisode(this.data.fav.episode);
     },
 
     beforeMount() {
@@ -185,17 +201,17 @@ export default {
         SubstractEpisode(){
             if (this.epCount > 1){
                 this.epCount--;
+
+                this.ArrowSvgToggler();
+
+                this.UpdateRecord({
+                    id: this.animeId,
+                    episode: this.epCount
+                });
             }
             else {
                 this.epCount = 1;
             }
-
-            this.ArrowSvgToggler();
-
-            this.UpdateRecord({
-                id: this.animeId,
-                episode: this.epCount
-            });
 
             console.log('STATUS: ' + this.epCount);
         },
@@ -203,19 +219,24 @@ export default {
         AddEpisode(){
             if (this.epCount < 12){
                 this.epCount++;
+
+                this.ArrowSvgToggler();
+
+                this.UpdateRecord({
+                    id: this.animeId,
+                    episode: this.epCount
+                });
             }
             else {
                 this.epCount = 12;
             }
 
-            this.ArrowSvgToggler();
-
-            this.UpdateRecord({
-                id: this.animeId,
-                episode: this.epCount
-            });
-
             console.log('STATUS: ' + this.epCount);
+        },
+
+        SetEpisode(ep){
+            this.epCount = ep;
+            this.ArrowSvgToggler();
         },
 
         ArrowSvgToggler() {

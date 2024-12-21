@@ -34,58 +34,70 @@
           </tr>
         </thead>
         <tbody>
-          <DataRow id="1" />
-          <RowSeparator />
-          <DataRow id="2" />
-          <RowDescription />
-          <DataRow id="3" />
-          <DataRow id="4" />
-          <DataRow id="5" />
-          <DataRow id="6" />
-          <DataRow id="7" />
-          <DataRow id="8" />
+          <template v-for="(group, groupIndex) in anieData" :key="groupIndex">
+            <RowSeparator :grTitle="group.gtitle" />
+            <DataRow v-for="(anime, animeIndex) in group.anime" :key="animeIndex" :data="anime" />
+          </template>
         </tbody>
       </table>
     </div>
 </template>
 <script>
-//import $ from 'jquery'
+import { useAnimeStore } from '@/stores/anime';
+import { useAuterizationStore } from '@/stores/auterization';
+//import { ref } from 'vue';
+//import { defineComponent, ref } from 'vue';
 
 import DataRow from './row.vue';
-import RowDescription from './rowinfo.vue';
 import RowSeparator from './rowseparator.vue';
-
-import { useAnimeStore } from '@/stores/anime';
-//import { defineComponent, ref, onMounted } from 'vue';
+//import RowDescription from './rowinfo.vue';
 
 export default {
     name: 'DataTable',
     components: {
       DataRow,
-      RowDescription,
-      RowSeparator
+      RowSeparator,
+      //RowDescription
     },
     data() {
       return{
-        
+        anieData: []
       }
     },
 
     setup() {
       const animeStore = useAnimeStore();
+      const auterization = useAuterizationStore();
+
+      //const GetAnime = ref(animeStore.GetAnime);
+
+      //const data = ref([]);
+      //const loadRowComp = async () => {
+      //  data = await GetAnime();
+      //};
 
       return {
-        GetAnime: animeStore.GetAnime
+        GetAnime: animeStore.GetAnime,
+        isLogged: auterization.isLogged,
+      }
+    },
+    mounted() {
+      if(this.isLogged) {
+        this.LoadData();
+      }
+      else {
+        console.log('Nie jesteś zalogowany! Brak danych do załadowania');
+        this.$router.push('/login');
       }
     },
 
-    mounted() {
-      var data = this.GetAnime();
-      console.log(data);
-    },
-
     methods: {
-
+      async LoadData(){
+        var data = await this.GetAnime();
+        this.anieData = data.data;
+        console.log('PROMISE');
+        console.log(data);
+      },
     }
 }
 </script>

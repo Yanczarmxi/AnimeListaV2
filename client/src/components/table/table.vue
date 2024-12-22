@@ -65,13 +65,6 @@ export default {
       const animeStore = useAnimeStore();
       const auterization = useAuterizationStore();
 
-      //const GetAnime = ref(animeStore.GetAnime);
-
-      //const data = ref([]);
-      //const loadRowComp = async () => {
-      //  data = await GetAnime();
-      //};
-
       return {
         GetAnime: animeStore.GetAnime,
         isLogged: auterization.isLogged,

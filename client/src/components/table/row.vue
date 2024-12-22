@@ -105,7 +105,7 @@
 
     </tr>
     <template v-if="desActive">
-        <RowDescription @desRow="CloseDescryption"/>
+        <RowDescription :data="desData" @desRow="CloseDescryption"/>
     </template>
 </template>
 <script>
@@ -215,7 +215,6 @@ export default {
                 this.epCount--;
 
                 this.ArrowSvgToggler();
-
                 this.UpdateRecord({
                     id: this.animeId,
                     episode: this.epCount
@@ -233,7 +232,6 @@ export default {
                 this.epCount++;
 
                 this.ArrowSvgToggler();
-
                 this.UpdateRecord({
                     id: this.animeId,
                     episode: this.epCount
@@ -267,6 +265,7 @@ export default {
             this.stateName = this.arrName[st];
             this.stateIcon = this.arrSvgIcon[st];
             this.stateColor = this.arrSvgColor[st];
+            this.animeState = st;
         },
 
         SetStateOnMenu(st){
@@ -274,10 +273,8 @@ export default {
             this.ToggleStateMenu();
             this.UpdateRecord({
                 id: this.animeId,
-                state: st
+                status: st
             });
-
-            console.log('STATUS: ' + st);
         },
 
         //Zamknij menu
@@ -300,12 +297,17 @@ export default {
 
         async ShowDescryption(){
             //this.desActive = !this.desActive;
-            this.desData = await this.GetDescription(this.animeId);
-            if(this.desData) {
-                this.desActive = true;
+            if(!this.desActive){
+                this.desData = await this.GetDescription(this.animeId);
+                if(this.desData) {
+                    this.desActive = true;
+                }
+                else {
+                    console.log('NIE UDAŁO SIĘ POBRAĆ DANYCH DESCRIPTION :C');
+                }
             }
             else {
-                console.log('NIE UDAŁO SIĘ POBRAĆ DANYCH DESCRIPTION :C');
+                this.CloseDescryption();
             }
         },
 

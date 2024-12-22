@@ -24,6 +24,18 @@ module.exports = {
         secure: false,
         pathRewrite: { '^/anime/result': '/anime/result' },
       },
+      '/anime/description': {
+        target: serverUrl, // Adres backendu
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { '^/anime/description': '/anime/description' },
+      },
+      '/anime/update': {
+        target: serverUrl, // Adres backendu
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { '^/anime/update': '/anime/update' },
+      },
     },
   },
 };

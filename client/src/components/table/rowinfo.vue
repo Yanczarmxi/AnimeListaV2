@@ -13,7 +13,7 @@
             <div class="anime-descryption-content">
                 <div class="img-containcer">
                         <div class="m-1 d-flex justify-content-center d-flex align-items-start">
-                            <img src="./../../assets/img/no_img.jpg" alt="NO-IMG" class="rounded" width="200" height="285">
+                            <img :src="animeImg" alt="NO-IMG" class="rounded" width="200" height="285">
                         </div>
                 </div>
 
@@ -44,12 +44,17 @@ export default {
             //Główne zmienne
             animeTitle: 'Hi Animu Mommy',
             animeDescription: 'Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker',
-            animeImg: "???"
+            animeImg: require('@/assets/img/no_img.jpg'),
         }
     },
 
     mounted() {
-        
+        this.animeTitle = this.data.title;
+        this.animeDescription = this.data.description;
+
+        if(this.data.img) {
+            this.animeImg = 'data:image/jpeg;base64,' + this.data.img;
+        }
     },
 
     methods: {

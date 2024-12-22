@@ -51,7 +51,12 @@ export const useAnimeStore = defineStore('Anime', {
 
         async GetDescription(id){
             try {
-                const response = await axios.post('/anime/description', id, {withCredentials: true});
+                console.log('fn pinia id: ' + id)
+                const response = await axios.post('/anime/description', {anime_id: id}, 
+                    {withCredentials: true, 
+                    headers: {
+                    'Content-Type': 'application/json'},
+                });
                 return response.data;
             }
             catch(e){
@@ -64,8 +69,12 @@ export const useAnimeStore = defineStore('Anime', {
         async UpdateRecord(data){
             console.log('Update Record');
             try {
-                await axios.post('/anime/update', data, {withCredentials: true});
-                console.log('Zaktualizowano record');
+                if(await axios.post('/anime/update', data, {withCredentials: true})) {
+                    console.log("Zaktualizowano Status");
+                }
+                else {
+                    console.error("Nie udało się zaktualizować statusu");
+                }
             }
             catch(e){
                 console.error('ERROR UPDATE: ' + e);

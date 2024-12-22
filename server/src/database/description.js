@@ -9,7 +9,7 @@ async function GetDescription(params) {
                 an_episodes,
                 an_image
             FROM anm_animes
-            WHERE anm_id=?, anm_user=?;
+            WHERE an_id=? AND an_user=?;
         `;
 
         const [rows] = await db.query(sql, [params.id, params.user]);

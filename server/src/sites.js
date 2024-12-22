@@ -13,8 +13,8 @@ router.get('/result', async (req, res) => {
 
 router.post('/description', async (req, res) => {
   if(req.session.isLogged){
-    const GetDescription = await require('./database/description');
-    res.status(200).json(await GetDescription(req.body));
+    const GetReadyDescription = await require('./descriptin_extraction');
+    res.status(200).json(await GetReadyDescription(req));
   }
   else{
     res.json({mess: 'Brak zalogowanej sessji użytkownika'});
@@ -34,7 +34,13 @@ router.post('/delete', async (req, res) => {
 });
 
 router.post('/update', async (req, res) => {
-  
+  if(req.session.isLogged){
+    const UpdateFavState = await require('./state_update');
+    res.status(200).json(await UpdateFavState(req));
+  }
+  else{
+    res.json({mess: 'Brak zalogowanej sessji użytkownika'});
+  }
 });
 
 module.exports = router;

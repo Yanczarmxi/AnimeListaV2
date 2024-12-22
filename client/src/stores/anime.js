@@ -47,6 +47,19 @@ export const useAnimeStore = defineStore('Anime', {
             });
         },
 
+        //Pobranie opisu
+
+        async GetDescription(id){
+            try {
+                const response = await axios.post('/anime/description', id, {withCredentials: true});
+                return response.data;
+            }
+            catch(e){
+                console.error('ERROR GET DESCRIPTION: ' + e);
+                return null;
+            }
+        },
+
         //Aktualizajcja Rekordów
         async UpdateRecord(data){
             console.log('Update Record');

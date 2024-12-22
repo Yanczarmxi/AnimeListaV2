@@ -6,7 +6,7 @@ export const useAuterizationStore = defineStore('Auterization', {
         isLogged: false,
         userName: 'NotUser',
         userRegistered: '0000-00-00',
-        userAvatar: './../assets/img/user_avatar.jpg',
+        userAvatar: require('@/assets/img/user_avatar.jpg'),
 
         //failLogin
         failLogin: false,

@@ -13,7 +13,7 @@
         <td>
             <div class="title-container">
                 <div class="title-box">
-                    <strong class="anime-title">{{ animeTitle }}</strong>
+                    <strong class="anime-title" @click="ShowDescryption()">{{ animeTitle }}</strong>
                     <small class="anime-add-record-date">{{ animeDate }}</small>
                 </div>
                 <div class="link-box">
@@ -104,13 +104,21 @@
         </td>
 
     </tr>
+    <template v-if="desActive">
+        <RowDescription @desRow="CloseDescryption"/>
+    </template>
 </template>
 <script>
 import { useAnimeIndexStore } from '@/stores/moderated';
 import { useAnimeStore } from '@/stores/anime'
 
+import RowDescription from './rowinfo.vue';
+
 export default {
     name: 'DataRow',
+    components: {
+        RowDescription
+    },
     props: {
         data: Object
     },
@@ -120,6 +128,9 @@ export default {
             mainState: 2,
 
             checkActive: false,
+
+            desActive: false, //Wyświetla opis
+            desData: {},
 
             stateName: 'Planuję',
             stateIcon: '#ico-nowatch',
@@ -155,7 +166,7 @@ export default {
             animeDate: '1970-01-01',    //Data dodania do bazydanych
             animeLink: 'https://example.com',   //Link do odcinka
             animeState: 3,   //Status oglądania 0-Nie obejżane, 1-Oglądam, 2-Obejżane, 3-Porzucone
-            animeImg: "@/assets/img/no_img_min.jpg", //Link do obrazka
+            animeImg: require('@/assets/img/no_img_min.jpg'), //Link do obrazka
 
             //adress do aktualizacji rekordu
             updateUrl: process.env.VUE_APP_UPDATE_RECORD
@@ -171,6 +182,7 @@ export default {
              removeFromIndex: animeIndex.RemoveIdFromIndex,
 
              UpdateRecord: animeStore.UpdateRecord,
+             GetDescription: animeStore.GetDescription,
         };
     },
 
@@ -284,10 +296,22 @@ export default {
             else {
                 this.removeFromIndex(this.animeId);
             }
+        },
+
+        async ShowDescryption(){
+            //this.desActive = !this.desActive;
+            this.desData = await this.GetDescription(this.animeId);
+            if(this.desData) {
+                this.desActive = true;
+            }
+            else {
+                console.log('NIE UDAŁO SIĘ POBRAĆ DANYCH DESCRIPTION :C');
+            }
+        },
+
+        CloseDescryption(){
+            this.desActive = false;
         }
     }
 }
 </script>
-<style lang="">
-    
-</style>

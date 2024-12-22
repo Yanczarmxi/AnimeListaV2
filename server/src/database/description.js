@@ -1,6 +1,6 @@
 const db = require('./db');
 
-async function GetDescription(id) {
+async function GetDescription(params) {
     try {
         const sql = `
             SELECT
@@ -9,16 +9,16 @@ async function GetDescription(id) {
                 an_episodes,
                 an_image
             FROM anm_animes
-            WHERE anm_id=?;
+            WHERE anm_id=?, anm_user=?;
         `;
 
-        const [rows] = await db.query(sql, [id]);
+        const [rows] = await db.query(sql, [params.id, params.user]);
 
-        return rows;
+        return rows[0];
     }
     catch(e) {
         console.error(e);
-        return [{error: "ERROR: Nie udało się pobrać danych!"}]
+        return null;
     }
 }
 

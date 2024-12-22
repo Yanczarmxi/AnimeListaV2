@@ -45,19 +45,15 @@
 <script>
 import { useAnimeStore } from '@/stores/anime';
 import { useAuterizationStore } from '@/stores/auterization';
-//import { ref } from 'vue';
-//import { defineComponent, ref } from 'vue';
 
 import DataRow from './row.vue';
 import RowSeparator from './rowseparator.vue';
-//import RowDescription from './rowinfo.vue';
 
 export default {
     name: 'DataTable',
     components: {
       DataRow,
       RowSeparator,
-      //RowDescription
     },
     data() {
       return{

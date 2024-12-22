@@ -60,6 +60,7 @@
 .anime-title {
     font-size: 16pt;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .anime-add-record-date {

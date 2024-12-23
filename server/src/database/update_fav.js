@@ -26,26 +26,19 @@ async function UpdateFavorite(params) {
             params.anime]);
 
         if(updateRequest.affectedRows === 0) {
-            const sql = `
+            const sql_insert = `
                 INSERT INTO anm_favorites (fv_user, fv_anime, fv_episode, fv_state)
-                SELECT ?, ?, 
-                       COALESCE(?, DEFAULT(fv_episode)), 
-                       COALESCE(?, DEFAULT(fv_state))
-                WHERE NOT EXISTS (
-                    SELECT 1
-                    FROM anm_favorites
-                    WHERE fv_user = ?
-                      AND fv_anime = ?
-                );
+                VALUES (?, ?, 
+                    COALESCE(?, DEFAULT(fv_episode)), 
+                    COALESCE(?, DEFAULT(fv_state)));
             `;
 
-            await db.query(sql, [params.user, 
+            await db.query(sql_insert, [
                 params.user, 
                 params.anime, 
                 params.episode, 
                 params.status, 
-                params.user,
-                params.anime]);
+            ]);
         }
 
         return true;

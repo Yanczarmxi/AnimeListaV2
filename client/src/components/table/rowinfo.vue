@@ -56,6 +56,7 @@ export default {
             this.animeImg = 'data:image/jpeg;base64,' + this.data.img;
         }
     },
+    
 
     methods: {
         ClosteRowInfo(){

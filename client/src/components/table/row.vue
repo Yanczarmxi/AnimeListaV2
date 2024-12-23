@@ -105,7 +105,7 @@
 
     </tr>
     <template v-if="desActive">
-        <RowDescription :data="desData" @desRow="CloseDescryption"/>
+        <RowDescription :data="desData" @desRow.once="CloseDescryption"/>
     </template>
 </template>
 <script>

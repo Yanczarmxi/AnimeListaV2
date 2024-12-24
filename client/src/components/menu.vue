@@ -45,7 +45,7 @@
                 </div>
             </div>
 
-            <button class="btn btn-danger user-bt-logout">
+            <button class="btn btn-danger user-bt-logout" @click="LogoutUser">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-logout"/>
                 </svg>
@@ -105,14 +105,17 @@ export default {
         userName,
         userAvatar,
         
+        LogoutUser: auterization.LogoutUser,
     };
   },
 
   methods: {
-
+    async LogoutProcess() {
+        const res = await this.LogoutUser();
+        if(res){
+            this.$router.push('/login');
+        } 
+    }
   }
 }
 </script>
-<style lang="">
-    
-</style>

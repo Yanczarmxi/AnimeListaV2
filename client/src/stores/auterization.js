@@ -83,8 +83,26 @@ export const useAuterizationStore = defineStore('Auterization', {
             }
         },
 
-        async LogOutUser(){
-            console.log("WYLOGOWANIE");
+        async LogoutUser(){
+            try {
+                const response = await axios.post('/user/logout', {withCredentials: true});
+                
+                if(response.data.success) {
+                    this.isLogged = false;
+                    this.userName = 'NotUser';
+                    this.userRegistered = '0000-00-00';
+                    this.userAvatar = require('@/assets/img/user_avatar.jpg');
+
+                    return true;
+                }
+
+                return false;
+            }
+            catch(e){
+                console.error('Błąd podczas wylogowywania:', e);
+                alert('Nie udało się wylogować.');
+                return false;
+            }
         }
     },
 

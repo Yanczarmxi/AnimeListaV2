@@ -73,6 +73,18 @@ router.get('/checksession', (req, res) => {
         res.status(200).json({mess: 'Brak aktywnej sessji', isLogged: false});
     }
 });
+
+router.post('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+          console.error(err);
+          return res.status(500).send({ success: false, message: 'Wylogowanie nie powiodło się.' });
+        }
+        res.clearCookie('connect.sid'); // Usunięcie ciasteczka sesji
+        res.send({ success: true, message: 'Wylogowano pomyślnie.' });
+    });
+});
+
 module.exports = router;
 
 

@@ -1,14 +1,23 @@
-//const GetDescription = require('./database/description');
 const AnimeRepository = require('./database/AnimeRepository');
 
-async function GetReadyDescription(req) {
-    var {anime_id} = req.body;
+async function GetReadyDescription(req, res) {
+    if(!req.session.isLogged) {
+        console.error('DESCRYPTION ERROR: Urzytkownik nie jest zalogowany');
+        return res.status(401).json(null);
+    }
 
-    //const des = await GetDescription({id: anime_id, user: req.session.user_id});
+    const {anime_id} = req.body;
+
+    if(isNaN(anime_id)) {
+        console.error('DESCRYPTION ERROR: Błędne dane wejściowe');
+        return res.status(400).json(null);
+    }
+
     const des = await AnimeRepository.GetDescription(anime_id, req.session.user_id);
 
     if(!des) {
-        return null;
+        console.error('DESCRYPTION ERROR: Nie pobrano danych z DB')
+        return res.status(500).json(null);
     }
 
     var img = des.an_image ? Buffer.from(des.an_image).toString('base64') : null;
@@ -20,7 +29,7 @@ async function GetReadyDescription(req) {
         img: img
     };
     
-    return result;
+    res.status(200).json(result);
 }
 
 module.exports = GetReadyDescription;

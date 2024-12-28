@@ -72,9 +72,9 @@ function SearchAnimeIndex(animes){
     return tmp;
 }
 
-async function GetAnimesSerialized(req) {
+async function GetAnimesSerialized(req, res) {
     if(!req.session.user_id){
-        return {mess: 'Brak zalogowanej sessji używkownika'}
+        return res.status(401).json({mess: 'Brak zalogowanej sessji używkownika'});
     }
 
     const groups = await groupsRepo.Get(req.session.user_id);
@@ -87,7 +87,7 @@ async function GetAnimesSerialized(req) {
         groups:     groups
     };
 
-    return data;
+    res.status(200).json(data);
 }
 
 module.exports = GetAnimesSerialized;

@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 //osobne pliki
-const GetAnime = require('./extraction');
-const GetReadyDescription = require('./descriptin_extraction');
+const GetAnime = require('./anime/extraction');
+const GetReadyDescription = require('./anime/descryption');
+const UpdateState = require('./anime/state_update');
+const { Update } = require('./database/AnimeRepository');
 
 //Routing
 router.get('/result', GetAnime); //Pobieranie anime
@@ -21,14 +23,6 @@ router.post('/delete', async (req, res) => {
 
 });
 
-router.post('/update', async (req, res) => {
-  if(req.session.isLogged){
-    const UpdateFavState = await require('./state_update');
-    res.status(200).json(await UpdateFavState(req));
-  }
-  else{
-    res.json({mess: 'Brak zalogowanej sessji użytkownika'});
-  }
-});
+router.post('/update', UpdateState);
 
 module.exports = router;

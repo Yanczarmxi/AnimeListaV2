@@ -1,4 +1,4 @@
-const AnimeRepository = require('./database/AnimeRepository');
+const AnimeRepository = require('../database/AnimeRepository');
 
 async function GetReadyDescription(req, res) {
     if(!req.session.isLogged) {
@@ -20,9 +20,9 @@ async function GetReadyDescription(req, res) {
         return res.status(500).json(null);
     }
 
-    var img = des.an_image ? Buffer.from(des.an_image).toString('base64') : null;
+    const img = des.an_image ? Buffer.from(des.an_image).toString('base64') : null;
 
-    var result = {
+    const result = {
         title: des.an_title,
         episodes: des.an_episodes,
         description: des.an_description,

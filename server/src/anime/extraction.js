@@ -1,5 +1,5 @@
-const animeRepo = require('./database/AnimeRepository');
-const groupsRepo = require('./database/GroupRepository');
+const animeRepo = require('../database/AnimeRepository');
+const groupsRepo = require('../database/GroupRepository');
 
 function SegregatedAnimeToGroup(groups, animes){
     var data = [];

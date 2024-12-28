@@ -271,6 +271,7 @@ export default {
         SetStateOnMenu(st){
             this.SetState(st);
             this.ToggleStateMenu();
+            console.log('STATUS: ' + st);
             this.UpdateRecord({
                 id: this.animeId,
                 status: st

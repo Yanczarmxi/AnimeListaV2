@@ -4,6 +4,8 @@ const ValidLogin = require('./database/valid');
 const GetUserData = require('./database/user');
 const jwt = require('jsonwebtoken');
 
+const userRepo = require('./database/UserRepository');
+
 router.post('/valid', async (req, res) => {
     try {
         const {email, password, remember} = req.body;

@@ -1,7 +1,10 @@
-const db = require('./db');
+//const db = require('./db');
+const db = require('./db2');
 
 async function GetDescription(params) {
     try {
+        const dbc = db.getConnection();
+
         const sql = `
             SELECT
                 an_title,
@@ -12,7 +15,7 @@ async function GetDescription(params) {
             WHERE an_id=? AND an_user=?;
         `;
 
-        const [rows] = await db.query(sql, [params.id, params.user]);
+        const [rows] = await dbc.query(sql, [params.id, params.user]);
 
         return rows[0];
     }

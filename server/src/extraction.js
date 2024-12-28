@@ -1,5 +1,5 @@
-const GetAnimes = require('./database/anime')
-const GetGroups = require('./database/groups');
+const animeRepo = require('./database/AnimeRepository');
+const groupsRepo = require('./database/GroupRepository');
 
 function SegregatedAnimeToGroup(groups, animes){
     var data = [];
@@ -77,8 +77,8 @@ async function GetAnimesSerialized(req) {
         return {mess: 'Brak zalogowanej sessji używkownika'}
     }
 
-    const groups = await GetGroups(req.session.user_id);
-    const animes = await GetAnimes(req.session.user_id);
+    const groups = await groupsRepo.Get(req.session.user_id);
+    const animes = await animeRepo.GetAll(req.session.user_id);
 
     const data = {
         segregated: SegregatedAnimeToGroup(groups, animes),

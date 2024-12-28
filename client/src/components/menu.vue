@@ -113,8 +113,12 @@ export default {
     async LogoutProcess() {
         const res = await this.LogoutUser();
         if(res){
+            console.log("TEST WYLOGOWANIA");
             this.$router.push('/login');
-        } 
+        }
+        else {
+            console.log("TEST NIE WYSZEDŁ");
+        }
     }
   }
 }

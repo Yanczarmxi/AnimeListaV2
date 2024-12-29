@@ -4,7 +4,7 @@ const router = express.Router();
 //osobne pliki
 const GetAnime = require('./anime/extraction');
 const GetReadyDescription = require('./anime/descryption');
-const UpdateState = require('./anime/state_update');
+const UpdateState = require('./anime/UpdateState');
 
 //Routing
 router.get('/result', GetAnime); //Pobieranie anime

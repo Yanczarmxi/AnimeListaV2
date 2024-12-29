@@ -16,7 +16,7 @@ Backend:
 - cord
 - dotenv
 - bcryptjs
-- DOMPurify
+- validator.js
 
 Frontend:
 - vue.js

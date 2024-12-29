@@ -1,60 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const ValidLogin = require('./database/valid');
-const GetUserData = require('./database/user');
-const jwt = require('jsonwebtoken');
 
-router.post('/valid', async (req, res) => {
-    try {
-        const {email, password, remember} = req.body;
+//Funkcje zarządzania użytkownikiem
+const LoginProcess= require('./user/login');
 
-        console.log(email + ' - ' + password + ' - ' + remember);
-
-        if(!email && !password && !remember) {
-            return res.status(200).json({
-                mess: 'Żądanie jest puste',
-                isLogged: false
-            });
-        }
-
-        const validData = await ValidLogin(email, password);
-
-        if(!validData.valid) {
-            return res.status(200).json({
-                mess: 'Nieprawidłowe dane logowania',
-                isLogged: false
-            });
-        }
-
-        const userData = await GetUserData(validData.id);
-
-        const token = jwt.sign(
-            {id: validData.id, email: email},
-            process.env.EX_KEY,
-            { expiresIn: '1h' }
-        );
-
-        req.session.isLogged = validData.valid;
-        req.session.user_id = validData.id;
-        req.session.user_name = userData.name;
-        req.session.user_regdate = userData.regdate;
-        req.session.user_avatar =  userData.avatar;
-
-        res.status(200).json({ 
-            mess: 'Zalogowano pomyślnie', 
-            isLogged: req.session.isLogged,
-            token: token, 
-            user: req.session.user_name,
-            regdate: req.session.user_regdate,
-            avatar: req.session.user_avatar
-        });
-    }
-    catch(e) {
-        console.error(e);
-        res.status(500).send({mess: 'Błąd 500: Błąd wewnętrzny', isLogged: false});
-    }
-});
-
+router.post('/valid', LoginProcess);
 router.get('/checksession', (req, res) => {
     try {
         res.status(200).json({ 
@@ -86,12 +36,3 @@ router.post('/logout', (req, res) => {
 });
 
 module.exports = router;
-
-
-/*
-- Znajdź urzytkownika w bazie danych na podstawie nickname
-- Jak występuje pobierz hash passwod
-- Sprawdź podane hasło z hashem
-- Potwierdzenie zgodności wydaje trigger przenoszący do dashboard
-- Negawywne odrzuca zwracając komunikat o błędzie
-*/

@@ -6,14 +6,14 @@ async function LoginProcess(req, res) {
     try {
         const {email, password, remember} = req.body;
 
-        if(validator.isEmail(email) && !password || typeof remember != 'boolean') {
+        if(!validator.isEmail(email) && !password || typeof remember != 'boolean') {
             console.error('Process logowania: Nie prawidłowe dane logowania');
             return res.status(400).json({
                 isLogged: false
             });
         }
 
-        const valid = await userRepo.Valid(emailClean, passwordClean);
+        const valid = await userRepo.Valid(email, password);
         if(!valid) {
             console.error('Process logowania: Nie prawidłowe dane logowania');
             return res.status(401).json({
@@ -21,19 +21,24 @@ async function LoginProcess(req, res) {
             });
         }
 
-        const userData = await userRepo.GetForEmail(emailClean);
+        const userData = await userRepo.GetForEmail(email);
+
+        if(!userData) {
+            console.error('Process logowania: Błąd pobierania danych');
+            return res.status(500).json({ isLogged: false });
+        }
 
         if (!process.env.EX_KEY) {
             console.error('Process logowania: Brak klucza JWT');
             return res.status(500).json({ isLogged: false });
         }
-
+        
         const token = jwt.sign(
-                    {id: validData.id, email: emailClean},
+                    {id: userData.id, email: email},
                     process.env.EX_KEY,
                     { expiresIn: '1h' }
                 );
-
+  
         req.session.isLogged = true;
         req.session.user_id = userData.id;
         req.session.user_name = userData.name;

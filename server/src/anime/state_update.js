@@ -13,11 +13,10 @@ async function UpdateFavState(req, res) {
         return res.status(400).json({mess: 'Niepoprawne dane'});
     }
 
-    var anm = id;
     var ep = episode !== undefined ? episode : null;
     var st = status !== undefined ? status : null;
 
-    var update = await faviriteRepo.Set(ep, st, anm, req.session.user_id);
+    var update = await faviriteRepo.Set(ep, st, id, req.session.user_id);
     res.status(200).json({mess: 'State update'});
 }
 

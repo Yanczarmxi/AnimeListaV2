@@ -8,3 +8,15 @@ async function RecordLog() {
       console.log(err);
     }
 }
+
+class LogsCapture {
+  constructor() {
+    this.fs = fs;
+  }
+
+  async SaveLog(prefix, sufix, description) {
+    
+  }
+}
+
+module.exports = new LogsCapture();

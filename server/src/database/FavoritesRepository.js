@@ -1,4 +1,4 @@
-const db = require('./db2');
+const db = require('./DataBaseConnection');
 
 class FavoritesRepository {
     constructor() {

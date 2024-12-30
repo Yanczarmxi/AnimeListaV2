@@ -1,6 +1,5 @@
 <template lang="html">
     <SvgIconSet />
-    <ModalWindow />
     <!-- Menu Główne -->
     <nav class="navbar navbar-dark bg-dark nav-menu d-flex flex-row align-content-center align-items-center">
         <div class="logo-container p-2 bd-highlight">
@@ -8,7 +7,7 @@
         </div>
 
         <div class="bt-set-container d-flex flex-row justicy-content-start align-items-center p-2 bd-highlight">
-            <button class="btn btn-primary bt-nav-fnc" data-bs-toggle="modal" data-bs-target="#modal-window">
+            <button class="btn btn-primary bt-nav-fnc" @click="ShowModalAddWindow">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-add-record"/>
                 </svg>
@@ -53,6 +52,7 @@
 
         </div>
     </nav>
+    <ModalAddWindow v-if="modalAddVisible" />
 </template>
 <script>
 import SvgIconSet from './iconset.vue';
@@ -60,13 +60,23 @@ import { useAnimeIndexStore } from '@/stores/moderated';
 import { useAuterizationStore } from '@/stores/auterization';
 import { ref, watch } from 'vue';
 
-import ModalWindow from './modal.vue';
+import ModalAddWindow from './modals/add.vue';
 
 export default {
     name: 'ManuNav',
     components: {
         SvgIconSet,
-        ModalWindow
+        ModalAddWindow,
+  },
+
+  data() {
+    return {
+        //Modale
+        modalAddVisible: false,
+        modalAddGroupVisible: false,
+        modalEditVisible: false,
+        modalDeleteVisible: false,
+    }
   },
 
   setup() {
@@ -119,6 +129,15 @@ export default {
         else {
             console.log("TEST NIE WYSZEDŁ");
         }
+    },
+
+    ShowModalAddWindow() {
+        this.modalAddVisible = true;
+        console.log(this.modalAddVisible);
+    },
+
+    HiddeModalAddWindow() {
+        this.modalAddVisible = false;
     }
   }
 }

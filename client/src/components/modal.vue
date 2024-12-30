@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <p>Modal body text goes here.</p>
+                <AddModal />
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
@@ -18,8 +18,16 @@
         </div>
 </template>
 <script>
+import AddModal from '@/components/modals/add.vue';
+
 export default {
-    name: 'ModalWindow'
+    name: 'ModalWindow',
+    props: {
+      modalType: String
+    },
+    components: {
+      AddModal
+    }
 }
 </script>
 <style lang="css">

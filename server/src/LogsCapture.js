@@ -3,7 +3,7 @@ const dt = require('./DateTime');
 
 class LogsCapture {
   constructor() {
-    this.path = '@/log/log.txt'; //Ścieżka do pliku log
+    this.path = '@/logs.log'; //Ścieżka do pliku log
 
     this.fs = fs;
     this.dt = dt;

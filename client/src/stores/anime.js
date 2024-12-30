@@ -69,7 +69,7 @@ export const useAnimeStore = defineStore('Anime', {
         async UpdateRecord(data){
             console.log('Update Record');
             try {
-                if(await axios.post('/anime/update', data, {withCredentials: true})) {
+                if(await axios.put('/anime/update', data, {withCredentials: true})) {
                     console.log("Zaktualizowano Status");
                 }
                 else {

@@ -44,8 +44,6 @@ class UserRepository {
                 avatar: avBlob ? avBlob.toString('base64') : null
             }
 
-            console.log(user);
-
             return user;
         }
         catch(e) {

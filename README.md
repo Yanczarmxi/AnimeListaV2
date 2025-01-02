@@ -17,6 +17,8 @@ Backend:
 - dotenv
 - bcryptjs
 - validator.js
+- multer
+- uuid
 
 Frontend:
 - vue.js

@@ -52,7 +52,7 @@
 
         </div>
     </nav>
-    <ModalAddWindow v-if="modalAddVisible" />
+    <ModalAddWindow v-if="modalAddVisible" @closeModal="HiddeModalAddWindow"/>
 </template>
 <script>
 import SvgIconSet from './iconset.vue';
@@ -138,6 +138,7 @@ export default {
 
     HiddeModalAddWindow() {
         this.modalAddVisible = false;
+        console.log(this.modalAddVisible);
     }
   }
 }

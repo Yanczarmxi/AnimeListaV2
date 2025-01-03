@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="sl-menu-container">
-        <div class="sl-active-content sl-border-radius-all" @click="ShowMenuToggle">
+        <div class="sl-active-content sl-border-radius-all" @click="ShowMenuToggle" ref="rfStateMenu">
             <div class="sl-text-active-content">HI MOM!</div>
             <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
               <use xlink:href="#ico-down"/>
@@ -52,17 +52,35 @@ export default {
     data() {
         return {
             menuVisible: false,
+            svgIconAr: ['#ico-down', '#ico-up'],
+            svgIcon: '#ico-down',
         }
+    },
+
+    mounted() {
+        document.addEventListener('click', this.CloseMenu);
+    },
+
+    beforeMount() {
+        document.removeEventListener('click', this.CloseMenu);
     },
 
     methods: {
         ShowMenuToggle() {
             this.menuVisible = !this.menuVisible;
+            this.svgIcon = this.svgIconAr[this.menuVisible];
+        },
+
+        CloseMenu() {
+            if(this.menuVisible && this.$refs.rfStateMenu && !this.$refs.rfStateMenu)
+            this.menuVisible = false;
+            this.svgIcon = this.svgIconAr[this.menuVisible];
         },
 
         SetMenuContent(id) {
             console.log(id);
             this.menuVisible = false;
+            this.svgIcon = this.svgIconAr[this.menuVisible];
         },
     }
 }

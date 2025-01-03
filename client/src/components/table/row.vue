@@ -206,7 +206,7 @@ export default {
     },
 
     beforeMount() {
-        document.removeEventListener('click', this.handleClickOutside)
+        document.removeEventListener('click', this.handleClickOutside);
     },
 
     methods: {

@@ -171,6 +171,7 @@ input:focus {
 
 .md-select-group-menu {
   width: 320px;
+  max-width: 320px;
 }
 
 .md-ep-x-gr-box {

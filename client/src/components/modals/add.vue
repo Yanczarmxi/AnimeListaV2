@@ -14,14 +14,25 @@
           <div class="img-md-box"></div>
           <div class="content-md-box">
             <div class="md-data-box">
-              <input type="text" class="lb-style lb-title m-1" id="exampleInputEmail1"><br>
+              
+              <input type="text" class="lb-style lb-title m-1" id="exampleInputEmail1">
+              
               <div class="md-ep-x-gr-box">
               <input type="number" class="lb-style lb-episodes m-1" id="exampleInputEmail1" pattern="\d*" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
               <select class="md-select-group-menu">
                 <option value=null>Pozostałe</option>
-
+                <option v-for="option in groups" :key="option.gr_id" :value="option.gr_id">
+                  {{ option.gr_title }}
+                </option>
               </select>
             </div>
+
+            <input type="text" class="lb-style lb-title m-1" id="exampleInputEmail1">
+
+            <textarea id="w3review" name="w3review" rows="4" cols="50">
+              At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
+            </textarea>
+
             </div>
           </div>
         </div>
@@ -46,13 +57,20 @@ export default {
         episodes: 0,
         url: "",
         description: "",
+
+        //SAMLE
+        options: [
+          { gid: 1, gtitle: "Opcja 1" },
+          { gid: 2, gtitle: "Opcja 2" },
+          { gid: 3, gtitle: "Opcja 3" },
+        ],
       }
     },
     setup() {
       const animeStore = useAnimeStore();
 
       return {
-        groups: animeStore.group;
+        groups: animeStore.group
       }
     },
     methods: {

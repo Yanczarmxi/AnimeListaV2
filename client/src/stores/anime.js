@@ -19,7 +19,7 @@ export const useAnimeStore = defineStore('Anime', {
                 this.PrepareAnimeData(response.data.segregated, response.data.others);
 
                 this.search = response.data.search;
-                this.group = response.data.group;
+                this.group = response.data.groups;
                 this.isLoaded = true;
 
                 console.log(this.group);

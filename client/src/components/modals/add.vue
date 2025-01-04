@@ -29,7 +29,7 @@
 
             <input type="text" class="lb-style lb-title m-1" id="exampleInputEmail1">
 
-            <textarea id="w3review" name="w3review" rows="4" cols="50">
+            <textarea class="md-description-textbox">
               At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
             </textarea>
 
@@ -141,7 +141,7 @@ export default {
   flex-direction: row;
   align-items: center;
   min-height: 200px;
-  height: 400px;
+  height: 600px;
   width: 100%;
 }
 
@@ -210,6 +210,17 @@ input:focus {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+}
+
+.md-description-textbox {
+  width: 100%;
+  height: 320px;
+  background-color: var(--bg-dark-color);
+  color: #fff;
+  border: 0;
+  border-radius: 8px 8px 8px 8px;
+  padding: 8px;
+  resize: none;
 }
 
 /* Ukrywanie strzałek w Chrome, Edge i Safari */

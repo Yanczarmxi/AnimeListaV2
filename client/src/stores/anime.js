@@ -22,6 +22,8 @@ export const useAnimeStore = defineStore('Anime', {
                 this.group = response.data.group;
                 this.isLoaded = true;
 
+                console.log(this.group);
+
                 return {
                     isLoaded: this.isLoaded,
                     data: this.animedata,

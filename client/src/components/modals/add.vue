@@ -17,7 +17,10 @@
               <input type="text" class="lb-style lb-title m-1" id="exampleInputEmail1"><br>
               <div class="md-ep-x-gr-box">
               <input type="number" class="lb-style lb-episodes m-1" id="exampleInputEmail1" pattern="\d*" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-              <SelectorMenu class="md-select-group-menu"/>
+              <select class="md-select-group-menu">
+                <option value=null>Pozostałe</option>
+
+              </select>
             </div>
             </div>
           </div>
@@ -31,13 +34,10 @@
     </div>
 </template>
 <script>
-import SelectorMenu from '@/components/ui/select.vue';
+import { useAnimeStore } from '@/stores/anime';
 
 export default {
     name: 'ModalAddWindow',
-    components: {
-      SelectorMenu
-    },
     data() {
       return {
         //Dane animu do przesłania
@@ -46,6 +46,13 @@ export default {
         episodes: 0,
         url: "",
         description: "",
+      }
+    },
+    setup() {
+      const animeStore = useAnimeStore();
+
+      return {
+        groups: animeStore.group;
       }
     },
     methods: {
@@ -172,6 +179,11 @@ input:focus {
 .md-select-group-menu {
   width: 320px;
   max-width: 320px;
+  padding: 12px;
+  background-color: var(--bg-dark-color);
+  border: 0;
+  border-radius: 8px 8px 8px 8px;
+  color: #fff;
 }
 
 .md-ep-x-gr-box {

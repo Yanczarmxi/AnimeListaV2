@@ -11,7 +11,10 @@
         </div>
 
         <div class="md-body-content d-flex align-items-stretch p-4">
-          <div class="img-md-box"></div>
+          <div class="img-md-box">
+            <img src="../../assets/img/no_img.jpg" alt="">
+            <input type="url" class="md-img-url lb-style">
+          </div>
           <div class="content-md-box">
             <div class="md-data-box">
               
@@ -221,6 +224,10 @@ input:focus {
   border-radius: 8px 8px 8px 8px;
   padding: 8px;
   resize: none;
+}
+
+.md-img-url {
+  margin-top: 16px;
 }
 
 /* Ukrywanie strzałek w Chrome, Edge i Safari */

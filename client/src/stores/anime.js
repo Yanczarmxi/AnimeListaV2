@@ -82,6 +82,21 @@ export const useAnimeStore = defineStore('Anime', {
                 console.error('ERROR UPDATE: ' + e);
             }
             
+        },
+
+        //Przesyłanie grafiki na server
+        async UploadImage(data) {
+            try {
+                const response = await axios.post('/anime/addimg', data, {withCredentials: true});
+                if(!response) {
+                    return null;
+                }
+                return response;
+            }
+            catch(e) {
+                console.error('ERROR IMAGE UPLOAD: ' + e);
+                return null;
+            }
         }
     },
 });

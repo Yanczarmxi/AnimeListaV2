@@ -24,4 +24,8 @@ router.delete('/delete', async (req, res) => {
 
 router.put('/update', UpdateState);
 
+//Przesyłanie obrazu i czyszczenie rekordu obrazu
+router.post('/addimg', async (req, res) => {});
+router.delete('/delimg', async (req, res) => {});
+
 module.exports = router;

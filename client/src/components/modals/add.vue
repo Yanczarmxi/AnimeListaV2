@@ -12,29 +12,54 @@
 
         <div class="md-body-content d-flex align-items-stretch p-4">
           <div class="img-md-box">
-            <img src="../../assets/img/no_img.jpg" alt="">
-            <input type="url" class="md-img-url lb-style">
+            <div class="img-file-upload-box">
+              <label for="img-input-form">
+                <div class=""></div>
+                <img src="../../assets/img/no_img.jpg" alt="" v-if="false">
+              </label>
+              <input type="file" id="img-input-form" onchange="displayFileName(this)" style="display: none;">
+            </div>
+
+            <div class="md-form-box">
+              <label for="img-url">Link</label>
+              <input type="url" class="lb-style" id="img-url">
+            </div>
+            <button class="btn btn-danger" style="width: 128px; margin-top: 8px;">Skasuj obraz</button>
           </div>
           <div class="content-md-box">
             <div class="md-data-box">
               
-              <input type="text" class="lb-style lb-title m-1" id="exampleInputEmail1">
+              <div class="md-form-box">
+                <label for="inp-title">Tytuł</label>
+                <input type="text" class="lb-style lb-title m-1" id="inp-title">
+              </div>
               
               <div class="md-ep-x-gr-box">
-              <input type="number" class="lb-style lb-episodes m-1" id="exampleInputEmail1" pattern="\d*" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-              <select class="md-select-group-menu">
-                <option value=null>Pozostałe</option>
-                <option v-for="option in groups" :key="option.gr_id" :value="option.gr_id">
-                  {{ option.gr_title }}
-                </option>
-              </select>
+                <div class="md-form-box">
+                  <label for="inp-episodes">Odcinki</label>
+                  <input type="number" class="lb-style lb-episodes m-1" id="inp-episodes" pattern="\d*" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                </div>
+                
+                <div class="md-form-box">
+                  <label for="slc-group">Grupa</label>
+                  <select class="md-select-group-menu" id="slc-group">
+                    <option value=null>Pozostałe</option>
+                    <option v-for="option in groups" :key="option.gr_id" :value="option.gr_id">
+                      {{ option.gr_title }}
+                    </option>
+                  </select>
+                </div>
             </div>
 
-            <input type="text" class="lb-style lb-title m-1" id="exampleInputEmail1">
+            <div class="md-form-box">
+              <label for="inp-url">Link</label>
+              <input type="text" class="lb-style lb-title m-1" id="inp-url">
+            </div>
 
-            <textarea class="md-description-textbox">
-              At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
-            </textarea>
+            <div class="md-form-box">
+              <label for="txa-description">Opis</label>
+              <textarea class="md-description-textbox" id="txa-description"></textarea>
+            </div>
 
             </div>
           </div>
@@ -165,6 +190,11 @@ export default {
 
 .img-md-box {
   width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 480px;
 }
 
 .content-md-box {
@@ -194,7 +224,7 @@ input:focus {
 }
 
 .lb-episodes {
-  width: 64px;
+  width: 96px;
 }
 
 .md-select-group-menu {
@@ -217,7 +247,7 @@ input:focus {
 
 .md-description-textbox {
   width: 100%;
-  height: 320px;
+  height: 200px;
   background-color: var(--bg-dark-color);
   color: #fff;
   border: 0;
@@ -226,8 +256,23 @@ input:focus {
   resize: none;
 }
 
+.md-description-textbox:focus {
+  border: none;
+  outline: none;
+}
+
+.md-form-box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
 .md-img-url {
   margin-top: 16px;
+}
+
+.img-file-upload-box {
+  margin-bottom: 16px;
 }
 
 /* Ukrywanie strzałek w Chrome, Edge i Safari */

@@ -1,6 +1,7 @@
 const userRepo = require('../database/UserRepository');
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
+const crypto = require('crypto');
 
 async function LoginProcess(req, res) {
     try {
@@ -44,6 +45,8 @@ async function LoginProcess(req, res) {
         req.session.user_name = userData.name;
         req.session.user_regdate = userData.regdate;
         req.session.user_avatar =  userData.avatar;
+        req.session.user_hash = crypto.createHash('sha256').update(
+            userData.name + userData.id + userData.regdate).digest('hex');
 
         const data = {
             isLogged: req.session.isLogged,

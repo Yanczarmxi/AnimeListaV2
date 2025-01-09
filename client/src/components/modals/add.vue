@@ -13,8 +13,13 @@
         <div class="md-body-content d-flex align-items-stretch p-4">
           <div class="img-md-box">
             <div class="img-file-upload-box">
-              <label for="img-input-form">
-                <div class=""></div>
+              <label for="img-input-form" style="cursor: pointer;">
+                <div class="img-placeholder">
+                  <img src="../../assets/img/upload_img.svg" width="64" height="64" v-if="false">
+                  <p style=" user-select: none;" v-if="false">Załaduj obraz</p>
+
+                  <img src="../../assets/img/fail_img.svg" width="64" height="64" v-if="true">
+                </div>
                 <img src="../../assets/img/no_img.jpg" alt="" v-if="false">
               </label>
               <input type="file" id="img-input-form" onchange="displayFileName(this)" style="display: none;">
@@ -273,6 +278,19 @@ input:focus {
 
 .img-file-upload-box {
   margin-bottom: 16px;
+}
+
+.img-placeholder {
+  background-color: var(--bg-dark-color);
+  color: #fff;
+  width: 200px;
+  height: 285px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border-radius: 8px 8px 8px 8px;
 }
 
 /* Ukrywanie strzałek w Chrome, Edge i Safari */

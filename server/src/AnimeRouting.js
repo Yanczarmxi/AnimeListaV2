@@ -6,6 +6,9 @@ const GetAnime = require('./anime/extraction');
 const GetReadyDescription = require('./anime/descryption');
 const UpdateState = require('./anime/UpdateState');
 
+//img
+const UploadImage = require('./image/upload');
+
 //Routing
 router.get('/result', GetAnime); //Pobieranie anime
 router.post('/description', GetReadyDescription); //Pobieranie opisu
@@ -25,7 +28,7 @@ router.delete('/delete', async (req, res) => {
 router.put('/update', UpdateState);
 
 //Przesyłanie obrazu i czyszczenie rekordu obrazu
-router.post('/addimg', async (req, res) => {});
+router.post('/addimg', UploadImage);
 router.delete('/delimg', async (req, res) => {});
 
 module.exports = router;

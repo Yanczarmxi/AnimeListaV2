@@ -22,7 +22,7 @@
                 </div>
                 <img src="../../assets/img/no_img.jpg" alt="" v-if="false">
               </label>
-              <input type="file" id="img-input-form" onchange="displayFileName(this)" style="display: none;">
+              <input type="file" @change="handleFileUpload" id="img-input-form" onchange="displayFileName(this)" style="display: none;" accept="image/*">
             </div>
 
             <div class="md-form-box">
@@ -91,6 +91,10 @@ export default {
         url: "",
         description: "",
 
+        //UPLOAD
+        uploading: false,
+        error: null,
+
         //SAMLE
         options: [
           { gid: 1, gtitle: "Opcja 1" },
@@ -109,6 +113,33 @@ export default {
     methods: {
       CloseModal() {
         this.$emit('closeModal');
+      },
+
+      async handleFileUpload(event) {
+        const file = event.target.files[0];
+
+        if (!file) {
+          this.error = "No file selected.";
+          return;
+        }
+
+        this.uploading = true;
+        this.error = null;
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+          const response = await axios.post("/anime/addimg", formData);
+          console.log("Upload successful:", response.data);
+        }
+        catch (err) {
+          this.error = err.message;
+          console.error("Error uploading file:", err);
+        }
+        finally {
+          this.uploading = false;
+        }
       }
     }
 }

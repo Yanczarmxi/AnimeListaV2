@@ -22,7 +22,7 @@
                 </div>
                 <img src="../../assets/img/no_img.jpg" alt="" v-if="false">
               </label>
-              <input type="file" @change="handleFileUpload" id="img-input-form" onchange="displayFileName(this)" style="display: none;" accept="image/*">
+              <input type="file" @change="HandleFileUpload" id="img-input-form" style="display: none;" accept="image/*">
             </div>
 
             <div class="md-form-box">
@@ -93,7 +93,6 @@ export default {
 
         //UPLOAD
         uploading: false,
-        error: null,
 
         //SAMLE
         options: [
@@ -107,7 +106,8 @@ export default {
       const animeStore = useAnimeStore();
 
       return {
-        groups: animeStore.group
+        groups: animeStore.group,
+        UploadImage: animeStore.UploadImage,
       }
     },
     methods: {
@@ -115,7 +115,7 @@ export default {
         this.$emit('closeModal');
       },
 
-      async handleFileUpload(event) {
+      async HandleFileUpload(event) {
         const file = event.target.files[0];
 
         if (!file) {
@@ -124,22 +124,26 @@ export default {
         }
 
         this.uploading = true;
-        this.error = null;
 
         const formData = new FormData();
         formData.append("file", file);
 
-        try {
-          const response = await axios.post("/anime/addimg", formData);
-          console.log("Upload successful:", response.data);
-        }
-        catch (err) {
-          this.error = err.message;
-          console.error("Error uploading file:", err);
-        }
-        finally {
-          this.uploading = false;
-        }
+        const response = this.UploadImage(formData);
+        console.log(response);
+
+        this.uploading = false;
+
+        //try {
+        //  const response = await axios.post("/anime/addimg", formData);
+        //  console.log("Upload successful:", response.data);
+        //}
+        //catch (err) {
+        //  this.error = err.message;
+        //  console.error("Error uploading file:", err);
+        //}
+        //finally {
+        //  this.uploading = false;
+        //}
       }
     }
 }

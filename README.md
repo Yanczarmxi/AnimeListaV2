@@ -12,13 +12,13 @@ Backend:
 - Express.js
 - express-session
 - express-mysql-session
+- express-fileupload
 - mysql2
 - cord
 - dotenv
 - bcryptjs
 - validator.js
-- multer
-- uuid
+- jimp
 
 Frontend:
 - vue.js

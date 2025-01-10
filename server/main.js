@@ -2,13 +2,14 @@ const express = require('express');
 require('dotenv').config();
 const session = require('./src/session')
 const cors = require('./src/cors');
+const fileUpload = require('express-fileupload');
 const userRoute = require('./src/UserRouting');
 const animeRoute = require('./src/AnimeRouting');
 const app = express();
 
 app.use(express.json());
-
 app.use(cors);
+app.use(fileUpload());
 
 app.use((req, res, next) => {
   console.log(`Otrzymano żądanie: ${req.method} ${req.url}`);

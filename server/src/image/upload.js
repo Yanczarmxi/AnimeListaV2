@@ -1,20 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const imageManipulate = require('./ImageManipulate');
+const ImageManipulate = require('./ImageManipulate');
 
-function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-async function WaitForFile(file) {
-    for(var i=0; i < 10; i++) {
-        if(fs.existsSync(file)) {
-            return true;
-        }
-        await sleep(1000);
-    }
-
-    return false;
+async function Resize(im) {
+    const resPoster = await im.Poster();
+    const resMiniature = await im.Miniature();
 }
 
 async function UploadImage(req, res) {
@@ -30,19 +20,10 @@ async function UploadImage(req, res) {
         const uploadedFile = req.files.file;
         const filePath = path.join(uploadPath, uploadedFile.name);
 
-        await uploadedFile.mv(filePath, (err) => {
-            if (err) {
-                console.error(`ERROR UPLOAD FILE #1: ${err}`);
-                return res.status(500);
-            }
-        });
+        await uploadedFile.mv(filePath);
 
-        if(!WaitForFile(uploadPath + `/${uploadedFile.name}`)) {
-            console.error(`ERROR UPLOAD FILE #3: Time out!`);
-            res.status(500);
-        }
-
-        const resPoster = await imageManipulate.Poster(uploadedFile.name, req.session.user_hash);
+        const imageManipulate = new ImageManipulate(uploadedFile.name, req.session.user_hash);
+        await Resize(imageManipulate);
 
         res.status(200).json({
             message: 'File uploaded successfully',

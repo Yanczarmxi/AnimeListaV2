@@ -19,12 +19,12 @@
     "express-mysql-session": "^3.0.3",
     "express-session": "^1.18.1",
     "glob": "^11.0.0",
-    "jimp": "^1.6.0",
     "js-yaml": "^4.1.0",
     "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1",
     "mysql2": "^3.11.4",
     "rimraf": "^6.0.1",
+    "sharp": "^0.33.5",
     "validator": "^13.12.0"
   }
 }

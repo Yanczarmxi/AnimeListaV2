@@ -15,10 +15,13 @@
             <div class="img-file-upload-box">
               <label for="img-input-form" style="cursor: pointer;">
                 <div class="img-placeholder">
-                  <img src="../../assets/img/upload_img.svg" width="64" height="64" v-if="false">
-                  <p style=" user-select: none;" v-if="false">Załaduj obraz</p>
 
-                  <img src="../../assets/img/fail_img.svg" width="64" height="64" v-if="true">
+                  <div class="waiting-on-click-to-upload-image" v-if="true">
+                    <img src="../../assets/img/upload_img.svg" width="64" height="64">
+                    <p style=" user-select: none;">Załaduj obraz</p>
+                  </div>
+
+                  <img src="../../assets/img/fail_img.svg" width="64" height="64" v-if="fasle">
                 </div>
                 <img src="../../assets/img/no_img.jpg" alt="" v-if="false">
               </label>
@@ -132,18 +135,6 @@ export default {
         console.log(response);
 
         this.uploading = false;
-
-        //try {
-        //  const response = await axios.post("/anime/addimg", formData);
-        //  console.log("Upload successful:", response.data);
-        //}
-        //catch (err) {
-        //  this.error = err.message;
-        //  console.error("Error uploading file:", err);
-        //}
-        //finally {
-        //  this.uploading = false;
-        //}
       }
     }
 }
@@ -326,6 +317,12 @@ input:focus {
   justify-content: center;
   font-weight: bold;
   border-radius: 8px 8px 8px 8px;
+}
+
+.waiting-on-click-to-upload-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Ukrywanie strzałek w Chrome, Edge i Safari */

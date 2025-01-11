@@ -1,12 +1,12 @@
 const Jimp = require('jimp');
+const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
 class ImageManipulate {
-    constructor() {
-        this.jimp = Jimp;
-        this.fs = fs;
-        this.path = path;
+    constructor(img, hash) {
+        this.raw = path.resolve(__dirname, `../../upload/${hash}/raw/${img}`);
+        this.hash = hash;
 
         // Wymiary grafik
         this.posterSize = { w: 200, h: 285 };
@@ -14,35 +14,35 @@ class ImageManipulate {
         this.avatarSize = { w: 128, h: 128 };
     }
 
-    async Poster(img, hash) {
-        return await this.processImage(img, hash, 'poster', this.posterSize);
+    async Poster() {
+        return await this.processImage('poster', this.posterSize);
     }
 
-    async Miniature(img, hash) {
-        return await this.processImage(img, hash, 'miniature', this.miniatureSize);
+    async Miniature() {
+        return await this.processImage('miniature', this.miniatureSize);
     }
 
-    async Avatar(img, hash) {
-        return await this.processImage(img, hash, 'avatar', this.avatarSize);
+    async Avatar() {
+        return await this.processImage('avatar', this.avatarSize);
     }
 
-    async processImage(img, hash, type, size) {
-        const raw = this.path.resolve(__dirname, `../../upload/${hash}/raw/${img}`);
-        const dph = this.path.resolve(__dirname, `../../upload/${hash}/${type}`);
-        const out = this.path.join(dph, `${type}.jpg`);
+    async processImage(type, size) {
+        //const raw = path.resolve(__dirname, `../../upload/${hash}/raw/${img}`);
+        const dph = path.resolve(__dirname, `../../upload/${this.hash}/${type}`);
+        const out = path.join(dph, `${type}.jpg`);
 
         try {
             // Tworzenie ścieżki, jeśli nie istnieje
-            this.fs.mkdirSync(dph, { recursive: true });
+            fs.mkdirSync(dph, { recursive: true });
 
             // Sprawdzanie istnienia pliku wejściowego
-            if (!this.fs.existsSync(raw)) {
-                console.error(`Plik wejściowy nie istnieje: ${raw}`);
+            if (!fs.existsSync(this.raw)) {
+                console.error(`Plik wejściowy nie istnieje: ${this.raw}`);
                 return null;
             }
 
             // Przetwarzanie obrazu
-            const result = await this.Resize(raw, out, size);
+            const result = await this.Resize(out, size);
             if (!result) return null;
 
             return out;
@@ -52,13 +52,15 @@ class ImageManipulate {
         }
     }
 
-    async Resize(imp, out, size) {
+    async Resize(out, size) {
         try {
-            const image = await this.jimp.read(imp); // Użycie await
-            await image
+            console.log(this.raw);
+            const image = sharp(this.raw); // Użycie await
+            const resimg = image
                 .resize(size.w, size.h)
-                .quality(70)
-                .writeAsync(out);
+                .jpeg({ quality: 70 });
+
+            await resimg.toFile(out);
 
             return true;
         } catch (e) {
@@ -68,4 +70,4 @@ class ImageManipulate {
     }
 }
 
-module.exports = new ImageManipulate();
+module.exports = ImageManipulate;

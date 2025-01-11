@@ -7,7 +7,7 @@ Wymagania:
 Instrukcja instalacji:
 - soon...
 
-Wykorzystano...
+Wykorzystano...<br>
 Backend:
 - Express.js
 - express-session
@@ -18,7 +18,7 @@ Backend:
 - dotenv
 - bcryptjs
 - validator.js
-- jimp
+- sharp
 
 Frontend:
 - vue.js

@@ -4,7 +4,6 @@ const bcrypt = require('bcryptjs');
 class UserRepository {
     constructor() {
         this.db = db.getConnection();
-        this.bcrypt = bcrypt;
     }
 
     //Test poprawności podanych danych logowania
@@ -17,7 +16,7 @@ class UserRepository {
             return false;
         }
 
-        return await this.bcrypt.compare(password, rows[0].passwd);
+        return await bcrypt.compare(password, rows[0].passwd);
     }
     catch(e) {
         console.error('Validacja użytkownika:\n' + e);

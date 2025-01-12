@@ -5,6 +5,8 @@ const ImageManipulate = require('./ImageManipulate');
 async function Resize(im) {
     const resPoster = await im.Poster();
     const resMiniature = await im.Miniature();
+
+    return {poster: resPoster, miniature: resMiniature};
 }
 
 async function UploadImage(req, res) {
@@ -27,7 +29,7 @@ async function UploadImage(req, res) {
 
         res.status(200).json({
             message: 'File uploaded successfully',
-            filePath: filePath
+            url: `${process.env.EX_URL}/tempcontent/poster/poster.jpg`
         });
     }
     catch(e) {

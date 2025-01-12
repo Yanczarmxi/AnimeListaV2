@@ -16,14 +16,16 @@
               <label for="img-input-form" style="cursor: pointer;">
                 <div class="img-placeholder">
 
-                  <div class="waiting-on-click-to-upload-image" v-if="true">
+                  <div class="waiting-on-click-to-upload-image" v-if="imgEmpty">
                     <img src="../../assets/img/upload_img.svg" width="64" height="64">
                     <p style=" user-select: none;">Załaduj obraz</p>
                   </div>
 
-                  <img src="../../assets/img/fail_img.svg" width="64" height="64" v-if="fasle">
+                  <LoadingWheel width="64" height="64" v-if="uploading" />
+
+                  <img src="../../assets/img/fail_img.svg" width="64" height="64" v-if="imgFall">
                 </div>
-                <img src="../../assets/img/no_img.jpg" alt="" v-if="false">
+                <img :src="image" alt="" width="200" height="285" v-if="imgShow">
               </label>
               <input type="file" @change="HandleFileUpload" id="img-input-form" style="display: none;" accept="image/*">
             </div>
@@ -83,26 +85,32 @@
 <script>
 import { useAnimeStore } from '@/stores/anime';
 
+import LoadingWheel from '../ui/loading.vue';
 export default {
     name: 'ModalAddWindow',
+    components: {
+      LoadingWheel,
+    },
     data() {
       return {
         //Dane animu do przesłania
-        title: "",
+        title: '',
         group: 0,
         episodes: 0,
-        url: "",
-        description: "",
+        url: '',
+        description: '',
+
+        //obrazek
+        image: '',
 
         //UPLOAD
         uploading: false,
 
-        //SAMLE
-        options: [
-          { gid: 1, gtitle: "Opcja 1" },
-          { gid: 2, gtitle: "Opcja 2" },
-          { gid: 3, gtitle: "Opcja 3" },
-        ],
+        //Stany uploadowanej grafiki
+        imgShow: false,
+        imgEmpty: true,
+        imgFall: false,
+
       }
     },
     setup() {
@@ -127,12 +135,21 @@ export default {
         }
 
         this.uploading = true;
+        this.imgEmpty = false;
 
         const formData = new FormData();
         formData.append("file", file);
 
         const response = this.UploadImage(formData);
         console.log(response);
+
+        if(response.url) {
+          this.image = response.url;
+          this.imgShow = true;
+        }
+        else {
+          this.imgFail = true;
+        }
 
         this.uploading = false;
       }

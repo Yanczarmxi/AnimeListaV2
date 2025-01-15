@@ -57,7 +57,7 @@ class ImageManipulate {
             const image = sharp(this.raw); // Użycie await
             const resimg = image
                 .resize(size.w, size.h)
-                .jpeg({ quality: 70 });
+                .jpeg({ quality: 50 });
 
             await resimg.toFile(out);
 

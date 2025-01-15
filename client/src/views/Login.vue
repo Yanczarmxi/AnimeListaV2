@@ -25,7 +25,7 @@
                     Pozostań zalogowany
                   </label>
                 </div>
-                <button class="btn btn-primary mr-4 ml-4 bt-sin" @click="SignInUser">Zaloguj</button>
+                <button class="btn btn-primary mr-4 ml-4 bt-sin" @click="SignInUser" @ref="btnLogin">Zaloguj</button>
             </div>
 
             <div class="sin-mess mt-3 d-flex flex-row justify-content-center align-items-center" v-if="!success">
@@ -71,6 +71,14 @@ export default {
         }
     },
 
+    mounted() {
+        document.addEventListener('keydown', this.handleKeyEven);
+    },
+
+    unmounted() {
+        document.removeEventListener('keydown', this.handleKeyEven);
+    },
+
     methods: {
         async SignInUser() {
             console.log(this.email + ' - ' + this.password + ' - ' + this.remembersin);
@@ -83,6 +91,12 @@ export default {
             }
             else{
                 console.log('NIE DZIAŁA :C');
+            }
+        },
+
+        handleKeyEvent(event) {
+            if(event.key === 'Enter') {
+                this.$refs.btnLogin.click();
             }
         }
     }

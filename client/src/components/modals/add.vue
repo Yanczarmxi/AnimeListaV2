@@ -14,7 +14,7 @@
           <div class="img-md-box">
             <div class="img-file-upload-box">
               <label for="img-input-form" style="cursor: pointer;">
-                <div class="img-placeholder">
+                <div class="img-placeholder" v-if="!imgShow">
 
                   <div class="waiting-on-click-to-upload-image" v-if="imgEmpty">
                     <img src="../../assets/img/upload_img.svg" width="64" height="64">
@@ -25,14 +25,14 @@
 
                   <img src="../../assets/img/fail_img.svg" width="64" height="64" v-if="imgFall">
                 </div>
-                <img :src="image" alt="" width="200" height="285" v-if="imgShow">
+                <img :src="imageUrlWithTimestamp" alt="" width="200" height="285" v-if="imgShow">
               </label>
               <input type="file" @change="HandleFileUpload" id="img-input-form" style="display: none;" accept="image/*">
             </div>
 
             <div class="md-form-box">
               <label for="img-url">Link</label>
-              <input type="url" class="lb-style" id="img-url">
+              <input type="url" class="lb-style" id="img-url" @change="HandleUrlImgUpload" v-model="url">
             </div>
             <button class="btn btn-danger" style="width: 128px; margin-top: 8px;">Skasuj obraz</button>
           </div>
@@ -101,7 +101,8 @@ export default {
         description: '',
 
         //obrazek
-        image: '',
+        imageUrl: '',
+        timestamp: Date.now(),
 
         //UPLOAD
         uploading: false,
@@ -121,6 +122,13 @@ export default {
         UploadImage: animeStore.UploadImage,
       }
     },
+    
+    computed: {
+      imageUrlWithTimestamp() {
+        return `${this.imageUrl}?t=${this.timestamp}`;
+      },
+    },
+
     methods: {
       CloseModal() {
         this.$emit('closeModal');
@@ -135,16 +143,17 @@ export default {
         }
 
         this.uploading = true;
+        this.imgShow = false;
         this.imgEmpty = false;
 
         const formData = new FormData();
         formData.append("file", file);
 
-        const response = this.UploadImage(formData);
-        console.log(response);
+        const response = await this.UploadImage(formData);
 
         if(response.url) {
-          this.image = response.url;
+          this.imageUrl = response.url;
+          this.timestamp = Date.now();
           this.imgShow = true;
         }
         else {
@@ -152,7 +161,26 @@ export default {
         }
 
         this.uploading = false;
-      }
+      },
+
+      async HandleUrlImgUpload() {
+        this.uploading = true;
+        this.imgShow = false;
+        this.imgEmpty = false;
+
+        const response = await this.UploadImage({url: this.url});
+
+        if(response.url) {
+          this.imageUrl = response.url;
+          this.timestamp = Date.now();
+          this.imgShow = true;
+        }
+        else {
+          this.imgFail = true;
+        }
+
+        this.uploading = false;
+      },
     }
 }
 </script>

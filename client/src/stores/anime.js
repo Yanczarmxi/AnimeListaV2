@@ -91,7 +91,7 @@ export const useAnimeStore = defineStore('Anime', {
                 if(!response) {
                     return null;
                 }
-                return response;
+                return response.data;
             }
             catch(e) {
                 console.error('ERROR IMAGE UPLOAD: ' + e);

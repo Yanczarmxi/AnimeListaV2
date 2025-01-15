@@ -19,6 +19,7 @@ Backend:
 - bcryptjs
 - validator.js
 - sharp
+- axios
 
 Frontend:
 - vue.js

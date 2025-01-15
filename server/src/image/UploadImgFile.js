@@ -9,23 +9,21 @@ async function Resize(im) {
     return {poster: resPoster, miniature: resMiniature};
 }
 
-async function UploadImage(req, res) {
+async function UploadImageFromFile(req, res) {
     try {
         if (!req.files || !req.files.file) {
             return res.status(400).json({ error: 'No file uploaded' });
         }
 
         const uploadPath = path.join(__dirname, `../../upload/${req.session.user_hash}/raw`);
-
         fs.mkdirSync(uploadPath, { recursive: true });
 
         const uploadedFile = req.files.file;
         const filePath = path.join(uploadPath, uploadedFile.name);
-
         await uploadedFile.mv(filePath);
-
+        
         const imageManipulate = new ImageManipulate(uploadedFile.name, req.session.user_hash);
-        await Resize(imageManipulate);
+        req.session.img_files = await Resize(imageManipulate);
 
         res.status(200).json({
             message: 'File uploaded successfully',
@@ -38,4 +36,4 @@ async function UploadImage(req, res) {
     }
 }
 
-module.exports = UploadImage;
+module.exports = UploadImageFromFile;

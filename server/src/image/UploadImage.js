@@ -3,6 +3,13 @@ const path = require('path');
 const axios = require('axios');
 const ImageManipulate = require('./ImageManipulate');
 
+async function Resize(im) {
+    const resPoster = await im.Poster();
+    const resMiniature = await im.Miniature();
+
+    return {poster: resPoster, miniature: resMiniature};
+}
+
 async function UploadUrl(url, uploadPath) {
     try {
         const response = await axios({
@@ -26,21 +33,37 @@ async function UploadUrl(url, uploadPath) {
       }
 }
 
-async function UploadImageFromUrl(req, res) {
+async function UploadImage(req, res) {
     try {
-        const {url} = req.body;
-
-        if (!url) {
-            return res.status(400).json({ error: 'No url image uploaded' });
+        if ((!req.files || !req.files.file) && !req.body.url) {
+            return res.status(400).json({ error: 'No file uploaded' });
         }
 
         const uploadPath = path.join(__dirname, `../../upload/${req.session.user_hash}/raw`);
         fs.mkdirSync(uploadPath, { recursive: true });
 
-        const uploadedFile = await UploadUrl(url, uploadPath);
+        var fileName = '';
 
-        const imageManipulate = new ImageManipulate(uploadedFile, req.session.user_hash);
-        req.session.img_files = imageManipulate.ResizePoster();
+        if(req.files && req.files.file){
+            const uploadedFile = req.files.file;
+            const filePath = path.join(uploadPath, uploadedFile.name);
+
+            await uploadedFile.mv(filePath);
+
+            fileName = uploadedFile.name;
+        }
+        else {
+            if(req.body.url) {
+                const url = req.body.url;
+                fileName = await UploadUrl(url, uploadPath) ;
+            }
+            else {
+                return res.status(400).json({ error: 'No file uploaded' });
+            }
+        }
+        
+        const imageManipulate = new ImageManipulate(fileName, req.session.user_hash);
+        req.session.img_files = await Resize(imageManipulate);
 
         res.status(200).json({
             message: 'File uploaded successfully',
@@ -53,4 +76,4 @@ async function UploadImageFromUrl(req, res) {
     }
 }
 
-module.exports = UploadImageFromUrl;
+module.exports = UploadImage;

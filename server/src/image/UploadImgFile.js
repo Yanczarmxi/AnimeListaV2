@@ -20,6 +20,8 @@ async function UploadImageFromFile(req, res) {
 
         const uploadedFile = req.files.file;
         const filePath = path.join(uploadPath, uploadedFile.name);
+
+        
         await uploadedFile.mv(filePath);
         
         const imageManipulate = new ImageManipulate(uploadedFile.name, req.session.user_hash);

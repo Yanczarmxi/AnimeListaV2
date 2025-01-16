@@ -13,6 +13,13 @@ class ImageManipulate {
         this.avatarSize = { w: 128, h: 128 };
     }
 
+    async ResizePoster() {
+        const resPoster = await this.Poster();
+        const resMiniature = await this.Miniature();
+
+        return {poster: resPoster, miniature: resMiniature};
+    }
+
     async Poster() {
         return await this.processImage('poster', this.posterSize);
     }

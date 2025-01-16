@@ -8,6 +8,7 @@ const UpdateState = require('./anime/UpdateState');
 
 //img
 const UploadImageFromFile = require('./image/UploadImgFile');
+const UploadImage = require('./image/UploadImage');
 
 //Routing
 router.get('/result', GetAnime); //Pobieranie anime

@@ -8,7 +8,7 @@ const UpdateState = require('./anime/UpdateState');
 
 //img
 const UploadImageFromFile = require('./image/UploadImgFile');
-const UploadImage = require('./image/UploadImage');
+const DeleteImage = require('./image/DeleteImage');
 
 //Routing
 router.get('/result', GetAnime); //Pobieranie anime
@@ -30,6 +30,6 @@ router.put('/update', UpdateState);
 
 //Przesyłanie obrazu i czyszczenie rekordu obrazu
 router.post('/addimg', UploadImageFromFile);
-router.delete('/delimg', async (req, res) => {});
+router.delete('/delimg', DeleteImage);
 
 module.exports = router;

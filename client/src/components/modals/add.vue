@@ -30,10 +30,6 @@
               <input type="file" @change="HandleFileUpload" id="img-input-form" style="display: none;" accept="image/*">
             </div>
 
-            <div class="md-form-box">
-              <label for="img-url">Link</label>
-              <input type="url" class="lb-style" id="img-url" @change="HandleUrlImgUpload" v-model="url">
-            </div>
             <button class="btn btn-danger" style="width: 128px; margin-top: 8px;">Skasuj obraz</button>
           </div>
           <div class="content-md-box">
@@ -151,32 +147,20 @@ export default {
 
         const response = await this.UploadImage(formData);
 
-        if(response.url) {
-          this.imageUrl = response.url;
-          this.timestamp = Date.now();
-          this.imgShow = true;
+        console.log(response.status);
+
+        if(response.status === 200) {
+          if(response.url) {
+            this.imageUrl = response.url;
+            this.timestamp = Date.now();
+            this.imgShow = true;
+          }
+          else {
+            this.imgFail = true;
+          }
         }
         else {
-          this.imgFail = true;
-        }
-
-        this.uploading = false;
-      },
-
-      async HandleUrlImgUpload() {
-        this.uploading = true;
-        this.imgShow = false;
-        this.imgEmpty = false;
-
-        const response = await this.UploadImage({url: this.url});
-
-        if(response.url) {
-          this.imageUrl = response.url;
-          this.timestamp = Date.now();
-          this.imgShow = true;
-        }
-        else {
-          this.imgFail = true;
+          this.imgFall = true;
         }
 
         this.uploading = false;

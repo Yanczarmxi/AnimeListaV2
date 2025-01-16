@@ -1,12 +1,27 @@
 const fs = require('fs');
 const path = require('path');
-const ImageManipulate = require('./ImageManipulate');
+const PosterImage = require('./PosterImage');
+//const ImageManipulate = require('./ImageManipulate');
 
-async function Resize(im) {
-    const resPoster = await im.Poster();
-    const resMiniature = await im.Miniature();
+async function clearDirectory(directoryPath) {
+    try {
+        // Pobierz listę plików i folderów w katalogu
+        const files = fs.readdirSync(directoryPath);
 
-    return {poster: resPoster, miniature: resMiniature};
+        // Usuń każdy plik lub folder
+        for (const file of files) {
+            const fullPath = path.join(directoryPath, file);
+            fs.unlinkSync(fullPath);
+        }
+
+        console.log(`Zawartość katalogu ${directoryPath} została usunięta.`);
+    } catch (error) {
+        if (error.code === 'ENOENT') {
+            console.log(`Katalog ${directoryPath} nie istnieje.`);
+        } else {
+            console.error(`Błąd podczas usuwania zawartości katalogu: ${error.message}`);
+        }
+    }
 }
 
 async function UploadImageFromFile(req, res) {
@@ -18,14 +33,17 @@ async function UploadImageFromFile(req, res) {
         const uploadPath = path.join(__dirname, `../../upload/${req.session.user_hash}/raw`);
         fs.mkdirSync(uploadPath, { recursive: true });
 
-        const uploadedFile = req.files.file;
-        const filePath = path.join(uploadPath, uploadedFile.name);
+        await clearDirectory(uploadPath);
 
-        
+        const uploadedFile = req.files.file;
+        const fileExtension = path.extname(uploadedFile.name); // np. ".jpg"
+
+        const newFileName = `raw-uploaded-image${Date.now()}${fileExtension}`;
+        const filePath = path.join(uploadPath, newFileName);
+
         await uploadedFile.mv(filePath);
-        
-        const imageManipulate = new ImageManipulate(uploadedFile.name, req.session.user_hash);
-        req.session.img_files = await Resize(imageManipulate);
+
+        req.session.img_files = await PosterImage(filePath, req.session.user_hash);
 
         res.status(200).json({
             message: 'File uploaded successfully',

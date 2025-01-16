@@ -11,7 +11,10 @@ const app = express();
 
 app.use(express.json());
 app.use(cors);
-app.use(fileUpload());
+app.use(fileUpload({
+  limits: { fileSize: 1024 * 1024 }, // Ustaw limit na 1 MB
+  abortOnLimit: true, // Przerwij przesyłanie, jeśli plik przekracza limit
+}));
 
 app.use((req, res, next) => {
   console.log(`Otrzymano żądanie: ${req.method} ${req.url}`);

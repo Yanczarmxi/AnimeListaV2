@@ -127,6 +127,8 @@ export default {
       },
     },
 
+    inject: ['reloadTable'],
+
     methods: {
       CloseModal() {
         this.$emit('closeModal');
@@ -185,6 +187,13 @@ export default {
         };
 
         await this.AddAnimeToDataBase(data);
+        this.ApplyAndClose();
+      },
+
+      ApplyAndClose() {
+        console.log('Zamykam Modal');
+        //this.reloadTable();
+        this.CloseModal();
       }
     }
 }

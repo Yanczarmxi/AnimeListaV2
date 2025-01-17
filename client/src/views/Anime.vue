@@ -18,6 +18,24 @@ export default {
         MenuNav,
         DataTable,
         WebSiteFooter
+    },
+    provide(){
+      return {
+        setReloadTable: (fn) => (this.reloadTable = fn),
+        reloadTable: () => {
+          if(this.reloadTable) {
+            this.reloadTable();
+          }
+          else {
+            console.error('ReloadTable nie zostało zdefiniowane');
+          }
+        }
+      }
+    },
+    data() {
+      return {
+        reloadTable: null
+      }
     }
 }
 </script>

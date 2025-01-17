@@ -1,7 +1,8 @@
+const fs = require('fs');
 const path = require('path');
 const LoadImgToBlob = require('../image/LoadimgToBlob');
-//const ClearDirectory = require('../image/ClearDirctory');
 const AnimeRepository = require('../database/AnimeRepository');
+const SegregatedRepository = require('../database/SegregatedRepository');
 
 async function AddAnimeToRecord(req, res) {
     try {
@@ -11,21 +12,27 @@ async function AddAnimeToRecord(req, res) {
         }
 
         const data = req.body;
+        const group = Number(data.group);
         const imgPaths = req.session.img_files;
         const userId = req.session.user_id;
         const userHash = req.session.user_hash;
-        console.log(data);
-        console.log(imgPaths);
 
         const blob = {
             poster: await LoadImgToBlob(imgPaths.poster),
             miniature: await LoadImgToBlob(imgPaths.miniature),
         };
 
-        await AnimeRepository.Add(data, blob, userId);
+        const animeId = await AnimeRepository.Add(data, blob, userId);
 
-        //const uploadDirectory = path.join(__dirname, '../../upload', userHash);
-        //await ClearDirectory(uploadDirectory);
+        if(group != 0) {
+            SegregatedRepository.Add(userId, animeId, group);
+        }
+
+        const uploadDirectory = path.join(__dirname, '../../upload', userHash);
+        console.log(uploadDirectory);
+        if(fs.existsSync(uploadDirectory)) {
+            fs.rmSync(uploadDirectory, { recursive: true });
+        }
 
         res.status(200);
     }

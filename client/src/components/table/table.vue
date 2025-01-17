@@ -33,7 +33,7 @@
             <th scope="col" class="ep-column">Odcinki</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-if="animeTableContent">
           <template v-for="(group, groupIndex) in anieData" :key="groupIndex">
             <RowSeparator :grTitle="group.gtitle" />
             <DataRow v-for="(anime, animeIndex) in group.anime" :key="animeIndex" :data="anime" />
@@ -57,9 +57,12 @@ export default {
     },
     data() {
       return{
-        anieData: []
+        anieData: [],
+        animeTableContent: true,
       }
     },
+
+    inject: ['setReloadTable'],
 
     setup() {
       const animeStore = useAnimeStore();
@@ -78,6 +81,8 @@ export default {
         console.log('Nie jesteś zalogowany! Brak danych do załadowania');
         this.$router.push('/login');
       }
+
+      this.setReloadTable(this.ReloadData);
     },
 
     methods: {
@@ -87,6 +92,12 @@ export default {
         console.log('PROMISE');
         console.log(data);
       },
+
+      async ReloadData() {
+        this.animeTableContent = false;
+        await this.LoadData();
+        this.animeTableContent = true;
+      }
     }
 }
 </script>

@@ -1,4 +1,4 @@
-const db = require('./db2');
+const db = require('./DataBaseConnection');
 
 class SegregatedRepository {
     constructor() {
@@ -22,12 +22,9 @@ class SegregatedRepository {
         try {
             const sql = `INSERT anm_segregated (st_user, st_anime, st_group) VALUES (?, ?, ?);`;
             await this.db.query(sql, [user, anime, group]);
-
-            return true;
         }
         catch(e) {
             console.error('Segregated Add Query ERROR: ' + e);
-            return false;
         }
     }
 

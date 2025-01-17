@@ -27,10 +27,10 @@
                 </div>
                 <img :src="imageUrlWithTimestamp" alt="" width="200" height="285" v-if="imgShow">
               </label>
-              <input type="file" @change="HandleFileUpload" id="img-input-form" style="display: none;" accept="image/*">
+              <input type="file" @change="HandleFileUpload" id="img-input-form" style="display: none;" accept="image/*" maxlength="1">
             </div>
 
-            <button class="btn btn-danger" style="width: 128px; margin-top: 8px;">Skasuj obraz</button>
+            <button class="btn btn-danger" style="width: 128px; margin-top: 8px;" @click="DeleteImageUpload">Skasuj obraz</button>
           </div>
           <div class="content-md-box">
             <div class="md-data-box">
@@ -116,6 +116,7 @@ export default {
       return {
         groups: animeStore.group,
         UploadImage: animeStore.UploadImage,
+        DeleteImage: animeStore.DeleteImage,
       }
     },
     
@@ -165,6 +166,13 @@ export default {
 
         this.uploading = false;
       },
+
+      async DeleteImageUpload(data) {
+        this.imgShow = false;
+        this.imgEmpty = true;
+        this.imageUrl = null;
+        await this.DeleteImage({id: data});
+      }
     }
 }
 </script>

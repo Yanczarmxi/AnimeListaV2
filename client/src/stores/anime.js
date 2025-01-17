@@ -97,6 +97,16 @@ export const useAnimeStore = defineStore('Anime', {
                 console.error('ERROR IMAGE UPLOAD: ' + e);
                 return null;
             }
+        },
+
+        //Kasowanie przesłanej grafiki
+        async DeleteImage(data) {
+            try {
+                await axios.delete('/anime/delimg', data, {withCredentials: true});
+            }
+            catch (e) {
+                console.error(`Nie udało się skasować grafiki: ${e}`);
+            }
         }
     },
 });

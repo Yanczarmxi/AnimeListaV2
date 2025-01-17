@@ -2,9 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 //osobne pliki
-const GetAnime = require('./anime/extraction');
-const GetReadyDescription = require('./anime/descryption');
+const GetAnime = require('./anime/GetAnimesSerialized');
+const GetReadyDescription = require('./anime/GetReadyDescription');
 const UpdateState = require('./anime/UpdateState');
+
+//Operacje
+const AddAnimeToRecord = require('./anime/AddAnimeToRecord');
 
 //img
 const UploadImageFromFile = require('./image/UploadImgFile');
@@ -14,9 +17,7 @@ const DeleteImage = require('./image/DeleteImage');
 router.get('/result', GetAnime); //Pobieranie anime
 router.post('/description', GetReadyDescription); //Pobieranie opisu
 
-router.post('/add', async (req, res) => {
-
-});
+router.post('/add', AddAnimeToRecord); //Dodawanie nowego anime do bazy danych
 
 router.put('/edit', async (req, res) => {
 

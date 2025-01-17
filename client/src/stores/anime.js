@@ -107,6 +107,22 @@ export const useAnimeStore = defineStore('Anime', {
             catch (e) {
                 console.error(`Nie udało się skasować grafiki: ${e}`);
             }
+        },
+
+        //Dodawanie rekordu
+        async AddAnimeToDataBase(data) {
+            try {
+                const respornse = await axios.post('/amime/add', data, {withCredentials: true, 
+                    headers: {
+                        'Content-Type': 'application/json'},
+                });
+
+                return respornse.status;
+            }
+            catch(e) {
+                console.error(`Nie udało się wykodać operazji dodania anime: ${e}`);
+                return 404
+            }
         }
     },
 });

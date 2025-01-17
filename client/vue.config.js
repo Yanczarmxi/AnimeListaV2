@@ -54,6 +54,12 @@ module.exports = {
         secure: false,
         pathRewrite: { '^/anime/delimg': '/anime/delimg' },
       },
+      '/anime/add': {
+        target: serverUrl, // Adres backendu
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { '^/anime/add': '/anime/add' },
+      },
     },
   },
 };

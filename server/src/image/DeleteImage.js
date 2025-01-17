@@ -3,6 +3,11 @@ const path = require('path');
 
 async function DeleteImage(req, res) {
     try {
+        if(!req.session.isLogged) {
+            console.error('DESCRYPTION ERROR: Urzytkownik nie jest zalogowany');
+            return res.status(401).json(null);
+        }
+
         if(req.body.id) {
             console.log('Ta funkcja narazie jest niedostępna!');
         }

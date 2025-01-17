@@ -26,6 +26,11 @@ async function clearDirectory(directoryPath) {
 
 async function UploadImageFromFile(req, res) {
     try {
+        if(!req.session.isLogged) {
+            console.error('DESCRYPTION ERROR: Urzytkownik nie jest zalogowany');
+            return res.status(401).json(null);
+        }
+
         if (!req.files || !req.files.file) {
             return res.status(400).json({ error: 'No file uploaded' });
         }

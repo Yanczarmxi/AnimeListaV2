@@ -14,11 +14,7 @@ async function ClearDirectory(directoryPath) {
 
         console.log(`Zawartość katalogu ${directoryPath} została usunięta.`);
     } catch (error) {
-        if (error.code === 'ENOENT') {
-            console.log(`Katalog ${directoryPath} nie istnieje.`);
-        } else {
-            console.error(`Błąd podczas usuwania zawartości katalogu: ${error.message}`);
-        }
+        console.error(`Błąd podczas usuwania zawartości katalogu: ${error.message}`);
     }
 }
 

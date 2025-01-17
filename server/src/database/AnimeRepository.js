@@ -111,17 +111,18 @@ class AnimeRepository {
             `;
 
             const today = DateTime.GetDateNow();
+            console.log(today);
 
-            await this.db.query(sql, [
-                today,
-                anime.title,
-                anime.url,
-                anime.description,
-                anime.episodes,
-                user,
-                blob.miniature,
-                blob.poster
-            ]);
+            //await this.db.query(sql, [
+            //    today,
+            //    anime.title,
+            //    anime.url,
+            //    anime.description,
+            //    anime.episodes,
+            //    user,
+            //    blob.miniature,
+            //    blob.poster
+            //]);
         }
         catch(e){
             console.error(`ERROR! Nie udało się dodać anime do bazy danych: ${e}`);

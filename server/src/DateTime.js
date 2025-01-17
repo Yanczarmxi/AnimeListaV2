@@ -1,22 +1,22 @@
 class DateTime {
     constructor () {
-        this.dt = new Date();
+        this.date = new Date();
     }
 
     GetDateNow() {
-        const y = this.dt.getFullYear();
-        const m = this.dt.getMonth();
-        const d = this.dt.getDay();
+        const year = String(this.date.getFullYear());
+        const month = String(this.date.getMonth() + 1).padStart(2, '0'); // Poprawna nazwa zmiennej
+        const day = String(this.date.getDate()).padStart(2, '0'); // Poprawna metoda
 
-        return y + '-' + m + '-' + d;
+        return `${year}-${month}-${day}`;
     }
 
     GetTimeNow() {
-        const h = this.dt.getHours();
-        const m = this.dt.getMinutes();
-        const s = this.dt.getSeconds();
+        const hour = String(this.date.getHours()).padStart(2, '0');
+        const minute = String(this.date.getMinutes()).padStart(2, '0');
+        const second = String(this.date.getSeconds()).padStart(2, '0');
 
-        return h + ':' + m + ':' + s;
+        return `${hour}:${minute}:${second}`;
     }
 }
 

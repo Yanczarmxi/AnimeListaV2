@@ -19,3 +19,5 @@ class DateTime {
         return h + ':' + m + ':' + s;
     }
 }
+
+module.exports = new DateTime();

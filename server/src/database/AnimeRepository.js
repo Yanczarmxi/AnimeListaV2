@@ -1,4 +1,5 @@
 const db = require('./DataBaseConnection');
+const DateTime = require('../DateTime');
 
 class AnimeRepository {
     constructor() {
@@ -91,6 +92,39 @@ class AnimeRepository {
         catch(e) {
             console.error(e);
             return false;
+        }
+    }
+
+    async Add(anime, blob, user) {
+        try {
+            const sql = `
+                INSERT INTO anm_animes (
+                    an_date, 
+                    an_title, 
+                    an_url, 
+                    an_description,
+                    an_episodes,
+                    an_user,
+                    an_miniature,
+                    an_image 
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?,?);
+            `;
+
+            const today = DateTime.GetDateNow();
+
+            await this.db.query(sql, [
+                today,
+                anime.title,
+                anime.url,
+                anime.description,
+                anime.episodes,
+                user,
+                blob.miniature,
+                blob.poster
+            ]);
+        }
+        catch(e){
+            console.error(`ERROR! Nie udało się dodać anime do bazy danych: ${e}`);
         }
     }
 }

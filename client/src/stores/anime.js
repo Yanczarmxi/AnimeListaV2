@@ -112,7 +112,7 @@ export const useAnimeStore = defineStore('Anime', {
         //Dodawanie rekordu
         async AddAnimeToDataBase(data) {
             try {
-                const respornse = await axios.post('/amime/add', data, {withCredentials: true, 
+                const respornse = await axios.post('/anime/add', data, {withCredentials: true, 
                     headers: {
                         'Content-Type': 'application/json'},
                 });

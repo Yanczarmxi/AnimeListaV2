@@ -109,8 +109,8 @@
     </template>
 </template>
 <script>
-import { useAnimeIndexStore } from '@/stores/moderated';
-import { useAnimeStore } from '@/stores/anime'
+import { useAnimeStore } from '@/stores/anime';
+import { useModeratedStore } from '@/stores/moderated';
 
 import RowDescription from './rowinfo.vue';
 
@@ -174,15 +174,15 @@ export default {
     },
 
     setup() {
-        const animeIndex = useAnimeIndexStore();
         const animeStore = useAnimeStore();
+        const moderated = useModeratedStore();
 
         return {
-             addToIndex: animeIndex.AddIdToIndex,
-             removeFromIndex: animeIndex.RemoveIdFromIndex,
+            UpdateRecord: animeStore.UpdateRecord,
+            GetDescription: animeStore.GetDescription,
 
-             UpdateRecord: animeStore.UpdateRecord,
-             GetDescription: animeStore.GetDescription,
+            AddIdToStore: moderated.AddIdToStore,
+            DeleteIdFromStore: moderated.DeleteIdFromStore,
         };
     },
 
@@ -286,16 +286,6 @@ export default {
             }
         },
 
-        //Dodanie lub usunięcie id z indexu checkbox
-        CheckboxIndex() {
-            if(this.isChecked) {
-                this.addToIndex(this.animeId);
-            }
-            else {
-                this.removeFromIndex(this.animeId);
-            }
-        },
-
         async ShowDescryption(){
             //this.desActive = !this.desActive;
             if(!this.desActive){
@@ -314,6 +304,15 @@ export default {
 
         CloseDescryption(){
             this.desActive = false;
+        },
+
+        CheckboxHandle() {
+            if(this.checkActive) {
+                this.AddIdToStore(this.animeId);
+            }
+            else {
+                this.DeleteFromStore(this.animeId);
+            }
         }
     }
 }

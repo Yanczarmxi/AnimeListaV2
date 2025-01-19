@@ -8,7 +8,7 @@ async function AddAnimeToRecord(req, res) {
     try {
         if(!req.session.isLogged) {
             console.error('DESCRYPTION ERROR: Urzytkownik nie jest zalogowany');
-            return res.status(401).json(null);
+            return res.status(401).json({complete: false});
         }
 
         const data = req.body;
@@ -34,11 +34,11 @@ async function AddAnimeToRecord(req, res) {
             fs.rmSync(uploadDirectory, { recursive: true });
         }
 
-        res.status(200);
+        res.status(200).json({complete: true});
     }
     catch(e) {
         console.error(`ERROR Nie udało się dodać anime do bazy danych: ${e}`);
-        res.status(500);
+        res.status(500).json({complete: false});
     }
 }
 

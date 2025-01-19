@@ -112,12 +112,9 @@ export const useAnimeStore = defineStore('Anime', {
         //Dodawanie rekordu
         async AddAnimeToDataBase(data) {
             try {
-                const respornse = await axios.post('/anime/add', data, {withCredentials: true, 
-                    headers: {
-                        'Content-Type': 'application/json'},
-                });
+                const respornse = await axios.post('/anime/add', data, {withCredentials: true});
 
-                return respornse.status;
+                return respornse.data;
             }
             catch(e) {
                 console.error(`Nie udało się wykodać operazji dodania anime: ${e}`);

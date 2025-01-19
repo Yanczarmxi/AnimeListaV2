@@ -23,18 +23,14 @@ export default {
       return {
         setReloadTable: (fn) => (this.reloadTable = fn),
         reloadTable: () => {
-          if(this.reloadTable) {
-            this.reloadTable();
-          }
-          else {
-            console.error('ReloadTable nie zostało zdefiniowane');
-          }
-        }
+          this.reloadTable();
+        },
       }
     },
+
     data() {
       return {
-        reloadTable: null
+        reloadTable: null,
       }
     }
 }

@@ -1,49 +1,68 @@
 import { defineStore } from 'pinia';
 
-export const useAnimeIndexStore = defineStore('AnimeIndex', {
+export const useModeratedStore = defineStore('Moderated', {
     state: () => ({
-        anmIdIndex: [],
-        separatorIdIndex: [],
+        editButton: true,
+        deleteButton: true,
 
-        //Wyłączniki przycisków Edit i Remove
-        editDistable: true,
-        removeDistable: true
+        checkIdAnimeStore: [],
+        checkIdGroupStore: [],
     }),
 
-    getters: {
-        anmIndexCount: (state) => state.anmIdIndex.length,
-        separatorIndexCount: (state) => state.separatorIdIndex.length
-    },
-
     actions: {
-        AddIdToIndex() {
-            this.anmIdIndex.push(22);
-            this.ToggleDisablersButtons();
+        AddIdToStore(data, isGroup = false) {
+            if(isGroup) {
+                this.checkIdGroupStore.push(data);
+                console.log(this.checkIdGroupStore);
+            }
+            else {
+                this.checkIdAnimeStore.push(data);
+                console.log(this.checkIdAnimeStore);
+            }
+
+            this.ActiveTogglerButton();
         },
 
-        RemoveIdFromIndex(id) {
-            for(var i=0; i<this.anmIndexCount; i++) {
-                if(this.anmIdIndex[i] == id) {
-                    this.anmIdIndex.splice(i, 1);
-                    break;
+        DeleteIdFromStore(data, isGroup = false) {
+            if(isGroup) {
+                for(var i=0; i < this.checkIdGroupStore.length; i++) {
+                    if(this.checkIdGroupStore[i] === data) {
+                        this.checkIdGroupStore.splice(i, 1);
+                        i--;
+                    }
+                }
+                console.log(this.checkIdGroupStore);
+            }
+            else {
+                for(var j=0; j < this.checkIdAnimeStore.length; j++) {
+                    if(this.checkIdAnimeStore[j] === data) {
+                        this.checkIdAnimeStore.splice(i, 1);
+                        j--;
+                    }
+                }
+                console.log(this.checkIdAnimeStore);
+            }
+
+            this.ActiveTogglerButton();
+        },
+
+        ActiveTogglerButton(){
+            const gouprLen = this.checkIdGroupStore.length;
+            const animeLen = this.checkIdAnimeStore.length;
+    
+            if(gouprLen > 0 || animeLen > 0) {
+                this.deleteButton = false;
+                
+                if((gouprLen > 0 && animeLen > 0) || (gouprLen > 1 || animeLen > 1)) {
+                    this.editButton = true;
+                }
+                else {
+                    this.editButton = false;
                 }
             }
-            this.ToggleDisablersButtons();
-        },
-
-        ToggleDisablersButtons() {
-            if(this.anmIndexCount == 1) {
-                this.editDistable = false;
-            }
             else {
-                this.editDistable = true;
-            }
-
-            if(this.anmIndexCount > 0) {
-                this.removeDistable = false;
-            }
-            else {
-                this.removeDistable = true;
+                this.deleteButton = true;
+                this.editButton = true;
             }
         }
     }

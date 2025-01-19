@@ -33,10 +33,12 @@
             <th scope="col" class="ep-column">Odcinki</th>
           </tr>
         </thead>
-        <tbody v-if="animeTableContent">
-          <template v-for="(group, groupIndex) in anieData" :key="groupIndex">
-            <RowSeparator :grTitle="group.gtitle" />
-            <DataRow v-for="(anime, animeIndex) in group.anime" :key="animeIndex" :data="anime" />
+        <tbody>
+          <template v-if="animeTableContent">
+            <template v-for="(group, groupIndex) in anieData" :key="groupIndex">
+              <RowSeparator :grTitle="group.gtitle" />
+              <DataRow v-for="(anime, animeIndex) in group.anime" :key="animeIndex" :data="anime" />
+            </template>
           </template>
         </tbody>
       </table>

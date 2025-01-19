@@ -186,13 +186,18 @@ export default {
           description: this.description
         };
 
-        await this.AddAnimeToDataBase(data);
-        this.ApplyAndClose();
+        const response = await this.AddAnimeToDataBase(data);
+        console.log(response);
+        if(response.complete) {
+          console.log('TEST TEST TEST');
+          this.reloadTable();
+          this.CloseModal();
+        }
       },
 
       ApplyAndClose() {
         console.log('Zamykam Modal');
-        //this.reloadTable();
+        this.reloadTable();
         this.CloseModal();
       }
     }

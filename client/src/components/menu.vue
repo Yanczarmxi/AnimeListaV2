@@ -21,14 +21,14 @@
                 Dodaj Grupę
             </button>
 
-            <button class="btn btn-primary bt-nav-fnc" data-bs-toggle="modal" data-bs-target="#modal-window" :disabled="editDis">
+            <button class="btn btn-primary bt-nav-fnc" data-bs-toggle="modal" data-bs-target="#modal-window" :disabled="editButton">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-edit-record"/>
                 </svg>
                 Edytuj
             </button>
 
-            <button class="btn btn-danger bt-nav-fnc" data-bs-toggle="modal" data-bs-target="#modal-window" :disabled="removeDis">
+            <button class="btn btn-danger bt-nav-fnc" data-bs-toggle="modal" data-bs-target="#modal-window" :disabled="deleteButton">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" disabled>
                     <use xlink:href="#ico-remove-record"/>
                 </svg>
@@ -56,8 +56,8 @@
 </template>
 <script>
 import SvgIconSet from './iconset.vue';
-import { useAnimeIndexStore } from '@/stores/moderated';
 import { useAuterizationStore } from '@/stores/auterization';
+import { useModeratedStore } from '@/stores/moderated';
 import { ref, watch } from 'vue';
 
 import ModalAddWindow from './modals/add.vue';
@@ -87,35 +87,31 @@ export default {
     const userAvatar = ref(auterization.userAvatar);
 
 
-    //Storrage zmiennych kontrolnych
-    const animeIndex = useAnimeIndexStore();
+    //Moderated
+    const moderated = useModeratedStore();
 
-    //Aktywatory przycisków edit i remove
-    const editDis = ref(animeIndex.editDistable);
-    const removeDis = ref(animeIndex.removeDistable);
+    const editButton = ref(moderated.editButton);
+    const deleteButton = ref(moderated.deleteButton);
 
-    watch (
-        () => animeIndex.editDistable,
-        (newValue, oldValue) => {
-            editDis.value = newValue;
-            console.log("editToggle: " + newValue + " - " + oldValue);
+    watch(
+        () => moderated.editButton, (newValue) => {
+            editButton.value = newValue;
         },
-        
-        () => animeIndex.removeDistable,
-        (newValue, oldValue) => {
-            removeDis.value = newValue;
-            console.log("removeToggle: " + newValue + " - " + oldValue);
+
+        () => moderated.deleteButton, (newValue) => {
+            deleteButton.value = newValue;
         }
     );
 
     return {
-        editDis,
-        removeDis,
-
         userName,
         userAvatar,
         
         LogoutUser: auterization.LogoutUser,
+
+        //Moderated
+        editButton,
+        deleteButton 
     };
   },
 
@@ -139,7 +135,7 @@ export default {
     HiddeModalAddWindow() {
         this.modalAddVisible = false;
         console.log(this.modalAddVisible);
-    }
+    },
   }
 }
 </script>

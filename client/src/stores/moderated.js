@@ -19,7 +19,6 @@ export const useModeratedStore = defineStore('Moderated', {
                 this.checkIdAnimeStore.push(data);
                 console.log(this.checkIdAnimeStore);
             }
-
             this.ActiveTogglerButton();
         },
 
@@ -64,6 +63,15 @@ export const useModeratedStore = defineStore('Moderated', {
                 this.deleteButton = true;
                 this.editButton = true;
             }
+        },
+
+        GetIndex() {
+            return {
+                index: this.checkIdAnimeStore,
+                gindex: this.checkIdGroupStore,
+                edit: this.editButton,
+                delete: this.deleteButton
+            };
         }
     }
 });

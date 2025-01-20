@@ -80,8 +80,8 @@
 </template>
 <script>
 import { useAnimeStore } from '@/stores/anime';
-
 import LoadingWheel from '../ui/loading.vue';
+
 export default {
     name: 'ModalAddWindow',
     components: {

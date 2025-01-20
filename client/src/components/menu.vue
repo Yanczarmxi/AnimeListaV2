@@ -96,8 +96,10 @@ export default {
     watch(
         () => moderated.editButton, (newValue) => {
             editButton.value = newValue;
-        },
+        }
+    );
 
+    watch(
         () => moderated.deleteButton, (newValue) => {
             deleteButton.value = newValue;
         }

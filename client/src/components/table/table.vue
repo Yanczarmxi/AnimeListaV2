@@ -36,7 +36,7 @@
         <tbody>
           <template v-if="animeTableContent">
             <template v-for="(group, groupIndex) in anieData" :key="groupIndex">
-              <RowSeparator :grTitle="group.gtitle" />
+              <RowSeparator :grData="{grTitle: group.gtitle, grId: group.gid}" />
               <DataRow v-for="(anime, animeIndex) in group.anime" :key="animeIndex" :data="anime" />
             </template>
           </template>

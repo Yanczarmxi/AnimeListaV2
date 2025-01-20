@@ -2,7 +2,7 @@
     <tr class="anime-row-container">
         <th scope="row">
             <div class="ch-container">
-                <input class="form-check-input" type="checkbox" v-model="isChecked" @change="CheckboxIndex"/>
+                <input class="form-check-input" type="checkbox" v-model="isChecked" @change="CheckboxHandle"/>
             </div>
         </th>
 
@@ -183,6 +183,7 @@ export default {
 
             AddIdToStore: moderated.AddIdToStore,
             DeleteIdFromStore: moderated.DeleteIdFromStore,
+            GetIndex: moderated.GetIndex,
         };
     },
 
@@ -307,12 +308,18 @@ export default {
         },
 
         CheckboxHandle() {
-            if(this.checkActive) {
+            console.log(`Checkbox: ${this.isChecked}`);
+            if(this.isChecked) {
+                console.log(`Dodano index: ${this.animeId}`);
                 this.AddIdToStore(this.animeId);
             }
             else {
-                this.DeleteFromStore(this.animeId);
+                console.log(`Usunięto index: ${this.animeId}`);
+                this.DeleteIdFromStore(this.animeId);
             }
+
+            const test = this.GetIndex();
+            console.log(`TEST INDEX: ${test.index}  EDIT: ${test.edit}  DELETE: ${test.delete}`);
         }
     }
 }

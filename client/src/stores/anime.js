@@ -118,8 +118,37 @@ export const useAnimeStore = defineStore('Anime', {
             }
             catch(e) {
                 console.error(`Nie udało się wykodać operazji dodania anime: ${e}`);
-                return 404
+                return false
             }
+        },
+
+        //Edytowanie rekordu
+        async UpdateAnimeInDataBase(data) {
+            try {
+                const response = await axios.put('/anime/edit', data, {withCredentials: true});
+                return response.data;
+            }
+            catch(e) {
+                console.error(`Nie udało się wykodać operazji edycji anime: ${e}`);
+                return false
+            }
+        },
+
+        //Pobieranie danych do edycji
+        GetDataForEditModal(anime) {
+            var result = {};
+
+            this.animedata.forEach(element => {
+                for(var i=0; i<element.anime.lenght; i++) {
+                    if(element.anime[i].id === anime) {
+                        result = element.anime[i];
+                        Object.assign(result, {gid: element.gid});
+                        break;
+                    }
+                }
+            });
+
+            return result;
         }
     },
 });

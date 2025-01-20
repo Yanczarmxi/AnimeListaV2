@@ -112,6 +112,12 @@ export default {
 
   setup() {
     const animeStore = useAnimeStore();
+
+    return {
+      groups: animeStore.group,
+      UploadImage: animeStore.UploadImage,
+      DeleteImage: animeStore.DeleteImage,
+    };
   },
 }
 </script>

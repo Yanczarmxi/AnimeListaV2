@@ -20,7 +20,7 @@ router.post('/description', GetReadyDescription); //Pobieranie opisu
 
 router.post('/add', AddAnimeToRecord); //Dodawanie nowego anime do bazy danych
 
-router.get('/getrecord', GetAnimeRecord);
+router.post('/getrecord', GetAnimeRecord);
 router.put('/edit', async (req, res) => {
 
 });

@@ -60,6 +60,18 @@ module.exports = {
         secure: false,
         pathRewrite: { '^/anime/add': '/anime/add' },
       },
+      '/anime/edit': {
+        target: serverUrl, // Adres backendu
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { '^/anime/edit': '/anime/edit' },
+      },
+      '/anime/getrecord': {
+        target: serverUrl, // Adres backendu
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { '^/anime/getrecord': '/anime/getrecord' },
+      },
     },
   },
 };

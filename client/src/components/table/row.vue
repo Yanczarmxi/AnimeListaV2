@@ -42,7 +42,6 @@
                     </div>
                 </div>
                 <div class="anm-stsl-container">
-
                     <div class="watch-state-selector" :class="stateMenuRadius" @click="ToggleStateMenu"  ref="rfStateMenu">
                         <div class="watch-txt-content">
                             <svg width="16" height="16" fill="currentColor" :class="stateColor">

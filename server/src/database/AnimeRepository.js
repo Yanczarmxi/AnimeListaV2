@@ -144,7 +144,7 @@ class AnimeRepository {
                     an_description,
                     an_episodes,
                     an_image
-                FROM anm_animes,
+                FROM anm_animes
                 WHERE an_id = ? AND an_user = ?;
             `;
 

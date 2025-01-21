@@ -129,15 +129,12 @@ export default {
     };
   },
 
-  mounted() {
-    if(this.animeStore.lenght > 0) {
-      const id = this.animeStore[0];
-      const data = this.GetAnimeForEditModal(id);
+  async mounted() {
+    const id = this.checkIdAnimeStore[0];
+    const response = await this.GetAnimeForEditModal(id);
 
-      this.title = data.title;
-      this.group = data.gid;
-      this.episodes = data.episodes;
-    }
+    this.title = response.title;
+    this.group = response.group;
   },
 
   methods: {

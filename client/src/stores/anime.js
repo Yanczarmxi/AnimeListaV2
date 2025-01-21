@@ -136,9 +136,15 @@ export const useAnimeStore = defineStore('Anime', {
 
         //Pobieranie danych do edycji
         async GetAnimeForEditModal(anime) {
-            var result = {anime: anime};
-
-            return result;
+            try {
+                const response = await axios.post('/anime/getrecord', {anime: anime}, {withCredentials: true});
+                console.log(response);
+                return response.data;
+            }
+            catch(e) {
+                console.error(`Nie udało się pobrać recordu: ${e}`);
+                return null;
+            }
         },
 
         GetGroupForEditModal(group) {

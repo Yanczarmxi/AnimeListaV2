@@ -80,7 +80,9 @@
 </template>
 <script>
 import { useAnimeStore } from '@/stores/anime';
+import { useModeratedStore } from '@/stores/moderated';
 import LoadingWheel from '../ui/loading.vue';
+import { ref } from 'vue';
 
 export default {
   name: 'ModalEditWindow',
@@ -112,13 +114,26 @@ export default {
 
   setup() {
     const animeStore = useAnimeStore();
+    const moderated = useModeratedStore();
+
+    const checkIdAnimeStore = ref(moderated.checkIdAnimeStore);
+    const checkIdGroupStore = ref(moderated.checkIdGroupStore);
 
     return {
       groups: animeStore.group,
       UploadImage: animeStore.UploadImage,
       DeleteImage: animeStore.DeleteImage,
+
+      checkIdAnimeStore,
+      checkIdGroupStore,
     };
   },
+
+  methods: {
+    CloseModal() {
+      this.$emit('closeModal');
+    },
+  }
 }
 </script>
 <style lang="css">

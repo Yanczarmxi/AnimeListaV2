@@ -135,7 +135,7 @@ export const useAnimeStore = defineStore('Anime', {
         },
 
         //Pobieranie danych do edycji
-        GetDataForEditModal(anime) {
+        GetAnimeForEditModal(anime) {
             var result = {};
 
             this.animedata.forEach(element => {
@@ -145,6 +145,18 @@ export const useAnimeStore = defineStore('Anime', {
                         Object.assign(result, {gid: element.gid});
                         break;
                     }
+                }
+            });
+
+            return result;
+        },
+
+        GetGroupForEditModal(group) {
+            var result = {};
+
+            this.animedata.forEach(element => {
+                if(element.gid === group) {
+                    result = element;
                 }
             });
 

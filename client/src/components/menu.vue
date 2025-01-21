@@ -21,7 +21,7 @@
                 Dodaj Grupę
             </button>
 
-            <button class="btn btn-primary bt-nav-fnc" data-bs-toggle="modal" data-bs-target="#modal-window" :disabled="editButton">
+            <button class="btn btn-primary bt-nav-fnc" @click="ShowModalEditWindow" :disabled="editButton">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-edit-record"/>
                 </svg>
@@ -53,6 +53,7 @@
         </div>
     </nav>
     <ModalAddWindow v-if="modalAddVisible" @closeModal="HiddeModalAddWindow"/>
+    <ModalEditWindow v-if="modalEditVisible" @closeModal="HiddeModalEditWindow" />
 </template>
 <script>
 import SvgIconSet from './iconset.vue';
@@ -61,12 +62,14 @@ import { useModeratedStore } from '@/stores/moderated';
 import { ref, watch } from 'vue';
 
 import ModalAddWindow from './modals/add.vue';
+import ModalEditWindow from './modals/edit.vue';
 
 export default {
     name: 'ManuNav',
     components: {
         SvgIconSet,
         ModalAddWindow,
+        ModalEditWindow,
   },
 
   data() {
@@ -129,15 +132,23 @@ export default {
         }
     },
 
+    //Modal dodawanie
     ShowModalAddWindow() {
         this.modalAddVisible = true;
-        console.log(this.modalAddVisible);
     },
 
     HiddeModalAddWindow() {
         this.modalAddVisible = false;
-        console.log(this.modalAddVisible);
     },
+
+    //Modal edycja
+    ShowModalEditWindow() {
+        this.modalEditVisible = true;
+    },
+
+    HiddeModalEditWindow() {
+        this.modalEditVisible = false;
+    }
   }
 }
 </script>

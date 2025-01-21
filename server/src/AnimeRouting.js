@@ -5,6 +5,7 @@ const router = express.Router();
 const GetAnime = require('./anime/GetAnimesSerialized');
 const GetReadyDescription = require('./anime/GetReadyDescription');
 const UpdateState = require('./anime/UpdateState');
+const GetAnimeRecord = require('./anime/GetAnimeRecord');
 
 //Operacje
 const AddAnimeToRecord = require('./anime/AddAnimeToRecord');
@@ -19,7 +20,7 @@ router.post('/description', GetReadyDescription); //Pobieranie opisu
 
 router.post('/add', AddAnimeToRecord); //Dodawanie nowego anime do bazy danych
 
-router.get('/getrecord');
+router.get('/getrecord', GetAnimeRecord);
 router.put('/edit', async (req, res) => {
 
 });

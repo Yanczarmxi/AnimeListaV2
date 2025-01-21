@@ -35,7 +35,7 @@ export const useModeratedStore = defineStore('Moderated', {
             else {
                 for(var j=0; j < this.checkIdAnimeStore.length; j++) {
                     if(this.checkIdAnimeStore[j] === data) {
-                        this.checkIdAnimeStore.splice(i, 1);
+                        this.checkIdAnimeStore.splice(j, 1);
                         j--;
                     }
                 }

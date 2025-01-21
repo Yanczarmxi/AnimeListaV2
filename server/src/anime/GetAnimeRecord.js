@@ -38,3 +38,5 @@ async function GetAnimeRecord(req, res) {
         res.status(500).json({mess: 'Server Error!'});
     }
 }
+
+module.exports = GetAnimeRecord;

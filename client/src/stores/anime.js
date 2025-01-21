@@ -135,18 +135,8 @@ export const useAnimeStore = defineStore('Anime', {
         },
 
         //Pobieranie danych do edycji
-        GetAnimeForEditModal(anime) {
-            var result = {};
-
-            this.animedata.forEach(element => {
-                for(var i=0; i<element.anime.lenght; i++) {
-                    if(element.anime[i].id === anime) {
-                        result = element.anime[i];
-                        Object.assign(result, {gid: element.gid});
-                        break;
-                    }
-                }
-            });
+        async GetAnimeForEditModal(anime) {
+            var result = {anime: anime};
 
             return result;
         },

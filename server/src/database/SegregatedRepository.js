@@ -66,6 +66,18 @@ class SegregatedRepository {
             return false;
         }
     }
+
+    async GetRecord(anime, user) {
+        try {
+            const sql = `SELECT st_group FROM anm_segregated WHERE st_anime = ? AND st_user = ?`;
+            const [rows] = await this.db.query(sql, [anime, user]);
+            return rows[0];
+        }
+        catch(e) {
+            console.error(`ERROR: Nie udało się pobrać recordu: ${e}`);
+            return null
+        }
+    }
 }
 
 module.exports = new SegregatedRepository();

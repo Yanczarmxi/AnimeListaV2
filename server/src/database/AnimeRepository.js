@@ -134,6 +134,28 @@ class AnimeRepository {
             return null;
         }
     }
+
+    async GetRecord(id, user) {
+        try {
+            const sql = `
+                SELECT
+                    an_title,
+                    an_url,
+                    an_description,
+                    an_episodes,
+                    an_image
+                FROM anm_animes,
+                WHERE an_id = ? AND an_user = ?;
+            `;
+
+            const [rows] = await this.db.query(sql, [id, user]);
+            return rows[0];
+        }
+        catch(e) {
+            console.error(`ERROR: Nie udało się pobrać recordu: ${e}`);
+            return null;
+        }
+    }
 }
 
 module.exports = new AnimeRepository();

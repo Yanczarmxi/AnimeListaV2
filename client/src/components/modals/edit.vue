@@ -117,7 +117,7 @@ export default {
     const moderated = useModeratedStore();
 
     const checkIdAnimeStore = ref(moderated.checkIdAnimeStore);
-    const checkIdGroupStore = ref(moderated.checkIdGroupStore);
+    const GetAnimeForEditModal = ref(animeStore.GetAnimeForEditModal);
 
     return {
       groups: animeStore.group,
@@ -125,8 +125,19 @@ export default {
       DeleteImage: animeStore.DeleteImage,
 
       checkIdAnimeStore,
-      checkIdGroupStore,
+      GetAnimeForEditModal,
     };
+  },
+
+  mounted() {
+    if(this.animeStore.lenght > 0) {
+      const id = this.animeStore[0];
+      const data = this.GetAnimeForEditModal(id);
+
+      this.title = data.title;
+      this.group = data.gid;
+      this.episodes = data.episodes;
+    }
   },
 
   methods: {

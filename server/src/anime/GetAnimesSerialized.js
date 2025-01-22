@@ -2,12 +2,12 @@ const animeRepo = require('../database/AnimeRepository');
 const groupsRepo = require('../database/GroupRepository');
 
 function SegregatedAnimeToGroup(groups, animes){
-    var data = [];
-    var tmp = [];
-    for(var i=0; i < groups.length; i++){
-        for(var j=0; j < animes.length; j++){
+    let data = [];
+    let tmp = [];
+    for(let i=0; i < groups.length; i++){
+        for(let j=0; j < animes.length; j++){
             if(animes[j].st_group == groups[i].gr_id){
-                var img = animes[j].an_miniature ? Buffer.from(animes[j].an_miniature).toString('base64') : null;
+                let img = animes[j].an_miniature ? Buffer.from(animes[j].an_miniature).toString('base64') : null;
 
                 tmp.push({
                     id:       animes[j].an_id,
@@ -36,10 +36,10 @@ function SegregatedAnimeToGroup(groups, animes){
 }
 
 function SegregateAnimesToOtchers(animes){
-    var tmp = [];
-    for(var i=0; i < animes.length; i++){
+    let tmp = [];
+    for(let i=0; i < animes.length; i++){
         if(animes[i].st_group == null){
-            var img = animes[i].an_miniature ? Buffer.from(animes[i].an_miniature).toString('base64') : null;
+            let img = animes[i].an_miniature ? Buffer.from(animes[i].an_miniature).toString('base64') : null;
 
             tmp.push({
                 id:       animes[i].an_id,
@@ -60,9 +60,9 @@ function SegregateAnimesToOtchers(animes){
 }
 
 function SearchAnimeIndex(animes){
-    var tmp = [];
+    let tmp = [];
 
-    for(var i=0; i < animes.length; i++){
+    for(let i=0; i < animes.length; i++){
         tmp.push({
             id: animes[i].an_id,
             title: animes[i].an_title

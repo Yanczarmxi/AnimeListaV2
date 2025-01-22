@@ -125,6 +125,10 @@ export default {
       imageUrlWithTimestamp() {
         return `${this.imageUrl}?t=${this.timestamp}`;
       },
+
+      //validIsNumber() {
+      //  let tmp;  
+      //}
     },
 
     inject: ['reloadTable'],

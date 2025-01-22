@@ -148,7 +148,7 @@ export const useAnimeStore = defineStore('Anime', {
         },
 
         GetGroupForEditModal(group) {
-            var result = {};
+            let result = {};
 
             this.animedata.forEach(element => {
                 if(element.gid === group) {

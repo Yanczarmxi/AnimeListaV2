@@ -16,8 +16,8 @@ async function GetAnimeRecord(req, res) {
         const anime = req.body.anime;
         const user = req.session.user_id;
 
-        const animeResult = AnimeRepository.GetRecord(anime, user);
-        const groupIdResult = SegregatedRepository.GetRecord(anime, user);
+        const animeResult = await AnimeRepository.GetRecord(anime, user);
+        const groupIdResult = await SegregatedRepository.GetRecord(anime, user);
 
         //Serializacja danych
         const img = animeResult.an_image ? Buffer.from(animeResult.an_image).toString('base64') : null;

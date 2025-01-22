@@ -49,7 +49,7 @@
                 <div class="md-form-box">
                   <label for="slc-group">Grupa</label>
                   <select class="md-select-group-menu" id="slc-group" v-model="group">
-                    <option value=null>Pozostałe</option>
+                    <option value=0>Pozostałe</option>
                     <option v-for="option in groups" :key="option.gr_id" :value="option.gr_id">
                       {{ option.gr_title }}
                     </option>
@@ -92,7 +92,7 @@ export default {
         //Dane animu do przesłania
         title: '',
         group: 0,
-        episodes: 0,
+        episodes: 1,
         url: '',
         description: '',
 

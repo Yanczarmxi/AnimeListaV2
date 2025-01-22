@@ -25,7 +25,7 @@ class AnimeRepository {
                 WHERE anm_animes.an_user=?;
                 `;
     
-            const [rows] = await this.db.query(sql, [user, user, user]);
+            const [rows] = await this.db.execute(sql, [user, user, user]);
         
             return rows;
         }
@@ -47,7 +47,7 @@ class AnimeRepository {
                 WHERE an_id=? AND an_user=?;
             `;
     
-            const [rows] = await this.db.query(sql, [id, user]);
+            const [rows] = await this.db.execute(sql, [id, user]);
     
             return rows[0];
         }
@@ -60,7 +60,7 @@ class AnimeRepository {
     async Delete(id) {
         try {
             const sql = 'DELETE FROM anm_anime WHERE an_id = ?';
-            await this.db.query(sql, [id]);
+            await this.db.execute(sql, [id]);
     
             return true;
         }
@@ -153,7 +153,7 @@ class AnimeRepository {
                 WHERE an_id = ? AND an_user = ?;
             `;
 
-            const [rows] = await this.db.query(sql, [id, user]);
+            const [rows] = await this.db.execute(sql, [id, user]);
             return rows[0];
         }
         catch(e) {

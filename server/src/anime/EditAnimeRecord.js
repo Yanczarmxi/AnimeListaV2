@@ -1,5 +1,5 @@
-const fs = require('fs');
-const patch = require('path');
+const AnimeRepository = require('../database/AnimeRepository');
+const SegregatedRepository = require('../database/SegregatedRepository');
 
 async function EditAnimeRecord(req, res) {
     try {

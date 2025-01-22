@@ -2,7 +2,7 @@
   <div class="md-body d-flex justify-content-center align-items-center">
     <div class="md-content d-flex flex-column align-content-between">
       <div class="md-header">
-        <h5>Dodaj animu</h5>
+        <h5>Edytuj animu</h5>
         <div class="bt-md-exit" @click="CloseModal">
           <svg width="32" height="32" fill="currentColor" class="bi bi-database-fill-add">
             <use xlink:href="#ico-cross"/>
@@ -49,7 +49,7 @@
               <div class="md-form-box">
                 <label for="slc-group">Grupa</label>
                 <select class="md-select-group-menu" id="slc-group" v-model="group">
-                  <option value=null>Pozostałe</option>
+                  <option value=0>Pozostałe</option>
                   <option v-for="option in groups" :key="option.gr_id" :value="option.gr_id">
                     {{ option.gr_title }}
                   </option>
@@ -99,9 +99,7 @@ export default {
       description: '',
 
       //obrazek
-      imageUrl: '',
       imageContent: '',
-      timestamp: Date.now(),
 
       //UPLOAD
       uploading: false,
@@ -131,10 +129,6 @@ export default {
   },
 
   computed: {
-      imageUrlWithTimestamp() {
-        return `${this.imageUrl}?t=${this.timestamp}`;
-      },
-
       //validIsNumber() {
       //  let tmp;  
       //}
@@ -163,7 +157,42 @@ export default {
     CloseModal() {
       this.$emit('closeModal');
     },
-  }
+
+    async HandleFileUpload(event) {
+      const file = event.target.files[0];
+
+      if (!file) {
+        this.error = "No file selected.";
+        return;
+      }
+
+      this.uploading = true;
+      this.imgShow = false;
+      this.imgEmpty = false;
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await this.UploadImage(formData);
+
+      console.log(response.status);
+
+      if(response.status === 200) {
+        if(response.url) {
+          this.imageContent = `${response.url}?t=${Date.now()}`;
+          this.imgShow = true;
+        }
+        else {
+          this.imgFail = true;
+        }
+      }
+      else {
+        this.imgFall = true;
+      }
+
+      this.uploading = false;
+    },  
+  },
 }
 </script>
 <style lang="css">

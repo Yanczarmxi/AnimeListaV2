@@ -70,7 +70,7 @@ class AnimeRepository {
         }
     }
 
-    async Update(id, title, url, episodes, description, miniature, image) {
+    async Update(id, data) {
         try {
             const sql = `
                 UPDATE anm_animes
@@ -85,13 +85,18 @@ class AnimeRepository {
                     an_id = ?;
             `;
 
-            await this.db.query(sql, [title, url, episodes, description, miniature, image, id]);
-
-            return true;
+            await this.db.execute(sql, [
+                data.title, 
+                data.url, 
+                data.episodes, 
+                data.description, 
+                data.miniature, 
+                data.image, 
+                id
+            ]);
         }
         catch(e) {
-            console.error(e);
-            return false;
+            console.error(`ERROR QUERY: Nie udało się zaktualizaować rekordu ${e}`);
         }
     }
 

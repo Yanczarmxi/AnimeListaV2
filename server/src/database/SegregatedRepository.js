@@ -70,12 +70,12 @@ class SegregatedRepository {
     async GetRecord(anime, user) {
         try {
             const sql = `SELECT st_group FROM anm_segregated WHERE st_anime = ? AND st_user = ?`;
-            const [rows] = await this.db.query(sql, [anime, user]);
-            return rows[0];
+            const [rows] = await this.db.execute(sql, [anime, user]);
+            return rows[0] ? rows[0].st_group : 0;
         }
         catch(e) {
             console.error(`ERROR: Nie udało się pobrać recordu: ${e}`);
-            return null
+            return 0;
         }
     }
 }

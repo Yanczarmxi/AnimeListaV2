@@ -27,7 +27,7 @@ async function GetAnimeRecord(req, res) {
             url:         animeResult.an_url,
             description: animeResult.an_description,
             episodes:    animeResult.an_episodes,
-            group:       groupIdResult.st_group,
+            group:       groupIdResult,
             image:       img
         };
 

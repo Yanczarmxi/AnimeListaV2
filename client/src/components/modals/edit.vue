@@ -25,7 +25,7 @@
 
                 <img src="../../assets/img/fail_img.svg" width="64" height="64" v-if="imgFall">
               </div>
-              <img :src="imageUrlWithTimestamp" alt="" width="200" height="285" v-if="imgShow">
+              <img :src="imageContent" alt="" width="200" height="285" v-if="imgShow">
             </label>
             <input type="file" @change="HandleFileUpload" id="img-input-form" style="display: none;" accept="image/*" maxlength="1">
           </div>
@@ -94,12 +94,13 @@ export default {
       //Dane animu do przesłania
       title: '',
       group: 0,
-      episodes: 0,
+      episodes: 1,
       url: '',
       description: '',
 
       //obrazek
       imageUrl: '',
+      imageContent: '',
       timestamp: Date.now(),
 
       //UPLOAD
@@ -129,12 +130,33 @@ export default {
     };
   },
 
+  computed: {
+      imageUrlWithTimestamp() {
+        return `${this.imageUrl}?t=${this.timestamp}`;
+      },
+
+      //validIsNumber() {
+      //  let tmp;  
+      //}
+  },
+
   async mounted() {
     const id = this.checkIdAnimeStore[0];
     const response = await this.GetAnimeForEditModal(id);
 
     this.title = response.title;
     this.group = response.group;
+    this.episodes = response.episodes;
+    this.url = response.url;
+    this.description = response.description;
+
+    //Wyświetlenie obrazu
+    if(response.image) {
+      this.imgEmpty = false;
+      this.imgShow = true;
+
+      this.imageContent = 'data:image/jpeg;base64,' + response.image;
+    }
   },
 
   methods: {

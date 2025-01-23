@@ -104,6 +104,9 @@ export default {
       //UPLOAD
       uploading: false,
 
+      //image delete record
+      deleteBlob: false,
+
       //Stany uploadowanej grafiki
       imgShow: false,
       imgEmpty: true,
@@ -118,10 +121,13 @@ export default {
     const checkIdAnimeStore = ref(moderated.checkIdAnimeStore);
     const GetAnimeForEditModal = ref(animeStore.GetAnimeForEditModal);
 
+    const groups = ref(animeStore.group);
+
     return {
-      groups: animeStore.group,
+      groups,
       UploadImage: animeStore.UploadImage,
       DeleteImage: animeStore.DeleteImage,
+      UpdateAnimeInDataBase: animeStore.UpdateAnimeInDataBase,
 
       checkIdAnimeStore,
       GetAnimeForEditModal,
@@ -133,6 +139,8 @@ export default {
       //  let tmp;  
       //}
   },
+
+  inject: ['reloadTable'],
 
   async mounted() {
     const id = this.checkIdAnimeStore[0];
@@ -191,7 +199,37 @@ export default {
       }
 
       this.uploading = false;
-    },  
+    },
+
+    async DeleteImageUpload(data) {
+      this.imgShow = false;
+      this.imgEmpty = true;
+      this.imageUrl = null;
+      await this.DeleteImage({id: data});
+    },
+
+    async EditAnime() {
+      const data = {
+          title: this.title,
+          group: this.group,
+          episodes: this.episodes,
+          url: this.url,
+          description: this.description,
+          deleteImage: this.deleteBlob
+        };
+
+        const response = await this.UpdateAnimeInDataBase(data);
+
+        if(response.complete) {
+          this.reloadTable();
+          this.CloseModal();
+        }
+    },
+
+    ApplyAndClose() {
+      this.reloadTable();
+      this.CloseModal();
+    }
   },
 }
 </script>

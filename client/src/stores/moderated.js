@@ -2,12 +2,32 @@ import { defineStore } from 'pinia';
 
 export const useModeratedStore = defineStore('Moderated', {
     state: () => ({
-        editButton: true,
-        deleteButton: true,
+        //editButton: true,
+        //deleteButton: true,
 
         checkIdAnimeStore: [],
         checkIdGroupStore: [],
     }),
+
+    getters: {
+        deleteButton(state) {
+            const gouprLen = state.checkIdGroupStore.length;
+            const animeLen = state.checkIdAnimeStore.length;
+            
+            // Przyciski usuwania aktywny tylko gdy oba length są 0
+            return !(gouprLen > 0 || animeLen > 0);
+        },
+
+        editButton(state) {
+            const gouprLen = state.checkIdGroupStore.length;
+            const animeLen = state.checkIdAnimeStore.length;
+      
+            // Logika do obsługi przycisku edytowania
+            if (gouprLen > 0 && animeLen > 0) return true;
+            if (gouprLen > 1 || animeLen > 1) return true;
+            return false;
+          }
+    },
 
     actions: {
         AddIdToStore(data, isGroup = false) {
@@ -19,7 +39,7 @@ export const useModeratedStore = defineStore('Moderated', {
                 this.checkIdAnimeStore.push(data);
                 console.log(this.checkIdAnimeStore);
             }
-            this.ActiveTogglerButton();
+            //this.ActiveTogglerButton();
         },
 
         DeleteIdFromStore(data, isGroup = false) {
@@ -42,7 +62,7 @@ export const useModeratedStore = defineStore('Moderated', {
                 console.log(this.checkIdAnimeStore);
             }
 
-            this.ActiveTogglerButton();
+            //this.ActiveTogglerButton();
         },
 
         ActiveTogglerButton(){
@@ -65,13 +85,10 @@ export const useModeratedStore = defineStore('Moderated', {
             }
         },
 
-        GetIndex() {
-            return {
-                index: this.checkIdAnimeStore,
-                gindex: this.checkIdGroupStore,
-                edit: this.editButton,
-                delete: this.deleteButton
-            };
+        ResetIndex() {
+            console.log("Zresetowano index");
+            this.checkIdAnimeStore = [];
+            this.checkIdGroupStore = [];
         }
     }
 });

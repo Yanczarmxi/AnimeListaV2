@@ -47,6 +47,7 @@
 <script>
 import { useAnimeStore } from '@/stores/anime';
 import { useAuterizationStore } from '@/stores/auterization';
+import { useModeratedStore } from '@/stores/moderated';
 
 import DataRow from './row.vue';
 import RowSeparator from './rowseparator.vue';
@@ -69,10 +70,13 @@ export default {
     setup() {
       const animeStore = useAnimeStore();
       const auterization = useAuterizationStore();
+      const moderated = useModeratedStore();
 
       return {
         GetAnime: animeStore.GetAnime,
         isLogged: auterization.isLogged,
+
+        ResetIndex: moderated.ResetIndex,
       }
     },
     mounted() {
@@ -97,6 +101,7 @@ export default {
 
       async ReloadData() {
         this.animeTableContent = false;
+        this.ResetIndex();
         await this.LoadData();
         this.animeTableContent = true;
       }

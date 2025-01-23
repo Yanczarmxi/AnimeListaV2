@@ -182,7 +182,6 @@ export default {
 
             AddIdToStore: moderated.AddIdToStore,
             DeleteIdFromStore: moderated.DeleteIdFromStore,
-            GetIndex: moderated.GetIndex,
         };
     },
 
@@ -316,10 +315,7 @@ export default {
                 console.log(`Usunięto index: ${this.animeId}`);
                 this.DeleteIdFromStore(this.animeId);
             }
-
-            const test = this.GetIndex();
-            console.log(`TEST INDEX: ${test.index}  EDIT: ${test.edit}  DELETE: ${test.delete}`);
-        }
+       }
     }
 }
 </script>

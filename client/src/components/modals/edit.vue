@@ -73,7 +73,7 @@
 
       <div class="md-footer d-flex flex-row justify-content-end p-4">
         <button type="button" class="btn btn-secondary" @click="CloseModal">Zamknij</button>
-        <button type="button" class="btn btn-primary bt-space" @click="AddAnime">Dodaj</button>
+        <button type="button" class="btn btn-primary bt-space" @click="EditAnime">Dodaj</button>
       </div>
     </div>
   </div>
@@ -92,6 +92,7 @@ export default {
   data() {
     return {
       //Dane animu do przesłania
+      id: 0,
       title: '',
       group: 0,
       episodes: 1,
@@ -105,7 +106,8 @@ export default {
       uploading: false,
 
       //image delete record
-      deleteBlob: false,
+      removeImage: false,
+      newImage: false,
 
       //Stany uploadowanej grafiki
       imgShow: false,
@@ -177,6 +179,8 @@ export default {
       this.uploading = true;
       this.imgShow = false;
       this.imgEmpty = false;
+      this.newImage = false;
+      this.removeImage = false;
 
       const formData = new FormData();
       formData.append("file", file);
@@ -189,6 +193,7 @@ export default {
         if(response.url) {
           this.imageContent = `${response.url}?t=${Date.now()}`;
           this.imgShow = true;
+          this.newImage = true;
         }
         else {
           this.imgFail = true;
@@ -205,17 +210,20 @@ export default {
       this.imgShow = false;
       this.imgEmpty = true;
       this.imageUrl = null;
+      this.removeImage = true;
       await this.DeleteImage({id: data});
     },
 
     async EditAnime() {
       const data = {
+          id: this.checkIdAnimeStore[0],
           title: this.title,
           group: this.group,
           episodes: this.episodes,
           url: this.url,
           description: this.description,
-          deleteImage: this.deleteBlob
+          removeImage: this.removeImage,
+          newImage: this.newImage
         };
 
         const response = await this.UpdateAnimeInDataBase(data);

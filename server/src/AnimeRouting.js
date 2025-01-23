@@ -9,6 +9,7 @@ const GetAnimeRecord = require('./anime/GetAnimeRecord');
 
 //Operacje
 const AddAnimeToRecord = require('./anime/AddAnimeToRecord');
+const EditAnimeRecord = require('./anime/EditAnimeRecord');
 
 //img
 const UploadImageFromFile = require('./image/UploadImgFile');
@@ -21,9 +22,7 @@ router.post('/description', GetReadyDescription); //Pobieranie opisu
 router.post('/add', AddAnimeToRecord); //Dodawanie nowego anime do bazy danych
 
 router.post('/getrecord', GetAnimeRecord);
-router.put('/edit', async (req, res) => {
-
-});
+router.put('/edit', EditAnimeRecord);
 
 router.delete('/delete', async (req, res) => {
 

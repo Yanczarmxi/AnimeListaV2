@@ -1,5 +1,8 @@
 const AnimeRepository = require('../database/AnimeRepository');
 const SegregatedRepository = require('../database/SegregatedRepository');
+const LoadImgToBlob = require('../image/LoadimgToBlob');
+const path = require('path');
+const fs = require('fs');
 
 async function EditAnimeRecord(req, res) {
     try {
@@ -11,7 +14,51 @@ async function EditAnimeRecord(req, res) {
             });
         }
 
+        if(!req.body) {
+            console.error('ERROR: Edit anime record request. Użytkownik nie jest zalogowany');
+            return res.status(401).json({
+                mess: 'Użytkownik nie jest zalogowany',
+                complete: false
+            }); 
+        }
+
         const updateData = req.body;
+        const userHash = req.session.user_hash;
+        const imgPaths = req.session.img_files;
+        let updateImage = false;
+        let blob = {
+            poster: null,
+            miniature: null,
+        }
+
+        if(updateData.newImage && !updateData.removeImage) {
+            blob = {
+                poster: await LoadImgToBlob(imgPaths.poster),
+                miniature: await LoadImgToBlob(imgPaths.miniature),
+            };
+            updateImage = true;
+        }
+
+        if(updateData.removeImage && !updateData.newImage) {
+            updateImage = true;
+        }
+
+        const data = {
+            title: updateData.title,
+            url: updateData.url,
+            episodes: updateData.episodes,
+            description: updateData.description,
+            image: blob.poster,
+            miniature: blob.miniature,
+            updateImage: updateImage
+        }
+
+        AnimeRepository.Update(updateData.id, data);
+
+        const uploadDirectory = path.join(__dirname, '../../upload', userHash);
+        if(fs.existsSync(uploadDirectory)) {
+            fs.rmSync(uploadDirectory, { recursive: true });
+        }
 
         res.status(200).json({
             mess: 'Rekord został zaktualizowany',

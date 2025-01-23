@@ -79,8 +79,8 @@ class AnimeRepository {
                     an_url = ?,
                     an_episodes = ?,
                     an_description = ?,
-                    an_miniature = COALESCE(?, an_miniature),
-                    an_image = COALESCE(?, an_image)
+                    an_miniature = IF(?, ?, an_miniature),
+                    an_image = IF(?, ?, an_image)
                 WHERE
                     an_id = ?;
             `;
@@ -89,9 +89,17 @@ class AnimeRepository {
                 data.title, 
                 data.url, 
                 data.episodes, 
-                data.description, 
-                data.miniature, 
-                data.image, 
+                data.description,
+
+                //Aktualizacja miniaturki
+                data.updateImage,
+                data.miniature,
+
+                //Aktualizacja plakatu
+                data.updateImage, 
+                data.image,
+                
+                //Wskazanie indexu recordu
                 id
             ]);
         }

@@ -12,7 +12,7 @@
 
       <div class="md-body-content p-4">
         <label for="inp-title">Nazwa nowej grupy</label>
-        <input type="text" class="lb-style m-1" style="width: 100%; height: 36px;" />
+        <input type="text" class="lb-style m-1" style="width: 100%; height: 36px;" v-model="groupTitle"/>
       </div>
 
       <div class="md-footer d-flex flex-row justify-content-end p-4">
@@ -23,9 +23,38 @@
   </div>
 </template>
 <script>
+import { useAnimeStore } from '@/stores/anime';
+
 export default {
   name: 'ModalAddGroupWindow',
-  
+  data() {
+    return {
+      //Zmienna nazwy
+      groupTitle: '',
+    }
+  },
+
+  setup() {
+    const animeStore = useAnimeStore();
+
+    return {
+      AddGroupRecord: animeStore.AddAnimeToDataBase,
+    }
+  },
+
+  methods: {
+    CloseModal() {
+      this.$emit('closeModal');
+    },
+
+    async AddRecord() {
+      const response = await this.AddGroupRecord({group: this.groupTitle});
+
+      if(response){
+        this.CloseModal();
+      }
+    }
+  }
 }
 </script>
 <style lang="css">

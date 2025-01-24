@@ -157,6 +157,18 @@ export const useAnimeStore = defineStore('Anime', {
             });
 
             return result;
-        }
+        },
+
+        //Dodaj nową grupę
+        async AddGroupRecord(data) {
+            try {
+                const response = await axios.post('/anime/add-group', data, {withCredentials: true});
+                return response.data;
+            }
+            catch(e) {
+                console.error(`Nie udało się wykonać operacji ${e}`);
+                return false;
+            }
+        },
     },
 });

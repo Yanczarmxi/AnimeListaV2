@@ -10,13 +10,14 @@
         </div>
       </div>
 
-      <div class="md-body-content d-flex align-items-stretch p-4">
+      <div class="md-body-content p-4">
+        <label for="inp-title">Nazwa nowej grupy</label>
         <input type="text" class="lb-style m-1" style="width: 100%; height: 36px;" />
       </div>
 
       <div class="md-footer d-flex flex-row justify-content-end p-4">
         <button type="button" class="btn btn-secondary" @click="CloseModal">Zamknij</button>
-        <button type="button" class="btn btn-primary bt-space" @click="EditAnime">Edytuj</button>
+        <button type="button" class="btn btn-primary bt-space" @click="EditAnime">Dodaj</button>
       </div>
     </div>
   </div>
@@ -85,10 +86,10 @@ export default {
 
 .md-body-content {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   min-height: 200px;
-  height: 600px;
+  height: 224px;
   width: 100%;
 }
 

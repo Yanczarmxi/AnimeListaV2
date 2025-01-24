@@ -10,23 +10,31 @@ export const useModeratedStore = defineStore('Moderated', {
     }),
 
     getters: {
+        editButton(state) {
+            const groupLen = state.checkIdGroupStore.length;
+            const animeLen = state.checkIdAnimeStore.length;
+      
+            if(animeLen > 0 || groupLen > 0) {
+                if(animeLen > 0 && groupLen > 0) {
+                    return true;
+                }
+
+                if(animeLen > 1 || groupLen > 1) {
+                    return true;
+                }
+
+                return false;
+            }
+            return true;
+        },
+
         deleteButton(state) {
             const gouprLen = state.checkIdGroupStore.length;
             const animeLen = state.checkIdAnimeStore.length;
             
             // Przyciski usuwania aktywny tylko gdy oba length są 0
             return !(gouprLen > 0 || animeLen > 0);
-        },
-
-        editButton(state) {
-            const gouprLen = state.checkIdGroupStore.length;
-            const animeLen = state.checkIdAnimeStore.length;
-      
-            // Logika do obsługi przycisku edytowania
-            if (gouprLen > 0 && animeLen > 0) return true;
-            if (gouprLen > 1 || animeLen > 1) return true;
-            return false;
-          }
+        }
     },
 
     actions: {

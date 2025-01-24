@@ -43,7 +43,6 @@ export default {
         return {
             AddIdToStore: moderated.AddIdToStore,
             DeleteIdFromStore: moderated.DeleteIdFromStore,
-            GetIndex: moderated.GetIndex,
         };
     },
     
@@ -58,9 +57,6 @@ export default {
                 console.log(`Usunięto index: ${this.groupId}`);
                 this.DeleteIdFromStore(this.groupId, true);
             }
-
-            const test = this.GetIndex();
-            console.log(`TEST GR INDEX: ${test.gindex}  EDIT: ${test.edit}  DELETE: ${test.delete}`);
         }
     }
 }

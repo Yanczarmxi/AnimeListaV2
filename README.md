@@ -2,7 +2,7 @@
 
 Wymagania:
 - node.js 20<
-- MySQL 5.7< / MariaDB 10.4.x<
+- MySQL 8.0< / MariaDB 10.4<
 
 Instrukcja instalacji:
 - soon...
@@ -19,7 +19,6 @@ Backend:
 - bcryptjs
 - validator.js
 - sharp
-- axios
 
 Frontend:
 - vue.js

@@ -14,7 +14,7 @@
                 Dodaj Anime
             </button>
 
-            <button class="btn btn-primary bt-nav-fnc" data-bs-toggle="modal" data-bs-target="#modal-window">
+            <button class="btn btn-primary bt-nav-fnc" @click="ShowModalAddGroupWindow">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-add-group"/>
                 </svg>
@@ -54,6 +54,7 @@
     </nav>
     <ModalAddWindow v-if="modalAddVisible" @closeModal="HiddeModalAddWindow"/>
     <ModalEditWindow v-if="modalEditVisible" @closeModal="HiddeModalEditWindow" />
+    <ModalAddGroupWindow v-if="modalGroupAddVisible" />
 </template>
 <script>
 import SvgIconSet from './iconset.vue';
@@ -63,6 +64,7 @@ import { ref, watch } from 'vue';
 
 import ModalAddWindow from './modals/add.vue';
 import ModalEditWindow from './modals/edit.vue';
+import ModalAddGroupWindow from './modals/group.vue';
 
 export default {
     name: 'ManuNav',
@@ -70,6 +72,7 @@ export default {
         SvgIconSet,
         ModalAddWindow,
         ModalEditWindow,
+        ModalAddGroupWindow,
   },
 
   data() {
@@ -79,6 +82,7 @@ export default {
         modalAddGroupVisible: false,
         modalEditVisible: false,
         modalDeleteVisible: false,
+        modalGroupAddVisible: false,
     }
   },
 
@@ -148,6 +152,15 @@ export default {
 
     HiddeModalEditWindow() {
         this.modalEditVisible = false;
+    },
+
+    //Modal dodawanie gurpy
+    ShowModalAddGroupWindow() {
+        this.modalGroupAddVisible = true;
+    },
+
+    HiddeModalAddGroupWindow() {
+        this.modalGroupAddVisible = false;
     }
   }
 }

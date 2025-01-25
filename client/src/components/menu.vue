@@ -54,7 +54,7 @@
     </nav>
     <ModalAddWindow v-if="modalAddVisible" @closeModal="HiddeModalAddWindow"/>
     <ModalEditWindow v-if="modalEditVisible" @closeModal="HiddeModalEditWindow" />
-    <ModalAddGroupWindow v-if="modalGroupAddVisible" />
+    <ModalAddGroupWindow v-if="modalGroupAddVisible" @closeModal="HiddeModalAddGroupWindow" />
 </template>
 <script>
 import SvgIconSet from './iconset.vue';

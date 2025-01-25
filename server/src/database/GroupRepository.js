@@ -22,12 +22,9 @@ class GroupRepository {
         try {
             const sql = `INSERT anm_groups (gr_title, gr_user) VALUES (?, ?);`;
             await this.db.query(sql, [title, user]);
-
-            return true;
         }
         catch(e) {
             console.error('Groups Add Query ERROR: ' + e);
-            return false;
         }
     }
 

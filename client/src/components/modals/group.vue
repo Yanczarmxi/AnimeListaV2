@@ -10,9 +10,17 @@
         </div>
       </div>
 
-      <div class="md-body-content p-4">
+      <div class="md-body-content-gr p-4">
         <label for="inp-title">Nazwa nowej grupy</label>
-        <input type="text" class="lb-style m-1" style="width: 100%; height: 36px;" v-model="groupTitle"/>
+        <input 
+          type="text" 
+          class="lb-style m-1" 
+          style="width: 100%; height: 36px;" 
+          v-model="groupTitle"
+          :maxlenght="maxGlyph"
+          @input="handleInput"
+          />
+        <dev class="smol-text-content"><span class="smol-text-lenght-glyph">Pozostało: {{ LenghtGlyph }}</span></dev>
       </div>
 
       <div class="md-footer d-flex flex-row justify-content-end p-4">
@@ -31,6 +39,10 @@ export default {
     return {
       //Zmienna nazwy
       groupTitle: '',
+
+      //limit literków
+      maxGlyph: 64,
+      tmpString: '',
     }
   },
 
@@ -39,6 +51,12 @@ export default {
 
     return {
       AddGroupRecord: animeStore.AddGroupRecord,
+    }
+  },
+
+  computed: {
+    LenghtGlyph() {
+      return this.maxGlyph - this.groupTitle.length;
     }
   },
 
@@ -52,6 +70,12 @@ export default {
 
       if(response){
         this.CloseModal();
+      }
+    },
+
+    handleInput() {
+      if (this.groupTitle.length > this.maxGlyph) {
+        this.groupTitle = this.groupTitle.slice(0, this.maxGlyph);
       }
     }
   }
@@ -113,7 +137,7 @@ export default {
   font-size: 18pt;
 }
 
-.md-body-content {
+.md-body-content-gr {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -135,6 +159,17 @@ export default {
 
 .bt-space {
   margin-left: 16px;
+}
+
+.smol-text-lenght-glyph {
+  color: #fff;
+  font-size: 8pt;
+}
+
+.smol-text-content {
+  width: 100%;
+  display: flex;
+  justify-content: end;
 }
 
 .lb-style {

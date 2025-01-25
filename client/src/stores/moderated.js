@@ -34,6 +34,14 @@ export const useModeratedStore = defineStore('Moderated', {
             
             // Przyciski usuwania aktywny tylko gdy oba length są 0
             return !(gouprLen > 0 || animeLen > 0);
+        },
+
+        animeEdit(state) {
+            return state.checkIdAnimeStore.length > 0 ? true : false;
+        },
+
+        groupEdit(state) {
+            return state.checkIdGroupStore.length > 0 ? true : false;
         }
     },
 

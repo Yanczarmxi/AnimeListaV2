@@ -7,14 +7,14 @@
         </div>
 
         <div class="bt-set-container d-flex flex-row justicy-content-start align-items-center p-2 bd-highlight">
-            <button class="btn btn-primary bt-nav-fnc" @click="ShowModalAddWindow">
+            <button class="btn btn-primary bt-nav-fnc" @click="modalAddVisible = true">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-add-record"/>
                 </svg>
                 Dodaj Anime
             </button>
 
-            <button class="btn btn-primary bt-nav-fnc" @click="ShowModalAddGroupWindow">
+            <button class="btn btn-primary bt-nav-fnc" @click="modalGroupAddVisible = true">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-add-group"/>
                 </svg>
@@ -52,9 +52,10 @@
 
         </div>
     </nav>
-    <ModalAddWindow v-if="modalAddVisible" @closeModal="HiddeModalAddWindow"/>
-    <ModalEditWindow v-if="modalEditVisible" @closeModal="HiddeModalEditWindow" />
-    <ModalAddGroupWindow v-if="modalGroupAddVisible" @closeModal="HiddeModalAddGroupWindow" />
+    <ModalAddWindow v-if="modalAddVisible" @closeModal="modalAddVisible = false"/>
+    <ModalEditWindow v-if="modalEditVisible" @closeModal="modalEditVisible = false" />
+    <ModalAddGroupWindow v-if="modalGroupAddVisible" @closeModal="modalGroupAddVisible = false" />
+    <ModalEditGroupWindow v-if="modalGroupEditVisible" @closeModal="modalGroupEditVisible = false" />
 </template>
 <script>
 import SvgIconSet from './iconset.vue';
@@ -65,6 +66,7 @@ import { ref, watch } from 'vue';
 import ModalAddWindow from './modals/add.vue';
 import ModalEditWindow from './modals/edit.vue';
 import ModalAddGroupWindow from './modals/group.vue';
+import ModalEditGroupWindow from './modals/group-edit.vue';
 
 export default {
     name: 'ManuNav',
@@ -73,16 +75,17 @@ export default {
         ModalAddWindow,
         ModalEditWindow,
         ModalAddGroupWindow,
+        ModalEditGroupWindow,
   },
 
   data() {
     return {
         //Modale
         modalAddVisible: false,
-        modalAddGroupVisible: false,
         modalEditVisible: false,
         modalDeleteVisible: false,
         modalGroupAddVisible: false,
+        modalGroupEditVisible: false,
     }
   },
 
@@ -100,6 +103,9 @@ export default {
     const editButton = ref(moderated.editButton);
     const deleteButton = ref(moderated.deleteButton);
 
+    const animeEdit = ref(moderated.animeEdit);
+    const groupEdit = ref(moderated.groupEdit);
+
     watch(
         () => moderated.editButton, (newValue) => {
             editButton.value = newValue;
@@ -112,6 +118,18 @@ export default {
         }
     );
 
+    watch(
+        () => moderated.animeEdit, (newValue) => {
+            animeEdit.value = newValue;
+        }
+    );
+
+    watch(
+        () => moderated.groupEdit, (newValue) => {
+            groupEdit.value = newValue;
+        }
+    );
+
     return {
         userName,
         userAvatar,
@@ -120,7 +138,11 @@ export default {
 
         //Moderated
         editButton,
-        deleteButton 
+        deleteButton,
+
+        //
+        animeEdit,
+        groupEdit,
     };
   },
 
@@ -135,33 +157,12 @@ export default {
             console.log("TEST NIE WYSZEDŁ");
         }
     },
-
-    //Modal dodawanie
-    ShowModalAddWindow() {
-        this.modalAddVisible = true;
-    },
-
-    HiddeModalAddWindow() {
-        this.modalAddVisible = false;
-    },
-
+    
     //Modal edycja
     ShowModalEditWindow() {
-        this.modalEditVisible = true;
+        this.modalEditVisible = this.animeEdit;
+        this.modalGroupEditVisible = this.groupEdit;
     },
-
-    HiddeModalEditWindow() {
-        this.modalEditVisible = false;
-    },
-
-    //Modal dodawanie gurpy
-    ShowModalAddGroupWindow() {
-        this.modalGroupAddVisible = true;
-    },
-
-    HiddeModalAddGroupWindow() {
-        this.modalGroupAddVisible = false;
-    }
   }
 }
 </script>

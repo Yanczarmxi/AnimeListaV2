@@ -147,12 +147,13 @@ export const useAnimeStore = defineStore('Anime', {
             }
         },
 
+        //Pobierz grupę do edycji
         GetGroupForEditModal(group) {
             let result = {};
 
             this.animedata.forEach(element => {
                 if(element.gid === group) {
-                    result = element;
+                    result = element.gtitle;
                 }
             });
 
@@ -170,5 +171,17 @@ export const useAnimeStore = defineStore('Anime', {
                 return false;
             }
         },
+
+        //Edytuj grupę
+        async EditGroupRecord(data) {
+            try {
+                const response = await axios.put('/anime/edit-group', data, {withCredentials: true});
+                return response.data;
+            }
+            catch(e) {
+                console.error(`Nie udało się wykonać operacji ${e}`);
+                return false;
+            }
+        }
     },
 });

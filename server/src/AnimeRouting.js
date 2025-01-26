@@ -8,6 +8,8 @@ const UpdateState = require('./anime/UpdateState');
 const GetAnimeRecord = require('./anime/GetAnimeRecord');
 
 const AddGrouptoRecord = require('./anime/AddGroupToRecord');
+const EditGroupRecord = require('./anime/EditGroupRecord');
+const GetGroupList = require('./anime/GetGroupList');
 
 //Operacje
 const AddAnimeToRecord = require('./anime/AddAnimeToRecord');
@@ -29,7 +31,10 @@ router.put('/edit', EditAnimeRecord);
 
 //Dodawanie grupy
 router.post('/add-group', AddGrouptoRecord);
+router.put('/edit-group', EditGroupRecord);
+router.get('/get-group-list', GetGroupList);
 
+//Kasowanie rekordów
 router.delete('/delete', async (req, res) => {
 
 });

@@ -21,7 +21,7 @@ class GroupRepository {
     async Add(title, user) {
         try {
             const sql = `INSERT anm_groups (gr_title, gr_user) VALUES (?, ?);`;
-            await this.db.query(sql, [title, user]);
+            await this.db.execute(sql, [title, user]);
         }
         catch(e) {
             console.error('Groups Add Query ERROR: ' + e);
@@ -31,13 +31,10 @@ class GroupRepository {
     async Edit(id, title) {
         try {
             const sql = `UPDATE anm_groups SET gr_title = ? WHERE gr_id = ?;`;
-            await this.db.query(sql, [title, id]);
-
-            return true;
+            await this.db.execute(sql, [title, id]);
         }
         catch(e) {
             console.error('Groups Edit Query ERROR: ' + e);
-            return false;
         }
     }
 

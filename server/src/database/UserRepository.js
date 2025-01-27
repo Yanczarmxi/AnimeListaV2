@@ -50,6 +50,21 @@ class UserRepository {
             return null;
         }
     }
+
+    async UpdatePreference(user, pref) {
+        try {
+            sql `
+                UPDATE users SET
+                preference = ?
+                WHERE id = ?;
+            `;
+
+            await this.db.execute(sql, [pref, user]);
+        }
+        catch(e) {
+            console.error(`ERROR: Nie udało się zaktualizować recordu preference: ${e}`);
+        }
+    }
 }
 
 module.exports = new UserRepository();

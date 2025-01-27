@@ -1,48 +1,32 @@
 const express = require('express');
 const router = express.Router();
-
-//osobne pliki
-const GetAnime = require('./anime/GetAnimesSerialized');
-const GetReadyDescription = require('./anime/GetReadyDescription');
-const UpdateState = require('./anime/UpdateState');
-const GetAnimeRecord = require('./anime/GetAnimeRecord');
-
-const AddGrouptoRecord = require('./anime/AddGroupToRecord');
-const EditGroupRecord = require('./anime/EditGroupRecord');
-const GetGroupList = require('./anime/GetGroupList');
-
-//Operacje
-const AddAnimeToRecord = require('./anime/AddAnimeToRecord');
-const EditAnimeRecord = require('./anime/EditAnimeRecord');
-
-//img
-const UploadImageFromFile = require('./image/UploadImgFile');
-const DeleteImage = require('./image/DeleteImage');
+const anime = require('./anime');
+const image = require('./image');
 
 //Routing
-router.get('/result', GetAnime); //Pobieranie anime
-router.post('/description', GetReadyDescription); //Pobieranie opisu
+router.get('/result', anime.GetAnime); //Pobieranie anime
+router.post('/description', anime.GetReadyDescription); //Pobieranie opisu
 
-router.post('/add', AddAnimeToRecord); //Dodawanie nowego anime do bazy danych
+router.post('/add', anime.AddAnimeToRecord); //Dodawanie nowego anime do bazy danych
 
 //Edycja
-router.post('/getrecord', GetAnimeRecord);
-router.put('/edit', EditAnimeRecord);
+router.post('/getrecord', anime.GetAnimeRecord);
+router.put('/edit', anime.EditAnimeRecord);
 
 //Dodawanie grupy
-router.post('/add-group', AddGrouptoRecord);
-router.put('/edit-group', EditGroupRecord);
-router.get('/get-group-list', GetGroupList);
+router.post('/add-group', anime.AddGrouptoRecord);
+router.put('/edit-group', anime.EditGroupRecord);
+router.get('/get-group-list', anime.GetGroupList);
 
 //Kasowanie rekordów
-router.delete('/delete', async (req, res) => {
+//router.delete('/delete', async (req, res) => {
+//
+//});
 
-});
-
-router.put('/update', UpdateState);
+router.put('/update', anime.UpdateState);
 
 //Przesyłanie obrazu i czyszczenie rekordu obrazu
-router.post('/addimg', UploadImageFromFile);
-router.delete('/delimg', DeleteImage);
+router.post('/addimg', image.UploadImageFromFile);
+router.delete('/delimg', image.DeleteImage);
 
 module.exports = router;

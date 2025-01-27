@@ -30,8 +30,8 @@ class SegregatedRepository {
 
     async Edit(group, anime, user) {
         try {
-            const sql = `UPDATE anm_segregated SET st_group = ? WHERE st_anime = ? AND st_user;`;
-            await this.db.query(sql, [title, id]);
+            const sql = `UPDATE anm_segregated SET st_group = ? WHERE st_anime = ? AND st_user = ?;`;
+            await this.db.execute(sql, [group, anime, user]);
 
             return true;
         }

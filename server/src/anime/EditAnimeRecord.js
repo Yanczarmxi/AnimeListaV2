@@ -25,6 +25,7 @@ async function EditAnimeRecord(req, res) {
         const updateData = req.body;
         const userHash = req.session.user_hash;
         const imgPaths = req.session.img_files;
+        const userId = req.session.user_id;
         let updateImage = false;
         let blob = {
             poster: null,
@@ -53,7 +54,15 @@ async function EditAnimeRecord(req, res) {
             updateImage: updateImage
         }
 
-        AnimeRepository.Update(updateData.id, data);
+        await AnimeRepository.Update(updateData.id, data);
+
+        //Aktualizacja lub kasowanie przypisania anime do danej grupy
+        if(updateData.group != 0) {
+            await SegregatedRepository.Edit(updateData.group, updateData.id, userId);
+        }
+        else {
+            await SegregatedRepository.DeleteByAnime(updateData.id, userId);
+        }
 
         const uploadDirectory = path.join(__dirname, '../../upload', userHash);
         if(fs.existsSync(uploadDirectory)) {

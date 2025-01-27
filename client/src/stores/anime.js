@@ -176,11 +176,25 @@ export const useAnimeStore = defineStore('Anime', {
         async EditGroupRecord(data) {
             try {
                 const response = await axios.put('/anime/edit-group', data, {withCredentials: true});
+                if(response.data.complete) {
+                    await this.UpdateGroupList();
+                }
                 return response.data;
             }
             catch(e) {
                 console.error(`Nie udało się wykonać operacji ${e}`);
                 return false;
+            }
+        },
+
+        //Aktualizacja listy grup
+        async UpdateGroupList(){
+            try {
+                const response = await axios.get('/anime/get-group-list');
+                this.group = response.data;
+            }
+            catch(e) {
+                console.error(`Nie udało się zaktualizować listy gróp: ${e}`);
             }
         }
     },

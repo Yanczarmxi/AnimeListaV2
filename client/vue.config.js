@@ -84,6 +84,12 @@ module.exports = {
         secure: false,
         pathRewrite: { '^/anime/edit-group': '/anime/edit-group' },
       },
+      '/anime/get-group-list': {
+        target: serverUrl, // Adres backendu
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { '^/anime/get-group-list': '/anime/get-group-list' },
+      },
     },
   },
 };

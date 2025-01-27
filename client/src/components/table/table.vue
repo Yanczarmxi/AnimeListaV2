@@ -4,10 +4,11 @@
 
         <div class="filtr-state-selector">
           <select class="form-select" aria-label="Default select example">
-            <option value="1" selected>Wszystkie</option>
-            <option value="2">Nie obejżane</option>
-            <option value="3">Oglądane</option>
-            <option value="3">Obejżane</option>
+            <option value="-1" selected>Wszystkie</option>
+            <option value="-2">Wszystkie (Puste grupy)</option>
+            <option value="0">Nie obejżane</option>
+            <option value="1">Oglądane</option>
+            <option value="2">Obejżane</option>
             <option value="3">Pożucone</option>
           </select>
         </div>

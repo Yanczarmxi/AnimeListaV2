@@ -23,12 +23,14 @@ function SegregatedAnimeToGroup(groups, animes){
                 });
             }
         }
-    
-        data.push({
-            gid: groups[i].gr_id,
-            gtitle: groups[i].gr_title,
-            anime: tmp
-        });
+
+        if(tmp.length > 0) {
+            data.push({
+                gid: groups[i].gr_id,
+                gtitle: groups[i].gr_title,
+                anime: tmp
+            });
+        }
     
         tmp = [];
     }

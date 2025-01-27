@@ -1,6 +1,6 @@
 const GroupRepository = require('../database/GroupRepository');
 
-async function GetGroupList() {
+async function GetGroupList(req, res) {
     try {
         if(!req.session.isLogged) {
             console.error(`ERROR: Użytkownik nie jest zalogowany!`);

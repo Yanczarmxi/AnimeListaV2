@@ -69,7 +69,7 @@ import ModalAddGroupWindow from './modals/group.vue';
 import ModalEditGroupWindow from './modals/group-edit.vue';
 
 export default {
-    name: 'ManuNav',
+    name: 'MenuNav',
     components: {
         SvgIconSet,
         ModalAddWindow,

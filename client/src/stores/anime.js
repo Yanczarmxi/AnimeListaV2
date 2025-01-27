@@ -22,8 +22,6 @@ export const useAnimeStore = defineStore('Anime', {
                 this.group = response.data.groups;
                 this.isLoaded = true;
 
-                console.log(this.group);
-
                 return {
                     isLoaded: this.isLoaded,
                     data: this.animedata,
@@ -164,6 +162,9 @@ export const useAnimeStore = defineStore('Anime', {
         async AddGroupRecord(data) {
             try {
                 const response = await axios.post('/anime/add-group', data, {withCredentials: true});
+                if(response.data.complete) {
+                    await this.UpdateGroupList();
+                }
                 return response.data;
             }
             catch(e) {

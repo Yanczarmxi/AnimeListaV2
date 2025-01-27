@@ -20,7 +20,7 @@
             :maxlenght="maxGlyph"
             @input="handleInput"
             />
-          <dev class="smol-text-content"><span class="smol-text-lenght-glyph">Pozostało: {{ LenghtGlyph }}</span></dev>
+          <div class="smol-text-content"><span class="smol-text-lenght-glyph">Pozostało: {{ LenghtGlyph }}</span></div>
         </div>
   
         <div class="md-footer d-flex flex-row justify-content-end p-4">

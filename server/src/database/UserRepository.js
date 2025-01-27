@@ -1,5 +1,5 @@
 const db = require('./DataBaseConnection');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 class UserRepository {
     constructor() {

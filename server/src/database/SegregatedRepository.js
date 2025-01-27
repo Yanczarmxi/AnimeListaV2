@@ -18,7 +18,7 @@ class SegregatedRepository {
         }
     }
 
-    async Add(user, anime, group) {
+    async Add(anime, group, user) {
         try {
             const sql = `INSERT anm_segregated (st_user, st_anime, st_group) VALUES (?, ?, ?);`;
             await this.db.query(sql, [user, anime, group]);
@@ -31,39 +31,44 @@ class SegregatedRepository {
     async Edit(group, anime, user) {
         try {
             const sql = `UPDATE anm_segregated SET st_group = ? WHERE st_anime = ? AND st_user = ?;`;
-            await this.db.execute(sql, [group, anime, user]);
+            const [result] = await this.db.execute(sql, [group, anime, user]);
 
-            return true;
+            return result.affectedRows;
         }
         catch(e) {
             console.error('Segregated Edit Query ERROR: ' + e);
-            return false;
+            return -1;
         }
     }
 
     async DeleteByAnime(anime, user) {
         try {
-            const sql = `DELETE FROM anm_segregated WHERE st_user = ? AND st_anime = ?;`;
-            await this.db.query(sql, [user, anime]);
+            const _anime = Array.isArray(anime) ? JSON.parse(anime) : JSON.parse([anime]);
 
-            return true;
+            const sql = `DELETE FROM anm_segregated WHERE st_anime IN (?) AND st_user = ?;`;
+            const [result] = await this.db.execute(sql, [_anime, user]);
+
+            return result.affectedRows;
         }
         catch(e) {
             console.error('Groups Delete Query ERROR: ' + e);
-            return false;
+            return -1;
         }
     }
 
+    //Group musi byc tablicą
     async DeleteByGroup(group, user) {
         try {
-            const sql = `DELETE FROM anm_segregated WHERE st_id = ? AND st_group = ?;`;
-            await this.db.query(sql, [user, group]);
+            const _group = Array.isArray(group) ? JSON.parse(group) : JSON.parse([group]);
 
-            return true;
+            const sql = `DELETE FROM anm_segregated WHERE st_group IN (?) AND st_user = ?;`;
+            const [result] = await this.db.execute(sql, [_group, user]);
+
+            return result.affectedRows;
         }
         catch(e) {
             console.error('Groups Delete Query ERROR: ' + e);
-            return false;
+            return -1;
         }
     }
 

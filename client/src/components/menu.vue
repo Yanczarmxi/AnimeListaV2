@@ -28,8 +28,8 @@
                 Edytuj
             </button>
 
-            <button class="btn btn-danger bt-nav-fnc" data-bs-toggle="modal" data-bs-target="#modal-window" :disabled="deleteButton">
-                <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" disabled>
+            <button class="btn btn-danger bt-nav-fnc" @click="modalDeleteVisible = true" :disabled="deleteButton">
+                <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-remove-record"/>
                 </svg>
                 Skasuj
@@ -56,6 +56,7 @@
     <ModalEditWindow v-if="modalEditVisible" @closeModal="modalEditVisible = false" />
     <ModalAddGroupWindow v-if="modalGroupAddVisible" @closeModal="modalGroupAddVisible = false" />
     <ModalEditGroupWindow v-if="modalGroupEditVisible" @closeModal="modalGroupEditVisible = false" />
+    <ModalDeleteWindow v-if="modalDeleteVisible" @closeModal="modalDeleteVisible = false" />
 </template>
 <script>
 import SvgIconSet from './iconset.vue';
@@ -67,6 +68,7 @@ import ModalAddWindow from './modals/add.vue';
 import ModalEditWindow from './modals/edit.vue';
 import ModalAddGroupWindow from './modals/group.vue';
 import ModalEditGroupWindow from './modals/group-edit.vue';
+import ModalDeleteWindow from './modals/delete.vue';
 
 export default {
     name: 'MenuNav',
@@ -76,6 +78,7 @@ export default {
         ModalEditWindow,
         ModalAddGroupWindow,
         ModalEditGroupWindow,
+        ModalDeleteWindow,
   },
 
   data() {

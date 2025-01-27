@@ -8,9 +8,10 @@ const AddGrouptoRecord = require('./AddGroupToRecord');
 const EditGroupRecord = require('./EditGroupRecord');
 const GetGroupList = require('./GetGroupList');
 
-//Operacje
 const AddAnimeToRecord = require('./AddAnimeToRecord');
 const EditAnimeRecord = require('./EditAnimeRecord');
+
+const DeleteRecords = require('./DeleteRecords');
 
 module.exports = {
     GetAnime,
@@ -22,4 +23,5 @@ module.exports = {
     GetGroupList,
     AddAnimeToRecord,
     EditAnimeRecord,
+    DeleteRecords
 };

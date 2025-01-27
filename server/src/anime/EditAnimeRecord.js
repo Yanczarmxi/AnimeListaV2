@@ -54,11 +54,14 @@ async function EditAnimeRecord(req, res) {
             updateImage: updateImage
         }
 
-        await AnimeRepository.Update(updateData.id, data);
+        await AnimeRepository.Update(updateData.id, data, userId);
 
         //Aktualizacja lub kasowanie przypisania anime do danej grupy
         if(updateData.group != 0) {
-            await SegregatedRepository.Edit(updateData.group, updateData.id, userId);
+            const result = await SegregatedRepository.Edit(updateData.group, updateData.id, userId);
+            if(result === 0) {
+                await SegregatedRepository.Add(updateData.id, updateData.group, userId);
+            }
         }
         else {
             await SegregatedRepository.DeleteByAnime(updateData.id, userId);

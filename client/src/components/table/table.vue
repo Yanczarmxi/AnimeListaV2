@@ -36,7 +36,7 @@
         </thead>
         <tbody>
           <template v-if="animeTableContent">
-            <template v-for="(group, groupIndex) in anieData" :key="groupIndex">
+            <template v-for="(group, groupIndex) in animeData" :key="groupIndex">
               <RowSeparator :grData="{grTitle: group.gtitle, grId: group.gid}" />
               <DataRow v-for="(anime, animeIndex) in group.anime" :key="animeIndex" :data="anime" />
             </template>
@@ -61,7 +61,7 @@ export default {
     },
     data() {
       return{
-        anieData: [],
+        animeData: [],
         animeTableContent: true,
       }
     },
@@ -95,7 +95,7 @@ export default {
     methods: {
       async LoadData(){
         var data = await this.GetAnime();
-        this.anieData = data.data;
+        this.animeData = data.data;
         console.log('PROMISE');
         console.log(data);
       },

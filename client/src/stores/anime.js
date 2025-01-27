@@ -112,7 +112,7 @@ export const useAnimeStore = defineStore('Anime', {
             try {
                 const respornse = await axios.post('/anime/add', data, {withCredentials: true});
 
-                return respornse.data;
+                return respornse.data.complete;
             }
             catch(e) {
                 console.error(`Nie udało się wykodać operazji dodania anime: ${e}`);
@@ -124,7 +124,7 @@ export const useAnimeStore = defineStore('Anime', {
         async UpdateAnimeInDataBase(data) {
             try {
                 const response = await axios.put('/anime/edit', data, {withCredentials: true});
-                return response.data;
+                return response.data.complete;
             }
             catch(e) {
                 console.error(`Nie udało się wykodać operazji edycji anime: ${e}`);
@@ -165,7 +165,7 @@ export const useAnimeStore = defineStore('Anime', {
                 if(response.data.complete) {
                     await this.UpdateGroupList();
                 }
-                return response.data;
+                return response.data.complete;
             }
             catch(e) {
                 console.error(`Nie udało się wykonać operacji ${e}`);
@@ -180,7 +180,7 @@ export const useAnimeStore = defineStore('Anime', {
                 if(response.data.complete) {
                     await this.UpdateGroupList();
                 }
-                return response.data;
+                return response.data.complete;
             }
             catch(e) {
                 console.error(`Nie udało się wykonać operacji ${e}`);
@@ -192,10 +192,26 @@ export const useAnimeStore = defineStore('Anime', {
         async UpdateGroupList(){
             try {
                 const response = await axios.get('/anime/get-group-list');
-                this.group = response.data;
+                this.group = response.data.complete;
             }
             catch(e) {
                 console.error(`Nie udało się zaktualizować listy gróp: ${e}`);
+            }
+        },
+
+        async DeleteRecords() {
+            try {
+                const data = {
+                    group: [],
+                    anime: []
+                };
+
+                const response = await axios.delete('/anime/delete', data, {withCredentials: true});
+                return response.data.complete;
+            }
+            catch(e) {
+                console.error(`Nie udało się skasować wpisów: ${e}`);
+                return false
             }
         }
     },

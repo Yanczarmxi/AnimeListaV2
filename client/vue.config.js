@@ -90,6 +90,12 @@ module.exports = {
         secure: false,
         pathRewrite: { '^/anime/get-group-list': '/anime/get-group-list' },
       },
+      '/anime/delete': {
+        target: serverUrl, // Adres backendu
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { '^/anime/delete': '/anime/delete' },
+      },
     },
   },
 };

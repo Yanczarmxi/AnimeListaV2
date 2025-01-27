@@ -105,6 +105,6 @@ export const useModeratedStore = defineStore('Moderated', {
             console.log("Zresetowano index");
             this.checkIdAnimeStore = [];
             this.checkIdGroupStore = [];
-        }
+        },
     }
 });

@@ -25,7 +25,7 @@ async function AddAnimeToRecord(req, res) {
         const animeId = await AnimeRepository.Add(data, blob, userId);
 
         if(group != 0) {
-            SegregatedRepository.Add(userId, animeId, group);
+            SegregatedRepository.Add(animeId, group, userId);
         }
 
         const uploadDirectory = path.join(__dirname, '../../upload', userHash);
@@ -34,7 +34,9 @@ async function AddAnimeToRecord(req, res) {
             fs.rmSync(uploadDirectory, { recursive: true });
         }
 
-        res.status(200).json({complete: true});
+        res.status(200).json({
+            complete: true
+        });
     }
     catch(e) {
         console.error(`ERROR Nie udało się dodać anime do bazy danych: ${e}`);

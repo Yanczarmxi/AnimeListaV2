@@ -4,10 +4,14 @@ const anime = require('./anime');
 const imm = require('./image');
 
 //Routing
-router.get('/result', anime.GetAnime); //Pobieranie anime
-router.post('/description', anime.GetReadyDescription); //Pobieranie opisu
+//Pobieranie anime
+router.get('/result', anime.GetAnime);
 
-router.post('/add', anime.AddAnimeToRecord); //Dodawanie nowego anime do bazy danych
+//Pobieranie opisu
+router.post('/description', anime.GetReadyDescription);
+
+//Dodawanie nowego anime do bazy danych
+router.post('/add', anime.AddAnimeToRecord);
 
 //Edycja
 router.post('/getrecord', anime.GetAnimeRecord);
@@ -19,9 +23,7 @@ router.put('/edit-group', anime.EditGroupRecord);
 router.get('/get-group-list', anime.GetGroupList);
 
 //Kasowanie rekordów
-//router.delete('/delete', async (req, res) => {
-//
-//});
+router.delete('/delete', anime.DeleteRecords);
 
 router.put('/update', anime.UpdateState);
 

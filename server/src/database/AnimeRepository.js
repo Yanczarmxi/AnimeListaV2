@@ -57,20 +57,22 @@ class AnimeRepository {
         }
     }
 
-    async Delete(id) {
+    async Delete(anime, user) {
         try {
-            const sql = 'DELETE FROM anm_anime WHERE an_id = ?';
-            await this.db.execute(sql, [id]);
+            const _anime = Array.isArray(anime) ? JSON.parse(anime) : JSON.parse([anime]);
+
+            const sql = 'DELETE FROM anm_anime WHERE an_id IN (?) AND an_user = ?;';
+            const [result] = await this.db.execute(sql, [_anime, user]);
     
-            return true;
+            return result.affectedRows;
         }
         catch(e) {
-            console.error(e);
-            return false;
+            console.error(`ERROR: Nie można skasować rekordów Anime: ${e}`);
+            return -1;
         }
     }
 
-    async Update(id, data) {
+    async Update(id, data, user) {
         try {
             const sql = `
                 UPDATE anm_animes
@@ -82,7 +84,7 @@ class AnimeRepository {
                     an_miniature = IF(?, ?, an_miniature),
                     an_image = IF(?, ?, an_image)
                 WHERE
-                    an_id = ?;
+                    an_id = ? AND an_user = ?;
             `;
 
             await this.db.execute(sql, [
@@ -100,7 +102,8 @@ class AnimeRepository {
                 data.image,
                 
                 //Wskazanie indexu recordu
-                id
+                id,
+                user
             ]);
         }
         catch(e) {

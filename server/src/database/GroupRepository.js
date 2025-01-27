@@ -38,16 +38,15 @@ class GroupRepository {
         }
     }
 
-    async Delete(id) {
+    async Delete(group, user) {
         try {
-            const sql = `DELETE FROM anm_groups WHERE gr_id = ?;`;
-            await this.db.query(sql, [id]);
+            const _group = Array.isArray(group) ? JSON.parse(group) : JSON.parse([group]);
 
-            return true;
+            const sql = `DELETE FROM anm_groups WHERE gr_id IN (?) AND gr_user = ?;`;
+            await this.db.execute(sql, [_group, user]);
         }
         catch(e) {
             console.error('Groups Delete Query ERROR: ' + e);
-            return false;
         }
     }
 }

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const anime = require('./anime');
-const image = require('./image');
+const imm = require('./image');
 
 //Routing
 router.get('/result', anime.GetAnime); //Pobieranie anime
@@ -26,7 +26,7 @@ router.get('/get-group-list', anime.GetGroupList);
 router.put('/update', anime.UpdateState);
 
 //Przesyłanie obrazu i czyszczenie rekordu obrazu
-router.post('/addimg', image.UploadImageFromFile);
-router.delete('/delimg', image.DeleteImage);
+router.post('/addimg', imm.UploadImageFromFile);
+router.delete('/delimg', imm.DeleteImage);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const AnimeRepository = require('../database/AnimeRepository');
 const SegregatedRepository = require('../database/SegregatedRepository');
-const LoadImgToBlob = require('../image/LoadimgToBlob');
+const imm = require('../image');
 const path = require('path');
 const fs = require('fs');
 
@@ -33,8 +33,8 @@ async function EditAnimeRecord(req, res) {
 
         if(updateData.newImage && !updateData.removeImage) {
             blob = {
-                poster: await LoadImgToBlob(imgPaths.poster),
-                miniature: await LoadImgToBlob(imgPaths.miniature),
+                poster: await imm.LoadImgToBlob(imgPaths.poster),
+                miniature: await imm.LoadImgToBlob(imgPaths.miniature),
             };
             updateImage = true;
         }

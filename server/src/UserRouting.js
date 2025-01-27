@@ -1,15 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const user = require('./user');
 
-//Funkcje zarządzania użytkownikiem
-const LoginProcess = require('./user/LoginProcess');
-const UserCheckSession = require('./user/UserCheckSession');
-
-//preferencje
-const UpdateUserPreference = require('./user/UpdateUserPreference');
-
-router.post('/valid', LoginProcess);
-router.get('/checksession', UserCheckSession);
+router.post('/valid', user.LoginProcess);
+router.get('/checksession', user.UserCheckSession);
 
 router.post('/logout', (req, res) => {
     req.session.destroy(err => {
@@ -22,6 +16,6 @@ router.post('/logout', (req, res) => {
     });
 });
 
-router.put('/preferencess', UpdateUserPreference);
+router.put('/preferencess', user.UpdateUserPreference);
 
 module.exports = router;

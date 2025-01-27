@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const LoadImgToBlob = require('../image/LoadimgToBlob');
+const imm = require('../image');
 const AnimeRepository = require('../database/AnimeRepository');
 const SegregatedRepository = require('../database/SegregatedRepository');
 
@@ -18,8 +18,8 @@ async function AddAnimeToRecord(req, res) {
         const userHash = req.session.user_hash;
 
         const blob = {
-            poster: await LoadImgToBlob(imgPaths.poster),
-            miniature: await LoadImgToBlob(imgPaths.miniature),
+            poster: await imm.LoadImgToBlob(imgPaths.poster),
+            miniature: await imm.LoadImgToBlob(imgPaths.miniature),
         };
 
         const animeId = await AnimeRepository.Add(data, blob, userId);

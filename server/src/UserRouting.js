@@ -5,6 +5,9 @@ const router = express.Router();
 const LoginProcess = require('./user/LoginProcess');
 const UserCheckSession = require('./user/UserCheckSession');
 
+//preferencje
+const UpdateUserPreference = require('./user/UpdateUserPreference');
+
 router.post('/valid', LoginProcess);
 router.get('/checksession', UserCheckSession);
 
@@ -19,6 +22,6 @@ router.post('/logout', (req, res) => {
     });
 });
 
-router.put('/preferencess');
+router.put('/preferencess', UpdateUserPreference);
 
 module.exports = router;

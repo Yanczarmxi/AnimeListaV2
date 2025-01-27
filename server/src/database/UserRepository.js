@@ -26,7 +26,7 @@ class UserRepository {
     //Pobieranie danych użytkowanika na podstawie adresu email
     async GetForEmail(email) {
         try {
-            const sql = `SELECT id, user, date_registration, avatar FROM users WHERE email = ?`;
+            const sql = `SELECT id, user, date_registration, avatar, preference FROM users WHERE email = ?`;
             const [rows] = await this.db.query(sql, [email]);
 
             if(rows.affectedRows === 0) {
@@ -40,7 +40,8 @@ class UserRepository {
                 id: rows[0].id,
                 name: rows[0].user,
                 regdate: rows[0].date_registation,
-                avatar: avBlob ? avBlob.toString('base64') : null
+                avatar: avBlob ? avBlob.toString('base64') : null,
+                preference: rows[0].preference ? rows[0].preference : {}
             }
 
             return user;

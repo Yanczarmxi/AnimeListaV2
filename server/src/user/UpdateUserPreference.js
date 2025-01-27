@@ -1,4 +1,6 @@
-await function UpdateUserPreference(req,res) {
+const UserRepository = require('../database/UserRepository');
+
+async function UpdateUserPreference(req, res) {
     try {
         if(!req.session.isLogged) {
             console.error(`ERROR: Użytkownik nie jest zalogowany!`);
@@ -6,8 +8,12 @@ await function UpdateUserPreference(req,res) {
                 mess: 'Nie udało się edytować nazwy grupy'
             });
         }
+
+        const preference = req.body;
+        const userId = req.session.user_id;
     
-        req.session.user_preference = req.body;
+        req.session.user_preference = preference;
+        await UserRepository.UpdatePreference(userId, preference);
     
         res.status(200).json({mess: 'Zaktualizowano'});
     }
@@ -17,4 +23,4 @@ await function UpdateUserPreference(req,res) {
     }
 }
 
-module.export = UpdateUserPreference;
+module.exports = UpdateUserPreference;

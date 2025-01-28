@@ -35,6 +35,7 @@ async function AddAnimeToRecord(req, res) {
         }
 
         res.status(200).json({
+            mess: 'Dodano nowe anime',
             complete: true
         });
     }

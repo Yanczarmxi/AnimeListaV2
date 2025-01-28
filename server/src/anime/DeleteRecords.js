@@ -37,22 +37,19 @@ async function DeleteRecords(req, res) {
             });
         }
 
-        const group = req.body.group;
-        const anime = req.body.anime;
+        const group = req.query.group;
+        const anime = req.query.anime;
         const userId = req.session.user_id;
 
-        if(group.length > 0) {
+        if(group) {
             await DeleteGroupRecords(group, userId);
         }
 
-        if(anime.length > 0) {
+        if(anime) {
             await DeleteAnimeRecords(anime, userId);
         }
 
-        res.status(200).json({
-            mess: 'Skasowano rekordy',
-            complete: true
-        });
+        res.status(200).json({mess: 'Pomyślnie skasowano rekordy', complete: true});
     }
     catch(e) {
         console.error(`ERROR: Nie udało się skasować anime: ${e}`);

@@ -112,7 +112,7 @@ export const useAnimeStore = defineStore('Anime', {
             try {
                 const respornse = await axios.post('/anime/add', data, {withCredentials: true});
 
-                return respornse.data.complete;
+                return respornse.data;
             }
             catch(e) {
                 console.error(`Nie udało się wykodać operazji dodania anime: ${e}`);
@@ -191,7 +191,7 @@ export const useAnimeStore = defineStore('Anime', {
         //Aktualizacja listy grup
         async UpdateGroupList(){
             try {
-                const response = await axios.get('/anime/get-group-list');
+                const response = await axios.get('/anime/get-group-list', {withCredentials: true});
                 this.group = response.data.complete;
             }
             catch(e) {
@@ -201,8 +201,9 @@ export const useAnimeStore = defineStore('Anime', {
 
         async DeleteRecords(data) {
             try {
-                const response = await axios.delete('/anime/delete', data, {withCredentials: true});
-                return response.data.complete;
+                console.log(`TEST ${data.anime}`);
+                const response = await axios.delete('/anime/delete', {params: data, withCredentials: true});
+                return response.data;
             }
             catch(e) {
                 console.error(`Nie udało się skasować wpisów: ${e}`);

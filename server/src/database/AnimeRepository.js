@@ -61,7 +61,7 @@ class AnimeRepository {
         try {
             const _anime = Array.isArray(anime) ? JSON.parse(anime) : JSON.parse([anime]);
 
-            const sql = 'DELETE FROM anm_anime WHERE an_id IN (?) AND an_user = ?;';
+            const sql = 'DELETE FROM anm_animes WHERE an_id IN (?) AND an_user = ?;';
             const [result] = await this.db.execute(sql, [_anime, user]);
     
             return result.affectedRows;

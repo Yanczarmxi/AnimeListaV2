@@ -67,7 +67,7 @@ class FavoritesRepository {
             const _anime = Array.isArray(anime) ? JSON.parse(anime) : JSON.parse([anime]);
 
             const sql = `DELETE FROM anm_favorites WHERE fv_anime IN (?) AND fv_user = ?;`;
-            cosnt [result] = await this.db.execute(sql, [_anime, user]);
+            const [result] = await this.db.execute(sql, [_anime, user]);
             return result.affectedRows;
         }
         catch(e) {

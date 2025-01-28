@@ -24,7 +24,7 @@ async function DeleteImage(req, res) {
             }
         }
 
-        res.status(200);
+        res.status(204);
     }
     catch(e) {
         console.error(`Nie udało się skasować obrazu! ERROR: ${e}`);

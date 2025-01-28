@@ -23,6 +23,7 @@ router.put('/edit-group', anime.EditGroupRecord);
 router.get('/get-group-list', anime.GetGroupList);
 
 //Kasowanie rekordów
+//POST zamiast DELETE dlatego że nie obsługuje BODY
 router.delete('/delete', anime.DeleteRecords);
 
 router.put('/update', anime.UpdateState);

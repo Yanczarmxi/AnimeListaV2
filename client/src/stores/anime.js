@@ -199,13 +199,8 @@ export const useAnimeStore = defineStore('Anime', {
             }
         },
 
-        async DeleteRecords() {
+        async DeleteRecords(data) {
             try {
-                const data = {
-                    group: [],
-                    anime: []
-                };
-
                 const response = await axios.delete('/anime/delete', data, {withCredentials: true});
                 return response.data.complete;
             }

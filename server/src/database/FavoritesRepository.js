@@ -64,13 +64,15 @@ class FavoritesRepository {
 
     async Delete(anime, user) {
         try {
-            const sql = `DELETE FROM anm_favorites WHERE fv_anime = ? AND fv_user = ?;`;
-            await this.db.query(sql, [anime, user]);
-            return true;
+            const _anime = Array.isArray(anime) ? JSON.parse(anime) : JSON.parse([anime]);
+
+            const sql = `DELETE FROM anm_favorites WHERE fv_anime IN (?) AND fv_user = ?;`;
+            cosnt [result] = await this.db.execute(sql, [_anime, user]);
+            return result.affectedRows;
         }
         catch(e) {
             console.error('Favorites Delete Query ERROR: ' + e);
-            return false;
+            return -1;
         }
     }
 }

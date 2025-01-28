@@ -38,7 +38,7 @@
 
       <div class="md-footer d-flex flex-row justify-content-end p-4">
         <button type="button" class="btn btn-secondary" @click="CloseModal">Zamknij</button>
-        <button type="button" class="btn btn-danger bt-space">Skasuj</button>
+        <button type="button" class="btn btn-danger bt-space" @click="StartDeleteProcess">Skasuj</button>
       </div>
     </div>
   </div>
@@ -77,7 +77,7 @@ export default {
     const anime = ref(animeStore.search);
 
     return {
-      AddGroupRecord: animeStore.AddGroupRecord,
+      DeleteRecords: animeStore.DeleteRecords,
 
       groupIndex, animeIndex, group, anime
     }
@@ -94,6 +94,8 @@ export default {
     this.groupVisible = this.groupDeleteElements > 0 ? true : false;
     this.animeVisible = this.animeDeleteElements > 0 ? true : false;
   },
+
+  inject: ['reloadTable'],
 
   methods: {
     CloseModal() {
@@ -129,6 +131,20 @@ export default {
       }
 
       return tmp;
+    },
+
+    async StartDeleteProcess() {
+      const data = {
+        group: this.groupIndex,
+        anime: this.animeIndex
+      };
+
+      const response = await this.DeleteRecords(data);
+
+      if(response.complete) {
+        this.reloadTable();
+        this.CloseModal();
+      }
     }
   }
 }

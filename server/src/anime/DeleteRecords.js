@@ -1,10 +1,14 @@
 const AnimeRepo = require('../database/AnimeRepository');
 const GroupRepo = require('../database/GroupRepository');
 const SegregatedRepo = require('../database/SegregatedRepository');
+const FavoritesRepo = require('../database/FavoritesRepository');
 
 async function DeleteAnimeRecords(anime, user) {
     try {
-        await AnimeRepo.Delete(anime, user);
+        const result = await AnimeRepo.Delete(anime, user);
+        if(result > 0) {
+            await FavoritesRepo.Delete(anime, user);
+        }
     }
     catch(e) {
         console.error(`ERROR: Nie udało się skasować anime: ${e}`);
@@ -13,8 +17,10 @@ async function DeleteAnimeRecords(anime, user) {
 
 async function DeleteGroupRecords(group, user) {
     try {
-        await SegregatedRepo.DeleteByGroup(group, user);
-        await GroupRepo.Delete(group, user);
+        const result = await GroupRepo.Delete(group, user);
+        if(result > 0) {
+            await SegregatedRepo.DeleteByGroup(group, user);
+        }
     }
     catch(e) {
         console.error(`ERROR: Nie udało się skasować grupy: ${e}`);
@@ -35,13 +41,18 @@ async function DeleteRecords(req, res) {
         const anime = req.body.anime;
         const userId = req.session.user_id;
 
-        if(group.lenght > 0) {
+        if(group.length > 0) {
             await DeleteGroupRecords(group, userId);
         }
 
-        if(anime.lenght > 0) {
+        if(anime.length > 0) {
             await DeleteAnimeRecords(anime, userId);
         }
+
+        res.status(200).json({
+            mess: 'Skasowano rekordy',
+            complete: true
+        });
     }
     catch(e) {
         console.error(`ERROR: Nie udało się skasować anime: ${e}`);

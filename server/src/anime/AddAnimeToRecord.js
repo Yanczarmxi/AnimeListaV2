@@ -17,9 +17,12 @@ async function AddAnimeToRecord(req, res) {
         const userId = req.session.user_id;
         const userHash = req.session.user_hash;
 
+        const posterPath = imgPaths?.poster !== undefined ? imgPaths.poster : null;
+        const miniaturePath = imgPaths?.miniature !== undefined ? imgPaths.miniature : null;
+
         const blob = {
-            poster: await imm.LoadImgToBlob(imgPaths.poster),
-            miniature: await imm.LoadImgToBlob(imgPaths.miniature),
+            poster: await imm.LoadImgToBlob(posterPath),
+            miniature: await imm.LoadImgToBlob(miniaturePath),
         };
 
         const animeId = await AnimeRepository.Add(data, blob, userId);

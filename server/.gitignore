@@ -1,0 +1,9 @@
+#Katalog upload
+upload/**
+!upload/index.htm
+
+#Moduły node js
+node_modules
+
+#ENV
+.env

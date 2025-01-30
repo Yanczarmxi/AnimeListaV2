@@ -1,0 +1,3 @@
+config.yaml
+server/upload/*
+!server/upload/index.htm

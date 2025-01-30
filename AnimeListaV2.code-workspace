@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.suggest.selectionMode": "never",
+		"scm.compactFolders": true,
+		"breadcrumbs.enabled": false,
+		"editor.hover.enabled": false,
+		"editor.hover.sticky": false,
+		"editor.parameterHints.enabled": false
+	}
+}

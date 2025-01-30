@@ -124,7 +124,7 @@ export const useAnimeStore = defineStore('Anime', {
         async UpdateAnimeInDataBase(data) {
             try {
                 const response = await axios.put('/anime/edit', data, {withCredentials: true});
-                return response.data.complete;
+                return response.data;
             }
             catch(e) {
                 console.error(`Nie udało się wykodać operazji edycji anime: ${e}`);
@@ -135,7 +135,7 @@ export const useAnimeStore = defineStore('Anime', {
         //Pobieranie danych do edycji
         async GetAnimeForEditModal(anime) {
             try {
-                const response = await axios.post('/anime/getrecord', {anime: anime}, {withCredentials: true});
+                const response = await axios.get('/anime/getrecord', {params: {anime: anime}, withCredentials: true});
                 console.log(response);
                 return response.data;
             }

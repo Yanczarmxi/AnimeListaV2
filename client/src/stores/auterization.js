@@ -8,6 +8,10 @@ export const useAuterizationStore = defineStore('Auterization', {
         userRegistered: '0000-00-00',
         userAvatar: require('@/assets/img/user_avatar.jpg'),
 
+        //Preferencje
+        userPreference: {},
+
+
         //failLogin
         failLogin: false,
 
@@ -102,6 +106,16 @@ export const useAuterizationStore = defineStore('Auterization', {
                 console.error('Błąd podczas wylogowywania:', e);
                 alert('Nie udało się wylogować.');
                 return false;
+            }
+        },
+
+        async UpdatePreference(pref) {
+            try {
+                const responce = await axios.put('/user/preference', pref, {withCredentials: true});
+                this.userPreference = responce.data;
+            }
+            catch(e) {
+                console.error(`Nie udało się zaktualizować preferencji`);
             }
         }
     },

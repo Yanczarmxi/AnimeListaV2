@@ -16,6 +16,6 @@ router.post('/logout', (req, res) => {
     });
 });
 
-router.put('/preferencess', user.UpdateUserPreference);
+router.put('/preference', user.UpdateUserPreference);
 
 module.exports = router;

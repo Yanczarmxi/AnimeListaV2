@@ -42,6 +42,12 @@ module.exports = {
         secure: false,
         pathRewrite: { '^/user/logout': '/user/logout' },
       },
+      '/user/checksession': {
+        target: serverUrl, // Adres backendu
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { '^/user/checksession': '/user/checksession' },
+      },
       '/anime/addimg': {
         target: serverUrl, // Adres backendu
         changeOrigin: true,

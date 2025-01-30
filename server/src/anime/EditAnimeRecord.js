@@ -33,9 +33,12 @@ async function EditAnimeRecord(req, res) {
         }
 
         if(updateData.newImage && !updateData.removeImage) {
+            const posterPath = imgPaths?.poster !== undefined ? imgPaths.poster : null;
+            const miniaturePath = imgPaths?.miniature !== undefined ? imgPaths.miniature : null;
+
             blob = {
-                poster: await imm.LoadImgToBlob(imgPaths.poster),
-                miniature: await imm.LoadImgToBlob(imgPaths.miniature),
+                poster: await imm.LoadImgToBlob(posterPath),
+                miniature: await imm.LoadImgToBlob(miniaturePath),
             };
             updateImage = true;
         }

@@ -8,12 +8,12 @@ async function GetAnimeRecord(req, res) {
             return res.status(401).json({mess: 'Persmision Deniet!'});
         }
         
-        if(!req.body.anime) {
+        if(!req.query.anime) {
             console.error('ERROR: Nie podano ID do pobrania rekordu');
             return res.status(400).json({mess: 'No data'});
         }
 
-        const anime = req.body.anime;
+        const anime = req.query.anime;
         const user = req.session.user_id;
 
         const animeResult = await AnimeRepository.GetRecord(anime, user);

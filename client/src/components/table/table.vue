@@ -3,8 +3,8 @@
       <div class="table-header-menu">
 
         <div class="filtr-state-selector">
-          <select class="form-select" aria-label="Default select example">
-            <option value="-1" selected>Wszystkie</option>
+          <select class="form-select" @change="ChangeFiltr" v-model="filterTable">
+            <option value="-1">Wszystkie</option>
             <option value="-2">Wszystkie (Puste grupy)</option>
             <option value="0">Nie obejżane</option>
             <option value="1">Oglądane</option>
@@ -63,6 +63,8 @@ export default {
       return{
         animeData: [],
         animeTableContent: true,
+
+        filterTable: -1,
       }
     },
 
@@ -76,6 +78,9 @@ export default {
       return {
         GetAnime: animeStore.GetAnime,
         isLogged: auterization.isLogged,
+        userPreference: auterization.userPreference,
+
+        UpdatePreference: auterization.UpdatePreference,
 
         ResetIndex: moderated.ResetIndex,
       }
@@ -90,6 +95,14 @@ export default {
       }
 
       this.setReloadTable(this.ReloadData);
+
+      //Filer
+      if(this.userPreference?.filter) {
+        this.filterTable = this.userPreference.filter;
+      }
+      else {
+        this.filterTable = -1;
+      }
     },
 
     methods: {
@@ -105,9 +118,15 @@ export default {
         this.ResetIndex();
         await this.LoadData();
         this.animeTableContent = true;
+      },
+
+      async ChangeFiltr() {
+        const data = {filter: this.filterTable};
+        await this.UpdatePreference(data);
+        console.log(data);
       }
     }
 }
 </script>
-<style lang="">
+<style lang="css">
 </style>

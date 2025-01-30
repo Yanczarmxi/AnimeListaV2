@@ -14,7 +14,7 @@ router.post('/description', anime.GetReadyDescription);
 router.post('/add', anime.AddAnimeToRecord);
 
 //Edycja
-router.post('/getrecord', anime.GetAnimeRecord);
+router.get('/getrecord', anime.GetAnimeRecord);
 router.put('/edit', anime.EditAnimeRecord);
 
 //Dodawanie grupy
@@ -23,9 +23,9 @@ router.put('/edit-group', anime.EditGroupRecord);
 router.get('/get-group-list', anime.GetGroupList);
 
 //Kasowanie rekordów
-//POST zamiast DELETE dlatego że nie obsługuje BODY
 router.delete('/delete', anime.DeleteRecords);
 
+//Aktualizacja statusów oglądania
 router.put('/update', anime.UpdateState);
 
 //Przesyłanie obrazu i czyszczenie rekordu obrazu

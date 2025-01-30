@@ -4,3 +4,6 @@ upload/**
 
 #Moduły node js
 node_modules
+
+#ENV
+.env

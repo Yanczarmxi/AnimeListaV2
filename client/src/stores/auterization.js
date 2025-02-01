@@ -109,7 +109,7 @@ export const useAuterizationStore = defineStore('Auterization', {
             }
         },
 
-        async UpdatePreference(pref) {
+        async UpdateUserPref(pref) {
             try {
                 const responce = await axios.put('/user/preference', pref, {withCredentials: true});
                 this.userPreference = responce.data;

@@ -4,8 +4,8 @@
 
         <div class="filtr-state-selector">
           <select class="form-select" @change="ChangeFiltr" v-model="filterTable">
-            <option value="-1">Wszystkie</option>
-            <option value="-2">Wszystkie (Puste grupy)</option>
+            <option value="-2">Wszystkie</option>
+            <option value="-1">Wszystkie (Puste grupy)</option>
             <option value="0">Nie obejżane</option>
             <option value="1">Oglądane</option>
             <option value="2">Obejżane</option>
@@ -50,6 +50,8 @@ import { useAnimeStore } from '@/stores/anime';
 import { useAuterizationStore } from '@/stores/auterization';
 import { useModeratedStore } from '@/stores/moderated';
 
+import { ref } from 'vue';
+
 import DataRow from './row.vue';
 import RowSeparator from './rowseparator.vue';
 
@@ -64,7 +66,7 @@ export default {
         animeData: [],
         animeTableContent: true,
 
-        filterTable: -1,
+        filterTable: -2,
       }
     },
 
@@ -75,12 +77,15 @@ export default {
       const auterization = useAuterizationStore();
       const moderated = useModeratedStore();
 
+      const isLogged = ref(auterization.isLogged);
+      const userPreference = ref(auterization.userPreference);
+
       return {
         GetAnime: animeStore.GetAnime,
-        isLogged: auterization.isLogged,
-        userPreference: auterization.userPreference,
+        isLogged,
+        userPreference,
 
-        UpdatePreference: auterization.UpdatePreference,
+        UpdateUserPref: auterization.UpdateUserPref,
 
         ResetIndex: moderated.ResetIndex,
       }
@@ -122,7 +127,8 @@ export default {
 
       async ChangeFiltr() {
         const data = {filter: this.filterTable};
-        await this.UpdatePreference(data);
+        await this.UpdateUserPref(data);
+        this.ReloadData();
         console.log(data);
       }
     }

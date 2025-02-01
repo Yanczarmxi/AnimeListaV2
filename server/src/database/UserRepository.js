@@ -52,9 +52,9 @@ class UserRepository {
         }
     }
 
-    async UpdatePreference(user, pref) {
+    async UpdatePreference(pref, user) {
         try {
-            sql `
+            const sql = `
                 UPDATE users SET
                 preference = ?
                 WHERE id = ?;

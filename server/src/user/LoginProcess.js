@@ -45,6 +45,7 @@ async function LoginProcess(req, res) {
         req.session.user_name = userData.name;
         req.session.user_regdate = userData.regdate;
         req.session.user_avatar =  userData.avatar;
+        req.session.user_preference = userData.preference;
         req.session.user_hash = crypto.createHash('sha256').update(
             userData.name + userData.id + userData.regdate).digest('hex');
 

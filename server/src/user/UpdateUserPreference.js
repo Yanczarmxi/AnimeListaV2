@@ -1,4 +1,4 @@
-const UserRepository = require('../database/UserRepository');
+const UserRepo = require('../database/UserRepository');
 
 async function UpdateUserPreference(req, res) {
     try {
@@ -13,7 +13,7 @@ async function UpdateUserPreference(req, res) {
         const userId = req.session.user_id;
     
         req.session.user_preference = preference;
-        await UserRepository.UpdatePreference(userId, preference);
+        await UserRepo.UpdatePreference(preference, userId);
     
         res.status(200).json({mess: 'Zaktualizowano'});
     }

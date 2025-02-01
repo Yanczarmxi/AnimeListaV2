@@ -42,11 +42,11 @@ module.exports = {
         secure: false,
         pathRewrite: { '^/user/logout': '/user/logout' },
       },
-      '/user/checksession': {
+      '/user/preference': {
         target: serverUrl, // Adres backendu
         changeOrigin: true,
         secure: false,
-        pathRewrite: { '^/user/checksession': '/user/checksession' },
+        pathRewrite: { '^/user/preference': '/user/preference' },
       },
       '/anime/addimg': {
         target: serverUrl, // Adres backendu

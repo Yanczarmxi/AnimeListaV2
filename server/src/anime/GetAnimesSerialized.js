@@ -1,30 +1,49 @@
 const animeRepo = require('../database/AnimeRepository');
 const groupsRepo = require('../database/GroupRepository');
 
-function SegregatedAnimeToGroup(groups, animes){
+function SerializedAnime(animes) {
+    let img = animes.an_miniature ? Buffer.from(animes.an_miniature).toString('base64') : null;
+
+    return {
+        id:       animes.an_id,
+        title:    animes.an_title,
+        date:     animes.an_date,
+        url:      animes.an_url,
+        episodes: animes.an_episodes,
+        img:      img,
+        fav: {
+            status:  animes.fv_state,
+            episode: animes.fv_episode
+        }
+    };
+}
+
+function SegregatedAnimeToGroup(groups, animes, filter){
     let data = [];
     let tmp = [];
     for(let i=0; i < groups.length; i++){
         for(let j=0; j < animes.length; j++){
             if(animes[j].st_group == groups[i].gr_id){
-                let img = animes[j].an_miniature ? Buffer.from(animes[j].an_miniature).toString('base64') : null;
-
-                tmp.push({
-                    id:       animes[j].an_id,
-                    title:    animes[j].an_title,
-                    date:     animes[j].an_date,
-                    url:      animes[j].an_url,
-                    episodes: animes[j].an_episodes,
-                    img:      img,
-                    fav: {
-                        status:  animes[j].fv_state,
-                        episode: animes[j].fv_episode
-                    }
-                });
+                console.log(`FV: ${animes[j].fv_state} X ${filter}`)
+                if(animes[j].fv_state == filter && filter > -1) {
+                    tmp.push(SerializedAnime(animes[j], img));
+                }
+                else {
+                    tmp.push(SerializedAnime(animes[j], img));
+                }
             }
         }
 
-        if(tmp.length > 0) {
+        if(filter > -2) {
+            if(tmp.length > 0) {
+                data.push({
+                    gid: groups[i].gr_id,
+                    gtitle: groups[i].gr_title,
+                    anime: tmp
+                });
+            }
+        }
+        else {
             data.push({
                 gid: groups[i].gr_id,
                 gtitle: groups[i].gr_title,
@@ -79,11 +98,13 @@ async function GetAnimesSerialized(req, res) {
         return res.status(401).json({mess: 'Brak zalogowanej sessji używkownika'});
     }
 
+    const filter = req.session.user_preference?.filter ? req.session.user_preference.filter : -2
+
     const groups = await groupsRepo.Get(req.session.user_id);
     const animes = await animeRepo.GetAll(req.session.user_id);
 
     const data = {
-        segregated: SegregatedAnimeToGroup(groups, animes),
+        segregated: SegregatedAnimeToGroup(groups, animes, filter),
         others:     SegregateAnimesToOtchers(animes),
         search:     SearchAnimeIndex(animes),
         groups:     groups

@@ -4,27 +4,28 @@ import axios from 'axios';
 export const useAnimeStore = defineStore('Anime', {
     state: () => ({
         search: {},
-        group: {},
-        animedata: [],
+        group: [],
+        animes: [],
         isLoaded: false,
+
+        filter: -2,
 
         //adres do validacji
         serverUrl: `${process.env.VUE_APP_SERVER}`
     }),
+
     actions: {
-        async GetAnime(){
+        async GetAnime(filter){
             try{
                 const response = await axios.get('/anime/result', {withCredentials: true});
 
-                this.PrepareAnimeData(response.data.segregated, response.data.others);
-
-                this.search = response.data.search;
+                this.animes = response.data.animes;
                 this.group = response.data.groups;
                 this.isLoaded = true;
 
                 return {
                     isLoaded: this.isLoaded,
-                    data: this.animedata,
+                    data: this.SerializedData(),
                     search: this.search,
                     group: this.group          
                 };
@@ -45,6 +46,38 @@ export const useAnimeStore = defineStore('Anime', {
                 gtitle: 'Pozostałe',
                 anime: ohd
             });
+        },
+
+        SerializedData() {
+            let gtmp = this.group;
+            gtmp.push({
+                gid: 0,
+                gtitle: 'Pozostałe',
+            });
+
+            let tmp = [];
+            let data = [];
+
+            gtmp.forEach(gelm => {
+                this.animes.forEach(aelm => {
+                    if(gelm.gr_id === aelm.id) {
+                        tmp.push(aelm);
+                    }
+                });
+                data.push({
+                    gid: gelm.gr_id,
+                    gtitle: gelm.gr_title,
+                    anime: tmp
+                });
+                tmp = []; //Czyszczenie
+            });
+            
+            return data;
+        },
+
+        LoadFilteringData(filter) {
+            this.filter = filter;
+            return this.SerializedData();
         },
 
         //Pobranie opisu

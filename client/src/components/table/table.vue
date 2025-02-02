@@ -4,8 +4,8 @@
 
         <div class="filtr-state-selector">
           <select class="form-select" @change="ChangeFiltr" v-model="filterTable">
-            <option value="-2">Wszystkie</option>
-            <option value="-1">Wszystkie (Puste grupy)</option>
+            <option value="-1">Wszystkie</option>
+            <option value="-2">Wszystkie (Puste grupy)</option>
             <option value="0">Nie obejżane</option>
             <option value="1">Oglądane</option>
             <option value="2">Obejżane</option>
@@ -82,6 +82,8 @@ export default {
 
       return {
         GetAnime: animeStore.GetAnime,
+        GetFilteringData: animeStore.GetFilteringData,
+
         isLogged,
         userPreference,
 
@@ -112,10 +114,8 @@ export default {
 
     methods: {
       async LoadData(){
-        var data = await this.GetAnime(this.filterTable);
+        const data = await this.GetAnime(this.filterTable);
         this.animeData = data.anime;
-        console.log('PROMISE');
-        console.log(data.anime);
       },
 
       async ReloadData() {
@@ -128,6 +128,7 @@ export default {
       async ChangeFiltr() {
         const data = {filter: this.filterTable};
         await this.UpdateUserPref(data);
+        this.animeData = this.GetFilteringData(this.filterTable);
         this.ReloadData();
         console.log(data);
       }

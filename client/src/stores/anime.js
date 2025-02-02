@@ -23,7 +23,6 @@ export const useAnimeStore = defineStore('Anime', {
                 this.animes = response.data.animes;
                 this.group = response.data.groups;
 
-                console.log(`ASMR: ${response.data.animes}`);
 
                 this.isLoaded = true;
 
@@ -52,6 +51,7 @@ export const useAnimeStore = defineStore('Anime', {
             });
         },
 
+        //Grupuje i filtruje dane
         SerializedData() {
             let gtmp = this.group;
             gtmp.push({
@@ -64,23 +64,35 @@ export const useAnimeStore = defineStore('Anime', {
 
             gtmp.forEach(gelm => {
                 this.animes.forEach(aelm => {
-                    console.log(`QWE: ${aelm.title}`);
-                    //if(gelm.gr_id === aelm.id) {
-                    //    tmp.push(aelm);
-                    //}
+                    if(gelm.gr_id == aelm.group) {
+                        tmp.push(aelm);
+                    }
                 });
-                //data.push({
-                //    gid: gelm.gr_id,
-                //    gtitle: gelm.gr_title,
-                //    anime: tmp
-                //});
-                //tmp = []; //Czyszczenie
+
+                if(this.filter > -2) {
+                    data.push({
+                        gid: gelm.gr_id,
+                        gtitle: gelm.gr_title,
+                        anime: tmp
+                    });
+                }
+                else {
+                    if(tmp.length > 0) {
+                        data.push({
+                            gid: gelm.gr_id,
+                            gtitle: gelm.gr_title,
+                            anime: tmp
+                        });
+                    }
+                }
+                
+                tmp = []; //Czyszczenie
             });
             
             return data;
         },
 
-        LoadFilteringData(filter) {
+        GetFilteringData(filter) {
             this.filter = filter;
             return this.SerializedData();
         },

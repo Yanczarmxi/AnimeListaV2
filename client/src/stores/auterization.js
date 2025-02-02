@@ -43,6 +43,7 @@ export const useAuterizationStore = defineStore('Auterization', {
                 this.isLogged = response.data.isLogged;
                 this.userName = response.data.user;
                 this.userRegistered = response.data.regdate;
+                this.userPreference = response.data.preference;
                 this.failLogin = false;
 
                 if(response.data.avatar) {
@@ -72,6 +73,7 @@ export const useAuterizationStore = defineStore('Auterization', {
                 this.isLogged = response.data.isLogged;
                 this.userName = response.data.user;
                 this.userRegistered = response.data.regdate;
+                this.userPreference = response.data.preference;
                 this.failLogin = false;
 
                 if(response.data.avatar) {

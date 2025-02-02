@@ -93,6 +93,16 @@ export default {
       }
     },
     mounted() {
+      //Filer
+      console.log(`FILTER TEST: ${this.userPreference.filter}`);
+      if(this.userPreference?.filter) {
+        this.filterTable = this.userPreference.filter;
+      }
+      else {
+        this.filterTable = -1;
+      }
+
+
       if(this.isLogged) {
         this.LoadData();
       }
@@ -102,14 +112,6 @@ export default {
       }
 
       this.setReloadTable(this.ReloadData);
-
-      //Filer
-      if(this.userPreference?.filter) {
-        this.filterTable = this.userPreference.filter;
-      }
-      else {
-        this.filterTable = -1;
-      }
     },
 
     methods: {

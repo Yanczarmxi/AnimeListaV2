@@ -15,6 +15,7 @@ function UserCheckSession(req, res) {
             isLogged: req.session.isLogged, 
             user: req.session.user_name,
             regdate: req.session.user_regdate,
+            preference: req.session.user_preference,
             avatar: req.session.user_avatar ? req.session.user_avatar : null
         });
 

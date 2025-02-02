@@ -45,16 +45,19 @@ async function LoginProcess(req, res) {
         req.session.user_name = userData.name;
         req.session.user_regdate = userData.regdate;
         req.session.user_avatar =  userData.avatar;
-        req.session.user_preference = userData.preference;
+        req.session.user_preference = JSON.parse(userData.preference);
         req.session.user_hash = crypto.createHash('sha256').update(
             userData.name + userData.id + userData.regdate).digest('hex');
+
+        console.log(`PREF: ${req.session.user_preference}`);
 
         const data = {
             isLogged: req.session.isLogged,
             token: token,
             user: req.session.user_name,
             regdate: req.session.user_regdate,
-            avatar: req.session.user_avatar
+            avatar: req.session.user_avatar,
+            preference: req.session.user_preference,
         };
 
         res.status(200).json(data);

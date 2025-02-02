@@ -4,8 +4,8 @@ import axios from 'axios';
 export const useAnimeStore = defineStore('Anime', {
     state: () => ({
         search: {},
-        group: [],
-        animes: [],
+        group_storage: [],
+        animes_storage: [],
         isLoaded: false,
 
         filter: -2,
@@ -20,17 +20,17 @@ export const useAnimeStore = defineStore('Anime', {
                 this.filter = filter;
                 const response = await axios.get('/anime/result', {withCredentials: true});
 
-                this.animes = response.data.animes;
-                this.group = response.data.groups;
+                this.animes_storage = response.data.animes;
+                this.group_storage = response.data.groups;
 
 
                 this.isLoaded = true;
 
                 return {
                     isLoaded: this.isLoaded,
-                    anime: this.SerializedData(),
+                    anime: this.SerializedData(this.group_storage, this.animes_storage),
                     search: this.search,
-                    group: this.group          
+                    group: this.group_storage         
                 };
             }
             catch(e){
@@ -42,19 +42,10 @@ export const useAnimeStore = defineStore('Anime', {
             }
         },
 
-        PrepareAnimeData(grd, ohd){
-            this.animedata = grd;
-            this.animedata.push({
-                gid: 0,
-                gtitle: 'Pozostałe',
-                anime: ohd
-            });
-        },
-
         //Grupuje i filtruje dane
-        SerializedData() {
-            let gtmp = this.group;
-            gtmp.push({
+        SerializedData(group, anime) {
+            let tmp_group = [...group];
+            tmp_group.push({
                 gr_id: 0,
                 gr_title: 'Pozostałe',
             });
@@ -62,21 +53,21 @@ export const useAnimeStore = defineStore('Anime', {
             let tmp = [];
             let data = [];
 
-            gtmp.forEach(gelm => {
-                this.animes.forEach(aelm => {
-                    if(gelm.gr_id == aelm.group) {
-                        tmp.push(aelm);
+            tmp_group.forEach(gelm => {
+                anime.forEach(aelm => {
+                    if(this.filter > -1){
+                        if(gelm.gr_id == aelm.group && aelm.fav.status == this.filter) {
+                            tmp.push(aelm);
+                        }
+                    }
+                    else {
+                        if(gelm.gr_id == aelm.group) {
+                            tmp.push(aelm);
+                        }
                     }
                 });
 
                 if(this.filter > -2) {
-                    data.push({
-                        gid: gelm.gr_id,
-                        gtitle: gelm.gr_title,
-                        anime: tmp
-                    });
-                }
-                else {
                     if(tmp.length > 0) {
                         data.push({
                             gid: gelm.gr_id,
@@ -84,6 +75,13 @@ export const useAnimeStore = defineStore('Anime', {
                             anime: tmp
                         });
                     }
+                }
+                else {
+                    data.push({
+                        gid: gelm.gr_id,
+                        gtitle: gelm.gr_title,
+                        anime: tmp
+                    });
                 }
                 
                 tmp = []; //Czyszczenie
@@ -94,7 +92,7 @@ export const useAnimeStore = defineStore('Anime', {
 
         GetFilteringData(filter) {
             this.filter = filter;
-            return this.SerializedData();
+            return this.SerializedData(this.group_storage, this.animes_storage);
         },
 
         //Pobranie opisu
@@ -199,7 +197,7 @@ export const useAnimeStore = defineStore('Anime', {
         GetGroupForEditModal(group) {
             let result = {};
 
-            this.animedata.forEach(element => {
+            this.group_storage.forEach(element => {
                 if(element.gid === group) {
                     result = element.gtitle;
                 }
@@ -242,7 +240,7 @@ export const useAnimeStore = defineStore('Anime', {
         async UpdateGroupList(){
             try {
                 const response = await axios.get('/anime/get-group-list', {withCredentials: true});
-                this.group = response.data.complete;
+                this.group_storage = response.data.complete;
             }
             catch(e) {
                 console.error(`Nie udało się zaktualizować listy gróp: ${e}`);

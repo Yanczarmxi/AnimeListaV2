@@ -126,11 +126,11 @@ export default {
       },
 
       async ChangeFiltr() {
+        this.animeTableContent = false;
         const data = {filter: this.filterTable};
         await this.UpdateUserPref(data);
         this.animeData = this.GetFilteringData(this.filterTable);
-        this.ReloadData();
-        console.log(data);
+        this.animeTableContent = true;
       }
     }
 }

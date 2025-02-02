@@ -112,10 +112,10 @@ export default {
 
     methods: {
       async LoadData(){
-        var data = await this.GetAnime();
-        this.animeData = data.data;
+        var data = await this.GetAnime(this.filterTable);
+        this.animeData = data.anime;
         console.log('PROMISE');
-        console.log(data);
+        console.log(data.anime);
       },
 
       async ReloadData() {

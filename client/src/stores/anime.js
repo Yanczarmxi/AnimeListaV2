@@ -17,15 +17,19 @@ export const useAnimeStore = defineStore('Anime', {
     actions: {
         async GetAnime(filter){
             try{
+                this.filter = filter;
                 const response = await axios.get('/anime/result', {withCredentials: true});
 
                 this.animes = response.data.animes;
                 this.group = response.data.groups;
+
+                console.log(`ASMR: ${response.data.animes}`);
+
                 this.isLoaded = true;
 
                 return {
                     isLoaded: this.isLoaded,
-                    data: this.SerializedData(),
+                    anime: this.SerializedData(),
                     search: this.search,
                     group: this.group          
                 };
@@ -51,8 +55,8 @@ export const useAnimeStore = defineStore('Anime', {
         SerializedData() {
             let gtmp = this.group;
             gtmp.push({
-                gid: 0,
-                gtitle: 'Pozostałe',
+                gr_id: 0,
+                gr_title: 'Pozostałe',
             });
 
             let tmp = [];
@@ -60,16 +64,17 @@ export const useAnimeStore = defineStore('Anime', {
 
             gtmp.forEach(gelm => {
                 this.animes.forEach(aelm => {
-                    if(gelm.gr_id === aelm.id) {
-                        tmp.push(aelm);
-                    }
+                    console.log(`QWE: ${aelm.title}`);
+                    //if(gelm.gr_id === aelm.id) {
+                    //    tmp.push(aelm);
+                    //}
                 });
-                data.push({
-                    gid: gelm.gr_id,
-                    gtitle: gelm.gr_title,
-                    anime: tmp
-                });
-                tmp = []; //Czyszczenie
+                //data.push({
+                //    gid: gelm.gr_id,
+                //    gtitle: gelm.gr_title,
+                //    anime: tmp
+                //});
+                //tmp = []; //Czyszczenie
             });
             
             return data;

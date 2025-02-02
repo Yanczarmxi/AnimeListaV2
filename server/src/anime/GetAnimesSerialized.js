@@ -1,28 +1,27 @@
 const animeRepo = require('../database/AnimeRepository');
 const groupsRepo = require('../database/GroupRepository');
 
-function SerializedAnime(animes) {
-    let img = animes.an_miniature ? Buffer.from(animes.an_miniature).toString('base64') : null;
-
-    return {
-        id:       animes.an_id,
-        title:    animes.an_title,
-        date:     animes.an_date,
-        url:      animes.an_url,
-        episodes: animes.an_episodes,
-        img:      img,
-        fav: {
-            status:  animes.fv_state,
-            episode: animes.fv_episode
-        }
-    };
-}
-
 function SerializedAnime(animes){
     let tmp = [];
     for(let i=0; i < animes.length; i++){
-        tmp.push(SerializedAnime(animes[i]));
+        let img = animes.an_miniature ? Buffer.from(animes.an_miniature).toString('base64') : null;
+
+        tmp.push({
+            id:       animes.an_id,
+            title:    animes.an_title,
+            date:     animes.an_date,
+            url:      animes.an_url,
+            episodes: animes.an_episodes,
+            img:      img,
+            fav: {
+                status:  animes.fv_state,
+                episode: animes.fv_episode
+            },
+            group:     animes.st_group
+        });
     }
+
+    console.log(tmp)
 
     return tmp;
 }

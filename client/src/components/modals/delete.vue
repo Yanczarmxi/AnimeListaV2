@@ -46,7 +46,8 @@
 <script>
 import { useAnimeStore } from '@/stores/anime';
 import { useModeratedStore } from '@/stores/moderated';
-//import { forEach } from 'core-js/core/array';
+
+import '@/assets/css/modal.css';
 
 import { ref } from 'vue';
 
@@ -149,112 +150,3 @@ export default {
   }
 }
 </script>
-<style lang="css">
-.md-body {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1000; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-.md-content {
-  color: #fff;
-  background-color: var(--bg-normal-color);
-  position: relative;
-  width: 800px;
-  height: auto;
-  border-radius: 8px 8px 8px 8px;
-  -webkit-box-shadow:0px 0px 45px 23px rgba(0,0,0,0.82);
-  -moz-box-shadow: 0px 0px 45px 23px rgba(0,0,0,0.82);
-  box-shadow: 0px 0px 45px 23px rgba(0,0,0,0.82);
-}
-
-.md-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  align-content: center;
-  width: 100%;
-  height: 63px;
-  padding: 1rem;
-  border-bottom: 1px solid #0e0e0e;
-}
-
-.bt-md-exit {
-  color: #777;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 32px;
-  width: 32px;
-  cursor: pointer;
-}
-
-.bt-md-exit:hover {
-  color: #fff;
-}
-
-.md-title {
-  font-size: 18pt;
-}
-
-.md-body-content-del {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 200px;
-  height: 600px;
-  width: 100%;
-}
-
-.md-footer {
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  border-top: 1px solid #0e0e0e;
-}
-
-.md-delete-list-box {
-  width: 90%;
-  height: 400px;
-  max-width: 90%;
-  max-height: 400px;
-  border-radius: 8px;
-  padding: 24px;
-  overflow: scroll;
-  color: #fff;
-  background-color: var(--bg-dark-color);
-}
-
-.md-delete-info-span {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  width: 90%;
-}
-
-.md-span-item {
-  margin-right: 64px;
-  font-size: 12pt;
-  color: #fff;
-}
-
-/* Ukrywanie strzałek w Chrome, Edge i Safari */
-input[type="number"]::-webkit-inner-spin-button, 
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Ukrywanie strzałek w Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-</style>

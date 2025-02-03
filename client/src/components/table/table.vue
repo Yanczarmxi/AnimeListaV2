@@ -3,7 +3,11 @@
       <div class="table-header-menu">
 
         <div class="filtr-state-selector">
-          <select class="form-select" @change="ChangeFiltr" v-model="filterTable">
+          <svg width="32" height="32" fill="currentColor" style="margin-right: 16px;">
+            <use xlink:href="#ico-funnel"></use>
+          </svg>
+
+          <select class="tb-filter-sellect" @change="ChangeFiltr" v-model="filterTable">
             <option value="-1">Wszystkie</option>
             <option value="-2">Wszystkie (Puste grupy)</option>
             <option value="0">Nie obejżane</option>

@@ -199,7 +199,7 @@ export const useAnimeStore = defineStore('Anime', {
 
             this.group_storage.forEach(element => {
                 if(element.gr_id == group) {
-                    result = element.gtitle;
+                    result = element.gr_title;
                 }
             });
 

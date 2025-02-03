@@ -25,7 +25,7 @@
   
         <div class="md-footer d-flex flex-row justify-content-end p-4">
           <button type="button" class="btn btn-secondary" @click="CloseModal">Zamknij</button>
-          <button type="button" class="btn btn-primary bt-space" @click="EditRecord">Dodaj</button>
+          <button type="button" class="btn btn-primary bt-space" @click="EditRecord">Edytuj</button>
         </div>
       </div>
     </div>

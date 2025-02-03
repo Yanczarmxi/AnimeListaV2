@@ -59,10 +59,16 @@ class AnimeRepository {
 
     async Delete(anime, user) {
         try {
-            const _anime = Array.isArray(anime) ? JSON.parse(anime) : JSON.parse([anime]);
+            const _anime = Array.isArray(anime) ? anime.map(Number) : [Number(anime)];
 
-            const sql = 'DELETE FROM anm_animes WHERE an_id IN (?) AND an_user = ?;';
-            const [result] = await this.db.execute(sql, [_anime, user]);
+            if (_group.some(isNaN)) {
+                throw new Error("ANIME REPO: Nieprawidłowa wartość w anime");
+            }
+
+            const placeholder = _group.map(() => '?').join(',');
+
+            const sql = `DELETE FROM anm_animes WHERE an_id IN (${placeholder}) AND an_user = ?;`;
+            const [result] = await this.db.execute(sql, [..._anime, user]);
     
             return result.affectedRows;
         }

@@ -123,7 +123,7 @@ export default {
     const checkIdAnimeStore = ref(moderated.checkIdAnimeStore);
     const GetAnimeForEditModal = ref(animeStore.GetAnimeForEditModal);
 
-    const groups = ref(animeStore.group);
+    const groups = ref(animeStore.group_storage);
 
     return {
       groups,

@@ -73,8 +73,8 @@ export default {
     const groupIndex = ref(moderated.checkIdGroupStore);
     const animeIndex = ref(moderated.checkIdAnimeStore);
 
-    const group = ref(animeStore.group);
-    const anime = ref(animeStore.search);
+    const group = ref(animeStore.group_storage);
+    const anime = ref(animeStore.animes_storage);
 
     return {
       DeleteRecords: animeStore.DeleteRecords,

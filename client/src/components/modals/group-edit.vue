@@ -2,7 +2,7 @@
     <div class="md-body d-flex justify-content-center align-items-center">
       <div class="md-content d-flex flex-column align-content-between">
         <div class="md-header">
-          <h5>Dodaj grupę</h5>
+          <h5>Edytuj grupę</h5>
           <div class="bt-md-exit" @click="CloseModal">
             <svg width="32" height="32" fill="currentColor" class="bi bi-database-fill-add">
               <use xlink:href="#ico-cross"/>
@@ -11,7 +11,7 @@
         </div>
   
         <div class="md-body-content-gr p-4">
-          <label for="inp-title">Nazwa nowej grupy</label>
+          <label for="inp-title">Nazwa grupy</label>
           <input 
             type="text" 
             class="lb-style m-1" 

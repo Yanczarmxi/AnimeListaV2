@@ -198,7 +198,7 @@ export const useAnimeStore = defineStore('Anime', {
             let result = {};
 
             this.group_storage.forEach(element => {
-                if(element.gid === group) {
+                if(element.gr_id == group) {
                     result = element.gtitle;
                 }
             });

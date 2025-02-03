@@ -94,7 +94,7 @@ export default {
     },
     mounted() {
       //Filer
-      console.log(`FILTER TEST: ${this.userPreference.filter}`);
+      console.log(`FILTER TEST: ${Object.values(this.userPreference)}`);
       if(this.userPreference?.filter) {
         this.filterTable = this.userPreference.filter;
       }

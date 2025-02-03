@@ -12,7 +12,7 @@ async function UpdateUserPreference(req, res) {
         const preference = req.body;
         const userId = req.session.user_id;
     
-        req.session.user_preference = preference;
+        req.session.user_preference = {...preference};
         await UserRepo.UpdatePreference(preference, userId);
     
         res.status(200).json({mess: 'Zaktualizowano'});

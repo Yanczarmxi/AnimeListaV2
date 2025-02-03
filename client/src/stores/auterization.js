@@ -113,8 +113,8 @@ export const useAuterizationStore = defineStore('Auterization', {
 
         async UpdateUserPref(pref) {
             try {
-                const responce = await axios.put('/user/preference', pref, {withCredentials: true});
-                this.userPreference = responce.data;
+                await axios.put('/user/preference', pref, {withCredentials: true});
+                this.userPreference = {...pref};
             }
             catch(e) {
                 console.error(`Nie udało się zaktualizować preferencji`);

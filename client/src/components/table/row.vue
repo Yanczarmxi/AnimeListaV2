@@ -193,6 +193,7 @@ export default {
         this.animeTitle = this.data.title;
         this.animeDate = this.data.date;
         this.animeLink = this.data.url;
+        this.animeEpisodes = this.data.episodes;
 
 
         if(this.data.img) {
@@ -227,7 +228,7 @@ export default {
         },
 
         AddEpisode(){
-            if (this.epCount < 12){
+            if (this.epCount < this.animeEpisodes){
                 this.epCount++;
 
                 this.ArrowSvgToggler();
@@ -237,7 +238,7 @@ export default {
                 });
             }
             else {
-                this.epCount = 12;
+                this.epCount = this.animeEpisodes;
             }
 
             console.log('STATUS: ' + this.epCount);

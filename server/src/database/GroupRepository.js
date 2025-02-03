@@ -40,10 +40,15 @@ class GroupRepository {
 
     async Delete(group, user) {
         try {
-            const _group = Array.isArray(group) ? JSON.parse(group) : JSON.parse([group]);
+            const _group = Array.isArray(group) ? group.map(Number) : [Number(group)];
 
-            const sql = `DELETE FROM anm_groups WHERE gr_id IN (?) AND gr_user = ?;`;
-            await this.db.execute(sql, [_group, user]);
+            if (_group.some(isNaN)) {
+                throw new Error("GROUP REPO: Nieprawidłowa wartość w group");
+            }
+
+            const placeholder = _group.map(() => '?').join(',');
+            const sql = `DELETE FROM anm_groups WHERE gr_id IN (${placeholder}) AND gr_user = ?;`;
+            await this.db.execute(sql, [..._group, user]);
         }
         catch(e) {
             console.error('Groups Delete Query ERROR: ' + e);

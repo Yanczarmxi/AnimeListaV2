@@ -43,10 +43,15 @@ class SegregatedRepository {
 
     async DeleteByAnime(anime, user) {
         try {
-            const _anime = Array.isArray(anime) ? JSON.parse(anime) : JSON.parse([anime]);
+            const _anime = Array.isArray(anime) ? anime.map(Number) : [Number(anime)];
 
-            const sql = `DELETE FROM anm_segregated WHERE st_anime IN (?) AND st_user = ?;`;
-            const [result] = await this.db.execute(sql, [_anime, user]);
+            if (_group.some(isNaN)) {
+                throw new Error("SEGREGATE REPO: Nieprawidłowa wartość w anime");
+            }
+
+            const placeholder = _group.map(() => '?').join(',');
+            const sql = `DELETE FROM anm_segregated WHERE st_anime IN (${placeholder}) AND st_user = ?;`;
+            const [result] = await this.db.execute(sql, [..._anime, user]);
 
             return result.affectedRows;
         }
@@ -59,10 +64,16 @@ class SegregatedRepository {
     //Group musi byc tablicą
     async DeleteByGroup(group, user) {
         try {
-            const _group = Array.isArray(group) ? JSON.parse(group) : JSON.parse([group]);
+            const _group = Array.isArray(group) ? group.map(Number) : [Number(group)];
 
-            const sql = `DELETE FROM anm_segregated WHERE st_group IN (?) AND st_user = ?;`;
-            const [result] = await this.db.execute(sql, [_group, user]);
+            if (_group.some(isNaN)) {
+                throw new Error("SEGREGATE REPO: Nieprawidłowa wartość w group");
+            }
+
+            const placeholder = _group.map(() => '?').join(',');
+
+            const sql = `DELETE FROM anm_segregated WHERE st_group IN (${placeholder}) AND st_user = ?;`;
+            const [result] = await this.db.execute(sql, [..._group, user]);
 
             return result.affectedRows;
         }

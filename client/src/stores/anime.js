@@ -240,7 +240,7 @@ export const useAnimeStore = defineStore('Anime', {
         async UpdateGroupList(){
             try {
                 const response = await axios.get('/anime/get-group-list', {withCredentials: true});
-                this.group_storage = response.data.complete;
+                this.group_storage = response.data;
             }
             catch(e) {
                 console.error(`Nie udało się zaktualizować listy gróp: ${e}`);

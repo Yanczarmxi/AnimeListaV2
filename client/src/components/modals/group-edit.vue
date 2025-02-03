@@ -73,6 +73,8 @@
         this.groupId = this.checkIdGroupStore[0];
         this.groupTitle = this.GetGroupForEditModal(this.groupId);
     },
+
+    inject: ['reloadTable'],
   
     methods: {
       CloseModal() {
@@ -86,6 +88,7 @@
         });
   
         if(response){
+          this.reloadTable();
           this.CloseModal();
         }
       },

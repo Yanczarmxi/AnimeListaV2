@@ -32,6 +32,9 @@
 </template>
 <script>
 import { useAnimeStore } from '@/stores/anime';
+import { useAuterizationStore } from '@/stores/auterization';
+
+import { ref } from 'vue';
 
 export default {
   name: 'ModalAddGroupWindow',
@@ -48,9 +51,13 @@ export default {
 
   setup() {
     const animeStore = useAnimeStore();
+    const auterization = useAuterizationStore();
+
+    const userPreference = ref(auterization.userPreference)
 
     return {
       AddGroupRecord: animeStore.AddGroupRecord,
+      userPreference,
     }
   },
 
@@ -59,6 +66,8 @@ export default {
       return this.maxGlyph - this.groupTitle.length;
     }
   },
+
+  inject: ['reloadTable'],
 
   methods: {
     CloseModal() {
@@ -69,6 +78,9 @@ export default {
       const response = await this.AddGroupRecord({group: this.groupTitle});
 
       if(response){
+        if(this.userPreference.filter == -2) {
+          this.reloadTable();
+        }
         this.CloseModal();
       }
     },

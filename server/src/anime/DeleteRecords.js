@@ -8,6 +8,7 @@ async function DeleteAnimeRecords(anime, user) {
         const result = await AnimeRepo.Delete(anime, user);
         if(result > 0) {
             await FavoritesRepo.Delete(anime, user);
+            await SegregatedRepo.DeleteByAnime(anime, user);
         }
     }
     catch(e) {

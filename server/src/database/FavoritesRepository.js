@@ -66,11 +66,11 @@ class FavoritesRepository {
         try {
             const _anime = Array.isArray(anime) ? anime.map(Number) : [Number(anime)];
 
-            if (_group.some(isNaN)) {
+            if (_anime.some(isNaN)) {
                 throw new Error("FAVORITES REPO: Nieprawidłowa wartość w anime");
             }
 
-            const placeholder = _group.map(() => '?').join(',');
+            const placeholder = _anime.map(() => '?').join(',');
 
             const sql = `DELETE FROM anm_favorites WHERE fv_anime IN (${placeholder}) AND fv_user = ?;`;
             const [result] = await this.db.execute(sql, [..._anime, user]);

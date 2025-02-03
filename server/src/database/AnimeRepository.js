@@ -61,11 +61,11 @@ class AnimeRepository {
         try {
             const _anime = Array.isArray(anime) ? anime.map(Number) : [Number(anime)];
 
-            if (_group.some(isNaN)) {
+            if (_anime.some(isNaN)) {
                 throw new Error("ANIME REPO: Nieprawidłowa wartość w anime");
             }
 
-            const placeholder = _group.map(() => '?').join(',');
+            const placeholder = _anime.map(() => '?').join(',');
 
             const sql = `DELETE FROM anm_animes WHERE an_id IN (${placeholder}) AND an_user = ?;`;
             const [result] = await this.db.execute(sql, [..._anime, user]);

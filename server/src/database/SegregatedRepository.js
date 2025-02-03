@@ -8,7 +8,7 @@ class SegregatedRepository {
     async Get(user) {
         try {
             const sql = 'SELECT st_anime, st_group FROM anm_segregated WHERE st_user=?';
-            const [rows] = await this.db.query(sql, [user]);
+            const [rows] = await this.db.execute(sql, [user]);
             console.log('pobieranie grupy')
             return rows;
         }
@@ -21,7 +21,7 @@ class SegregatedRepository {
     async Add(anime, group, user) {
         try {
             const sql = `INSERT anm_segregated (st_user, st_anime, st_group) VALUES (?, ?, ?);`;
-            await this.db.query(sql, [user, anime, group]);
+            await this.db.execute(sql, [user, anime, group]);
         }
         catch(e) {
             console.error('Segregated Add Query ERROR: ' + e);

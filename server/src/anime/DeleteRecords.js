@@ -5,11 +5,9 @@ const FavoritesRepo = require('../database/FavoritesRepository');
 
 async function DeleteAnimeRecords(anime, user) {
     try {
-        const result = await AnimeRepo.Delete(anime, user);
-        if(result > 0) {
-            await FavoritesRepo.Delete(anime, user);
-            await SegregatedRepo.DeleteByAnime(anime, user);
-        }
+        await AnimeRepo.Delete(anime, user);
+        await FavoritesRepo.Delete(anime, user);
+        await SegregatedRepo.DeleteByAnime(anime, user);
     }
     catch(e) {
         console.error(`ERROR: Nie udało się skasować anime: ${e}`);
@@ -18,10 +16,8 @@ async function DeleteAnimeRecords(anime, user) {
 
 async function DeleteGroupRecords(group, user) {
     try {
-        const result = await GroupRepo.Delete(group, user);
-        if(result > 0) {
-            await SegregatedRepo.DeleteByGroup(group, user);
-        }
+        await GroupRepo.Delete(group, user);
+        await SegregatedRepo.DeleteByGroup(group, user);
     }
     catch(e) {
         console.error(`ERROR: Nie udało się skasować grupy: ${e}`);

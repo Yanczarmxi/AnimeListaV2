@@ -114,7 +114,7 @@ export default {
       const animeStore = useAnimeStore();
 
       return {
-        groups: animeStore.group,
+        groups: animeStore.group_storage,
         UploadImage: animeStore.UploadImage,
         DeleteImage: animeStore.DeleteImage,
         AddAnimeToDataBase: animeStore.AddAnimeToDataBase,

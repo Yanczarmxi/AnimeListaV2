@@ -42,6 +42,7 @@
                 <div class="user-name-container">
                     {{userName}}
                 </div>
+                <UserMenuCombi />
             </div>
 
             <button class="btn btn-danger user-bt-logout" @click="LogoutUser">
@@ -64,6 +65,8 @@ import { useAuterizationStore } from '@/stores/auterization';
 import { useModeratedStore } from '@/stores/moderated';
 import { ref, watch } from 'vue';
 
+import UserMenuCombi from './ui/user_menu_combi.vue';
+
 import ModalAddWindow from './modals/add.vue';
 import ModalEditWindow from './modals/edit.vue';
 import ModalAddGroupWindow from './modals/group.vue';
@@ -79,6 +82,7 @@ export default {
         ModalAddGroupWindow,
         ModalEditGroupWindow,
         ModalDeleteWindow,
+        UserMenuCombi,
   },
 
   data() {

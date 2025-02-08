@@ -33,6 +33,20 @@ export default {
     name: 'UserMenuCombi',
     data() { return {
     }},
+
+    mounted() {
+        document.addEventListener('click', this.HiddeUserMenu);
+    },
+
+    beforeMount() {
+        document.removeEventListener('click', this.HiddeUserMenu);
+    },
+
+    methods: {
+        HiddeUserMenu() {
+            this.$emit('closeMenu');
+        }
+    }
 };
 </script>
 

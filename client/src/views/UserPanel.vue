@@ -11,5 +11,7 @@
 <script>
     export default {
         name: 'UserControlPage',
+        components: {
+        }
     }
 </script>

@@ -26,3 +26,53 @@ body {
 .dbt:hover {
     color: #bbbbbb;
 }
+
+button.bt {
+    border-radius: 24px;
+    padding: 6px 16px;
+    margin: 4px;
+    background-color: var(--bg-normal-color);
+}
+
+button.bt-logout {
+    width: 36px;
+    height: 36px;
+    border-radius: 24px;
+    background-color: var(--bg-normal-color);
+}
+
+/*Normalny guzik*/
+button.bt-normal {
+    color: #fff;
+    border: 2px solid #006283;
+    transition: all .1s linear;
+}
+
+button.bt-normal:hover:enabled {
+    color: #9fdff5;
+    border: 2px solid #008CBA;
+    box-shadow: 0 0px 16px 0 rgba(0, 153, 255, 0.24), 0 0px 50px 0 rgba(0, 153, 255, 0.19);
+}
+
+button.bt-normal:disabled {
+    border: 2px solid #4f6066;
+    color: #666;
+}
+
+/*Dangerous guzik*/
+button.bt-danger {
+    color: #fff;
+    border: 2px solid #c90909;
+    transition: all .1s linear;
+}
+
+button.bt-danger:hover:enabled {
+    color: #ffbcbc;
+    border: 2px solid #ff3030;
+    box-shadow: 0 0px 16px 0 rgba(255, 0, 0, 0.24), 0 0px 50px 0 rgba(255, 0, 0, 0.19);
+}
+
+button.bt-danger:disabled {
+    border: 2px solid #6e4c4c;
+    color: #666;
+}

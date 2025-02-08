@@ -7,28 +7,28 @@
         </div>
 
         <div class="bt-set-container d-flex flex-row justicy-content-start align-items-center p-2 bd-highlight">
-            <button class="btn btn-primary bt-nav-fnc" @click="modalAddVisible = true">
+            <button class="bt bt-normal" @click="modalAddVisible = true">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-add-record"/>
                 </svg>
                 Dodaj Anime
             </button>
 
-            <button class="btn btn-primary bt-nav-fnc" @click="modalGroupAddVisible = true">
+            <button class="bt bt-normal" @click="modalGroupAddVisible = true">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-add-group"/>
                 </svg>
                 Dodaj Grupę
             </button>
 
-            <button class="btn btn-primary bt-nav-fnc" @click="ShowModalEditWindow" :disabled="editButton">
+            <button class="bt bt-normal" @click="ShowModalEditWindow" :disabled="editButton">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-edit-record"/>
                 </svg>
                 Edytuj
             </button>
 
-            <button class="btn btn-danger bt-nav-fnc" @click="modalDeleteVisible = true" :disabled="deleteButton">
+            <button class="bt bt-danger" @click="modalDeleteVisible = true" :disabled="deleteButton">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-remove-record"/>
                 </svg>
@@ -47,10 +47,10 @@
                         <use xlink:href="#ico-down"></use>
                     </svg>
                 </div>
-                <UserMenuCombi v-if="userMenuVisible" />
+                <UserMenuCombi v-if="userMenuVisible"/>
             </div>
 
-            <button class="btn btn-danger user-bt-logout" @click="LogoutUser">
+            <button class="bt-logout bt-danger user-bt-logout" @click="LogoutUser">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-logout"/>
                 </svg>
@@ -161,14 +161,6 @@ export default {
     };
   },
 
-  mounted() {
-    document.addEventListener('click', this.userMenuVisible = false);
-  },
-
-  beforeMount() {
-    document.removeEventListener('click', this.userMenuVisible = false);
-  },
-
   methods: {
     async LogoutProcess() {
         const res = await this.LogoutUser();
@@ -189,7 +181,7 @@ export default {
 
     ToggleUserMenu() {
         this.userMenuVisible = !this.userMenuVisible;
-    }
+    },
   }
 }
 </script>

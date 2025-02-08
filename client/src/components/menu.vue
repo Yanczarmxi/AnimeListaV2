@@ -42,7 +42,12 @@
                 <div class="user-name-container">
                     {{userName}}
                 </div>
-                <UserMenuCombi />
+                <div class="user-menu-button" @click="ToggleUserMenu">
+                    <svg width="16" height="16" fill="currentColor">
+                        <use xlink:href="#ico-down"></use>
+                    </svg>
+                </div>
+                <UserMenuCombi v-if="userMenuVisible" />
             </div>
 
             <button class="btn btn-danger user-bt-logout" @click="LogoutUser">
@@ -93,6 +98,9 @@ export default {
         modalDeleteVisible: false,
         modalGroupAddVisible: false,
         modalGroupEditVisible: false,
+
+        //user menu
+        userMenuVisible: false,
     }
   },
 
@@ -153,6 +161,14 @@ export default {
     };
   },
 
+  mounted() {
+    document.addEventListener('click', this.userMenuVisible = false);
+  },
+
+  beforeMount() {
+    document.removeEventListener('click', this.userMenuVisible = false);
+  },
+
   methods: {
     async LogoutProcess() {
         const res = await this.LogoutUser();
@@ -170,6 +186,10 @@ export default {
         this.modalEditVisible = this.animeEdit;
         this.modalGroupEditVisible = this.groupEdit;
     },
+
+    ToggleUserMenu() {
+        this.userMenuVisible = !this.userMenuVisible;
+    }
   }
 }
 </script>

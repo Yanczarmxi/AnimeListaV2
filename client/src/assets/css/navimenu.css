@@ -56,7 +56,8 @@
     color: #fff;
     font-size: 16pt;
     margin-right: 32px;
-    max-width: 200px;
+    max-width: 138px;
+    width: 138px;
     overflow: hidden;
     text-overflow: "...";
 }
@@ -64,4 +65,13 @@
 .user-bt-logout {
     margin-right: 32pxs;
     height: 38px;
+}
+
+.user-menu-button {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

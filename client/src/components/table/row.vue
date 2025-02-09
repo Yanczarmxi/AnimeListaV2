@@ -13,7 +13,9 @@
         <td>
             <div class="title-container">
                 <div class="title-box">
-                    <strong class="anime-title" @click="ShowDescryption()">{{ animeTitle }}</strong>
+                    <div class="anime-title-box">
+                        <strong class="anime-title" :class="scroolTitleClass" @click="ShowDescryption()">{{ animeTitle }}</strong>
+                    </div>
                     <small class="anime-add-record-date">{{ animeDate }}</small>
                 </div>
                 <div class="link-box">
@@ -151,6 +153,10 @@ export default {
             arrName: ['Planuję', 'Oglądam', 'Obejżane', 'Porzucone'],
             arrSvgIcon: ['#ico-nowatch', '#ico-watch', '#ico-watched', '#ico-canceled'],
             arrSvgColor: ['svg-nowatched', 'svg-watch', 'svg-watched', 'svg-canceled'],
+
+            //Skollowanie kiedy za długi tytuł
+            arrScroolTitle: ['', 'anime-title-scrolling'],
+            scroolTitleClass: '',
 
             //menu statusu
             isVisible: false,

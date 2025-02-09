@@ -60,11 +60,42 @@
     align-content: space-between;
 }
 
+.anime-title-box {
+    max-width: 800px; /* Maksymalna szerokość */
+    overflow: hidden; /* Ukrywa nadmiarowy tekst */
+    white-space: nowrap; /* Zapobiega zawijaniu tekstu */
+    text-overflow: ellipsis; /* Dodaje "..." na końcu */
+    display: inline-block;
+    position: relative;
+}
+
 .anime-title {
     font-size: 16pt;
     font-weight: bold;
     cursor: pointer;
 }
+
+.anime-title-scrolling {
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.anime-title-box:hover .anime-title {
+    animation: scrollText 5s linear infinite alternate;
+    text-overflow: clip; /* Usuwa "..." podczas przewijania */
+  }
+  
+  @keyframes scrollText {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-10%);
+    }
+  }
 
 .anime-add-record-date {
     font-size: 8pt;

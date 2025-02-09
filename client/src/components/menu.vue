@@ -50,7 +50,7 @@
                 <UserMenuCombi v-if="userMenuVisible"/>
             </div>
 
-            <button class="bt-logout bt-danger user-bt-logout" @click="LogoutUser">
+            <button class="bt-circle bt-danger user-bt-logout" @click="LogoutUser">
                 <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                     <use xlink:href="#ico-logout"/>
                 </svg>

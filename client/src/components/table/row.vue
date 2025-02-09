@@ -17,7 +17,7 @@
                     <small class="anime-add-record-date">{{ animeDate }}</small>
                 </div>
                 <div class="link-box">
-                    <button class="bt-logout bt-normal">
+                    <button class="bt-circle bt-normal">
                         <svg width="20" height="20" fill="currentColor" class="bi bi-database-fill-add">
                             <use xlink:href="#ico-hyperlink"/>
                         </svg>

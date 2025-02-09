@@ -14,7 +14,7 @@
           <label for="inp-title">Nazwa grupy</label>
           <input 
             type="text" 
-            class="lb-style m-1" 
+            class="in in-default m-1" 
             style="width: 100%; height: 36px;" 
             v-model="groupTitle"
             :maxlenght="maxGlyph"

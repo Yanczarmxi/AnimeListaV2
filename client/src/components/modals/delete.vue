@@ -11,7 +11,7 @@
       </div>
 
       <div class="md-body-content-del p-4">
-        <div class="md-delete-list-box">
+        <div class="md-delete-list-box default-border">
 
           <div class="md-delete-list-content" v-if="groupVisible">
             <h3>Grupy:</h3>

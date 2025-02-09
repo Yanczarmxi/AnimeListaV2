@@ -37,18 +37,18 @@
               
               <div class="md-form-box">
                 <label for="inp-title">Tytuł</label>
-                <input type="text" class="lb-style lb-title m-1" id="inp-title" v-model="title">
+                <input type="text" class="in in-default lb-title m-1" id="inp-title" v-model="title">
               </div>
               
               <div class="md-ep-x-gr-box">
                 <div class="md-form-box">
                   <label for="inp-episodes">Odcinki</label>
-                  <input type="number" class="lb-style lb-episodes m-1" id="inp-episodes" v-model="episodes" pattern="\d*" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                  <input type="number" class="in in-default lb-episodes m-1" id="inp-episodes" v-model="episodes" pattern="\d*" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                 </div>
                 
                 <div class="md-form-box">
                   <label for="slc-group">Grupa</label>
-                  <select class="md-select-group-menu" id="slc-group" v-model="group">
+                  <select class="md-select-group-menu sl-default" id="slc-group" v-model="group">
                     <option value=0>Pozostałe</option>
                     <option v-for="option in groups" :key="option.gr_id" :value="option.gr_id">
                       {{ option.gr_title }}
@@ -59,12 +59,12 @@
 
             <div class="md-form-box">
               <label for="inp-url">Link</label>
-              <input type="text" class="lb-style lb-title m-1" id="inp-url" v-model="url">
+              <input type="text" class="in in-default lb-title m-1" id="inp-url" v-model="url">
             </div>
 
             <div class="md-form-box">
               <label for="txa-description">Opis</label>
-              <textarea class="md-description-textbox" id="txa-description" v-model="description"></textarea>
+              <textarea class="md-description-textbox tx tx-default" id="txa-description" v-model="description"></textarea>
             </div>
 
             </div>

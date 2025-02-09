@@ -30,7 +30,7 @@
               <input type="file" @change="HandleFileUpload" id="img-input-form" style="display: none;" accept="image/*" maxlength="1">
             </div>
 
-            <button class="btn btn-danger" style="width: 128px; margin-top: 8px;" @click="DeleteImageUpload">Skasuj obraz</button>
+            <button class="bt bt-danger" style="margin-top: 8px;" @click="DeleteImageUpload">Skasuj obraz</button>
           </div>
           <div class="content-md-box">
             <div class="md-data-box">
@@ -72,8 +72,8 @@
         </div>
 
         <div class="md-footer d-flex flex-row justify-content-end p-4">
-          <button type="button" class="btn btn-secondary" @click="CloseModal">Zamknij</button>
-          <button type="button" class="btn btn-primary bt-space" @click="AddAnime">Dodaj</button>
+          <button type="button" class="bt bt-normal" @click="CloseModal">Zamknij</button>
+          <button type="button" class="bt bt-accept bt-space" @click="AddAnime">Dodaj</button>
         </div>
       </div>
     </div>

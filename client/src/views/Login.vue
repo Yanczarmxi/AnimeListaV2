@@ -25,7 +25,7 @@
                     Pozostań zalogowany
                   </label>
                 </div>
-                <button class="btn btn-primary mr-4 ml-4 bt-sin" @click="SignInUser" @ref="btnLogin">Zaloguj</button>
+                <button class="bt bt-normal mr-4 ml-4 bt-sin" @click="SignInUser" @ref="btnLogin">Zaloguj</button>
             </div>
 
             <div class="sin-mess mt-3 d-flex flex-row justify-content-center align-items-center" v-if="!success">

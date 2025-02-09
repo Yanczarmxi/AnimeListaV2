@@ -11,4 +11,38 @@
     --state-yellow-color: #FFC107;
     --state-green-color: #198754;
     --state-gray-color: #6C757D;
+
+    /*Kolory tekstów*/
+    --text-color: #fff;
+    --text-distable: #666;
+
+    /*Defaultowe kolory*/
+    --default-border-color: #006283;
+    --default-border-hover: #008CBA;
+    --default-border-distable: #4f6066;
+
+    --default-content-hover: #9fdff5;
+
+    --default-glow-color-in: rgba(0, 153, 255, 0.24);
+    --default-glow-color-out: rgba(0, 153, 255, 0.19);
+
+    /*Danger kolorki*/
+    --danger-border-color: #c90909;
+    --danger-border-hover: #ff3030;
+    --danger-border-distable: #6e4c4c;
+
+    --danger-content-hover: #ffbcbc;
+
+    --danger-glow-color-in:rgba(255, 0, 0, 0.24);
+    --danger-glow-color-out: rgba(255, 0, 0, 0.19);
+
+    /*Accept kolorki*/
+    --accept-border-color: #09c953;
+    --accept-border-hover: #47fd8d;
+    --accept-border-distable: #659678;
+
+    --accept-content-hover: #cafcdd;
+
+    --accept-glow-color-in: #00ff623d;
+    --accept-glow-color-out: #00ff6213;
 }

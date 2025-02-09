@@ -7,7 +7,7 @@
             <use xlink:href="#ico-funnel"></use>
           </svg>
 
-          <select class="tb-filter-sellect" @change="ChangeFiltr" v-model="filterTable">
+          <select class="sl-default" @change="ChangeFiltr" v-model="filterTable">
             <option value="-1">Wszystkie</option>
             <option value="-2">Wszystkie (Puste grupy)</option>
             <option value="0">Nie obejżane</option>

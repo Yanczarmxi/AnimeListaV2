@@ -220,6 +220,15 @@
   
   .img-file-upload-box {
     margin-bottom: 16px;
+    border: 2px solid var(--default-border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all .1s linear;
+  }
+
+  .img-file-upload-box:hover {
+    border: 2px solid var(--default-border-hover);
+    box-shadow: 0 0px 16px 0 var(--default-glow-color-in), 0 0px 50px 0 var(--default-glow-color-out);
   }
   
   .img-placeholder {

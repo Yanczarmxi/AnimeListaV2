@@ -43,36 +43,66 @@ button.bt-logout {
 
 /*Normalny guzik*/
 button.bt-normal {
-    color: #fff;
-    border: 2px solid #006283;
+    color: var(--text-color);
+    border: 2px solid var(--default-border-color);
     transition: all .1s linear;
 }
 
 button.bt-normal:hover:enabled {
-    color: #9fdff5;
-    border: 2px solid #008CBA;
-    box-shadow: 0 0px 16px 0 rgba(0, 153, 255, 0.24), 0 0px 50px 0 rgba(0, 153, 255, 0.19);
+    color: var(--default-content-hover);
+    border: 2px solid var(--default-border-hover);
+    box-shadow: 0 0px 16px 0 var(--default-glow-color-in), 0 0px 50px 0 var(--default-glow-color-out);
 }
 
 button.bt-normal:disabled {
-    border: 2px solid #4f6066;
-    color: #666;
+    border: 2px solid var(--default-border-distable);
+    color: var(--text-distable);
 }
 
 /*Dangerous guzik*/
 button.bt-danger {
-    color: #fff;
-    border: 2px solid #c90909;
+    color: var(--text-color);
+    border: 2px solid var(--danger-border-color);
     transition: all .1s linear;
 }
 
 button.bt-danger:hover:enabled {
-    color: #ffbcbc;
-    border: 2px solid #ff3030;
-    box-shadow: 0 0px 16px 0 rgba(255, 0, 0, 0.24), 0 0px 50px 0 rgba(255, 0, 0, 0.19);
+    color: var(--danger-content-hover);
+    border: 2px solid var(--danger-border-hover);
+    box-shadow: 0 0px 16px 0 var(--danger-glow-color-in), 0 0px 50px 0 var(--danger-glow-color-out);
 }
 
 button.bt-danger:disabled {
-    border: 2px solid #6e4c4c;
-    color: #666;
+    border: 2px solid var(--danger-border-distable);
+    color: var(--text-distable);
+}
+
+/*Akceptujący guzik*/
+button.bt-accept {
+    color: var(--text-color);
+    border: 2px solid var(--accept-border-color);
+    transition: all .1s linear;
+}
+
+button.bt-accept:hover:enabled {
+    color: var(--accept-content-hover);
+    border: 2px solid var(--accept-border-hover);
+    box-shadow: 0 0px 16px 0 var(--accept-glow-color-in), 0 0px 50px 0 var(--accept-glow-color-out);
+}
+
+button.bt-accept:disabled {
+    border: 2px solid var(--accept-border-distable);
+    color: var(--text-distable);
+}
+
+
+
+/*Sellektory*/
+
+select.sl-default {
+    color: var(--text-color);
+    background-color: var(--bg-normal-color);
+    border: 2px solid var(--default-border-color);
+    border-radius: 16px;
+    padding: 6px 16px;
 }

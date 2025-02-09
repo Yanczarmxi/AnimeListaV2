@@ -24,8 +24,8 @@
         </div>
   
         <div class="md-footer d-flex flex-row justify-content-end p-4">
-          <button type="button" class="btn btn-secondary" @click="CloseModal">Zamknij</button>
-          <button type="button" class="btn btn-primary bt-space" @click="EditRecord">Edytuj</button>
+          <button type="button" class="bt bt-normal" @click="CloseModal">Zamknij</button>
+          <button type="button" class="bt bt-accept bt-space" @click="EditRecord">Edytuj</button>
         </div>
       </div>
     </div>

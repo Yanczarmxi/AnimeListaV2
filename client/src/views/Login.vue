@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="sign-in-body d-flex justify-content-center align-items-center">
-        <div class="sign-in-container">
+        <div class="sign-in-container" :class="shakeClass">
 
             <div class="sign-in-segment sin-bg-window">
                 <img src="./../assets/img/logov2.png" alt="Anime Lista" class="img-logo">
@@ -33,7 +33,7 @@
                     <button class="bt bt-normal mr-4 ml-4 bt-sin" @click="SignInUser" @ref="btnLogin">Zaloguj</button>
                 </div>
 
-                <div class="sin-mess mt-3 d-flex flex-row justify-content-center align-items-center" v-if="!success">
+                <div class="sin-mess mt-3 d-flex flex-row justify-content-center align-items-center" v-if="incorrectMess">
                     <div class="mess-string">Nie prawidłowe dane logowania</div>
                 </div>
             </div>
@@ -55,6 +55,10 @@ export default {
 
             //stanLogowania
             success: false,
+            incorrectMess: false,
+
+            //Błąd shake
+            shakeClass: "",
 
             //Adres do validacji
             validUrl: process.env.VUE_APP_USER_VALID
@@ -94,9 +98,13 @@ export default {
             if (this.success) {
                 this.$router.push('/anime');
                 console.log('ZALOGOWANY');
+                this.incorrectMess = false;
+                this.shakeClass = '';
             }
             else{
                 console.log('NIE DZIAŁA :C');
+                this.incorrectMess = true;
+                this.shakeClass = 'shake-horizontal';
             }
         },
 
@@ -189,4 +197,67 @@ export default {
         display: flex;
         flex-direction: column;
     }
+
+    .shake-horizontal {
+        -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+        animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+    }
+
+@-webkit-keyframes shake-horizontal {
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+  }
+  80% {
+    -webkit-transform: translateX(8px);
+            transform: translateX(8px);
+  }
+  90% {
+    -webkit-transform: translateX(-8px);
+            transform: translateX(-8px);
+  }
+}
+@keyframes shake-horizontal {
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+  }
+  80% {
+    -webkit-transform: translateX(8px);
+            transform: translateX(8px);
+  }
+  90% {
+    -webkit-transform: translateX(-8px);
+            transform: translateX(-8px);
+  }
+}
+
 </style>

@@ -17,15 +17,13 @@
           </select>
         </div>
 
-        <div class="input-group search-input">
-          <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="button">
+        <div class="search-input">
+          <input type="text" class="in in-default" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2" style="width: 85%;">
+            <button class="bt-circle bt-normal" type="button" style="width: 40px; height: 40px;">
               <svg width="16" height="16" fill="currentColor" class="bi bi-database-fill-add">
                 <use xlink:href="#ico-search"/>
               </svg>
             </button>
-          </div>
         </div>
       </div>
 

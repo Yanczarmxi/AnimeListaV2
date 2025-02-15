@@ -3,7 +3,7 @@
     <!-- Menu Główne -->
     <nav class="navbar navbar-dark bg-dark nav-menu d-flex flex-row align-content-center align-items-center">
         <div class="logo-container p-2 bd-highlight">
-            <img src='./../assets/img/logo.png' class="logo-img"/>
+            <img src='./../assets/img/logov3.svg' class="logo-img"/>
         </div>
 
         <div class="bt-set-container d-flex flex-row justicy-content-start align-items-center p-2 bd-highlight">

@@ -20,7 +20,9 @@
 .search-input {
     width: 320px;
     display: flex;
-    align-content: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .anime-row-container {

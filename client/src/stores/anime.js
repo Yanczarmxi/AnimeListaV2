@@ -10,9 +10,26 @@ export const useAnimeStore = defineStore('Anime', {
 
         filter: -2,
 
+        //Wyszukiwarka
+        searchStringFilter: "",
+
         //adres do validacji
         serverUrl: `${process.env.VUE_APP_SERVER}`
     }),
+
+    getters: {
+        anime_filtering_store(state) {
+            if (!state.searchStringFilter) {
+                return this.animes_storage;
+            }
+    
+            let srh_tmp = state.searchStringFilter.toLowerCase();
+    
+            return this.animes_storage.filter(anm => 
+                anm.title && anm.title.toLowerCase().startsWith(srh_tmp)
+            );
+        }
+    },
 
     actions: {
         async GetAnime(filter){
@@ -28,7 +45,7 @@ export const useAnimeStore = defineStore('Anime', {
 
                 return {
                     isLoaded: this.isLoaded,
-                    anime: this.SerializedData(this.group_storage, this.animes_storage),
+                    anime: this.SerializedData(this.group_storage, this.anime_filtering_store),
                     search: this.search,
                     group: this.group_storage         
                 };

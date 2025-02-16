@@ -42,12 +42,6 @@
                 <div class="user-name-container">
                     {{userName}}
                 </div>
-                <div class="user-menu-button" @click="ToggleUserMenu">
-                    <svg width="16" height="16" fill="currentColor">
-                        <use xlink:href="#ico-down"></use>
-                    </svg>
-                </div>
-                <UserMenuCombi v-if="userMenuVisible"/>
             </div>
 
             <button class="bt-circle bt-danger user-bt-logout" @click="LogoutUser">
@@ -70,8 +64,6 @@ import { useAuterizationStore } from '@/stores/auterization';
 import { useModeratedStore } from '@/stores/moderated';
 import { ref, watch } from 'vue';
 
-import UserMenuCombi from './ui/user_menu_combi.vue';
-
 import ModalAddWindow from './modals/add.vue';
 import ModalEditWindow from './modals/edit.vue';
 import ModalAddGroupWindow from './modals/group.vue';
@@ -87,7 +79,6 @@ export default {
         ModalAddGroupWindow,
         ModalEditGroupWindow,
         ModalDeleteWindow,
-        UserMenuCombi,
   },
 
   data() {
@@ -98,9 +89,6 @@ export default {
         modalDeleteVisible: false,
         modalGroupAddVisible: false,
         modalGroupEditVisible: false,
-
-        //user menu
-        userMenuVisible: false,
     }
   },
 
